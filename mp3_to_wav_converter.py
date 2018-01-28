@@ -4,9 +4,9 @@ import soundfile as sf
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
+# TO RUN: python mp3_to_wav_converter.py song_name(without.mp3 at the end)
+
 mpl.rcParams['agg.path.chunksize'] = 10000
-
-
 
 song_name_mp3 = str(sys.argv[1]) + ".mp3"
 song_name_wav = "wav_files/" + str(sys.argv[1]) + ".wav"
@@ -19,6 +19,6 @@ song.export(song_name_wav, format = "wav")
 
 sig, samplerate = sf.read(song_name_wav)
 
-print(sig.shape)
+#print(sig.shape)
 #plt.plot(sig);
 #plt.show()
