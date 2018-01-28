@@ -18,4 +18,3 @@ class Model:
 
     def run(self):
         print ("Running model")
-
