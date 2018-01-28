@@ -1,1 +1,3 @@
 pydub
+soundfile
+matplotlib
