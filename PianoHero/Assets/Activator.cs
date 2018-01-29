@@ -20,6 +20,7 @@ public class Activator : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		sr = GetComponent<SpriteRenderer> ();
+		PlayerPrefs.SetInt ("Score", 0);	
 	}
 
 	void Start() {
@@ -36,6 +37,7 @@ public class Activator : MonoBehaviour {
 		if (Input.GetKeyDown (key) && active) {
 			Destroy (note);
 			AddScore ();
+			active = false;
 		}
 	}
 
