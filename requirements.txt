@@ -1,4 +1,5 @@
 pydub
 soundfile
 matplotlib
-pyAudioAnalysis
+wave
+scipy
