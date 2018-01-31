@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class GameManager : MonoBehaviour {
 
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		PlayerPrefs.SetInt ("Score", 0);
 		UpdateGUI();
+        ReadString();
 	}
 	
 	// Update is called once per frame
@@ -42,5 +44,15 @@ public class GameManager : MonoBehaviour {
 
 	public int GetScore() {
 		return 100 * multiplier;
+	}
+
+	static void ReadString()
+	{
+		string path = "Assets/songs/test.txt";
+
+		//Read the text from directly from the test.txt file
+		StreamReader reader = new StreamReader(path);
+		Debug.Log(reader.ReadToEnd());
+		reader.Close();
 	}
 }
