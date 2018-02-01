@@ -5,6 +5,9 @@ PianoHero/[Tt]emp/
 [Bb]uilds/
 Assets/AssetStoreTools*
 
+# PianoHero/PianoHero.userprefs
+PianoHero/Assembly-CSharp.csproj
+
 # Visual Studio 2015 cache directory
 /.vs/
 

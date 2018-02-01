@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 	public int multiplier = 1;
 	public int streak = 0;
 	public int mult_length = 10;
+    public GameObject note;
 
 	// Use this for initialization
 	void Start () {
@@ -47,8 +48,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	static void ReadString()
-	{
-		string path = "Assets/songs/test.txt";
+    {
+        string path = "Assets/Songs/test.txt";
 
 		//Read the text from directly from the test.txt file
 		StreamReader reader = new StreamReader(path);
