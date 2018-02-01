@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 57799300}
   - component: {fileID: 57799299}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Needle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,12 +179,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 57799298}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.49, y: -1.7643, z: 0}
-  m_LocalScale: {x: 0.09860413, y: 2.9676225, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0047999383, y: -0.004766663, z: 0}
+  m_LocalScale: {x: 0.019720826, y: 0.9892075, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_Father: {fileID: 846297780}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &321455972
 GameObject:
@@ -736,7 +736,7 @@ GameObject:
   - component: {fileID: 842416572}
   - component: {fileID: 842416571}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: BottomNeedle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -792,12 +792,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 842416570}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.4880657, y: -3.2000299, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.005413128, y: -0.4833433, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.33333334, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_Father: {fileID: 846297780}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &846297778
 GameObject:
@@ -808,6 +808,7 @@ GameObject:
   m_Component:
   - component: {fileID: 846297780}
   - component: {fileID: 846297779}
+  - component: {fileID: 846297781}
   m_Layer: 0
   m_Name: RockMeter
   m_TagString: Untagged
@@ -872,9 +873,22 @@ Transform:
   - {fileID: 1246884329}
   - {fileID: 1833955829}
   - {fileID: 560168050}
+  - {fileID: 57799300}
+  - {fileID: 842416572}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &846297781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 846297778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd17d70a3d3324bacaf514492e58e6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1246884328
 GameObject:
   m_ObjectHideFlags: 0

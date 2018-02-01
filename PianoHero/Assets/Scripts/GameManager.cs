@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		PlayerPrefs.SetInt ("Score", 0);
+		PlayerPrefs.SetInt ("RockMeter", 25);
+
 		UpdateGUI();
         noteSpeed = note.GetComponent<Note>().speed;
         ReadString();
@@ -25,12 +27,16 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void AddStreak() {
+		PlayerPrefs.SetInt("RockMeter", Mathf.Min(100, PlayerPrefs.GetInt("RockMeter") + 1));
+
 		++streak;
 		multiplier = 1 + streak / mult_length;
 		UpdateGUI();
 	}
 
 	public void ResetStreak() {
+		PlayerPrefs.SetInt ("RockMeter", Mathf.Max (0, PlayerPrefs.GetInt ("RockMeter") - 1));
+
 		streak = 0;
 		multiplier = 1;
 		UpdateGUI();
