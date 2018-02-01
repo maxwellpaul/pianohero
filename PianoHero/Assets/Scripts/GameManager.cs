@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-	public int multiplier = 1;
-	public int streak = 0;
-	public int mult_length = 10;
+	int multiplier = 1;
+	int streak = 0;
+	int mult_length = 4;
     public GameObject note;
     float noteSpeed;
 
@@ -26,20 +27,43 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
-	public void AddStreak() {
-		PlayerPrefs.SetInt("RockMeter", Mathf.Min(100, PlayerPrefs.GetInt("RockMeter") + 1));
-
-		++streak;
-		multiplier = 1 + streak / mult_length;
-		UpdateGUI();
+	public void HitNote() {
+		AddScore ();
+		AddStreak ();
+		RockMeterUp ();
+		UpdateGUI ();
 	}
 
-	public void ResetStreak() {
-		PlayerPrefs.SetInt ("RockMeter", Mathf.Max (0, PlayerPrefs.GetInt ("RockMeter") - 1));
+	public void MissedNote() {
+		ResetStreak ();
+		RockMeterDown ();
+		UpdateGUI ();
+	}
+
+	private void AddScore() {
+		PlayerPrefs.SetInt ("Score", PlayerPrefs.GetInt ("Score") + 100 * multiplier);
+	}
+
+	private void AddStreak() {
+		RockMeterUp ();
+
+		streak += 1;
+		multiplier = 1 + streak / mult_length;
+	}
+
+	private void ResetStreak() {
+		RockMeterDown ();
 
 		streak = 0;
 		multiplier = 1;
-		UpdateGUI();
+	}
+
+	private void RockMeterUp() {
+		PlayerPrefs.SetInt("RockMeter", Mathf.Min(100, PlayerPrefs.GetInt("RockMeter") + 1));
+	}
+
+	private void RockMeterDown() {
+		PlayerPrefs.SetInt ("RockMeter", Mathf.Max (0, PlayerPrefs.GetInt ("RockMeter") - 1));
 	}
 
 	void UpdateGUI() {
@@ -48,11 +72,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-			
-	}
-
-	public int GetScore() {
-		return 100 * multiplier;
+		ResetStreak ();
+		Destroy (col.gameObject);
 	}
 
 	void ReadString()
@@ -91,5 +112,13 @@ public class GameManager : MonoBehaviour {
             }
         }
 		reader.Close();
+	}
+
+	public void Win() {
+		SceneManager.LoadScene (2);	
+	}
+
+	public void Lose() {
+		// Load the lose screen
 	}
 }

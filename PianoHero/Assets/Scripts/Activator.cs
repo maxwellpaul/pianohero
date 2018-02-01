@@ -37,11 +37,10 @@ public class Activator : MonoBehaviour {
 
 		if (Input.GetKeyDown (key) && active) {
 			Destroy (note);
-			gm.GetComponent<GameManager> ().AddStreak ();
-			AddScore ();
+			gm.GetComponent<GameManager> ().HitNote ();
 			active = false;
 		} else if (Input.GetKeyDown (key) && !active) {
-			gm.GetComponent<GameManager> ().ResetStreak ();
+			gm.GetComponent<GameManager> ().MissedNote ();
 		}
 	}
 
@@ -55,11 +54,6 @@ public class Activator : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D col) {
 		active = false;
-		gm.GetComponent<GameManager> ().ResetStreak ();
-	}
-
-	void AddScore() {
-		PlayerPrefs.SetInt ("Score", PlayerPrefs.GetInt ("Score") + gm.GetComponent<GameManager>().GetScore());
 	}
 
 	IEnumerator Pressed() {
