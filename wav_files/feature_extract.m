@@ -16,20 +16,20 @@
 
 [y,fs] = audioread('Simple_Piano.wav');
 t = linspace(0, length(y)/fs, length(y));
-ydft = fft(y);
-% I'll assume y has even length
-ydft = ydft(1:length(y)/2+1);
-[pks, locs] = findpeaks(abs(ydft));
+[pks, locs] = findpeaks(y(:,2));
+%plot(t, y, t(locs), pks, 'or');
 
-plot(t, y);
+[y2,fs2] = audioread('Simple_Piano.wav');
+y2 = y2(:, 2);
+spectrogram(y2, 256, [], [], fs2, 'yaxis');
 
 % create a frequency vector
-freq = 0:fs/length(y):fs/2;
+%freq = 0:fs/length(y):fs/2;
 % plot magnitude
 %plot(freq,abs(ydft));
 % plot phase
 %plot(freq,unwrap(angle(ydft))); 
-xlabel('Hz');
-ydft_vect = abs(ydft);
+%xlabel('Hz');
+%ydft_vect = abs(ydft);
 
 %plot(freq,abs(ydft), freq(locs), pks, 'or');
