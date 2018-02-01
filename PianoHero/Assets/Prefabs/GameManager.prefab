@@ -80,3 +80,4 @@ MonoBehaviour:
   multiplier: 1
   streak: 0
   mult_length: 10
+  note: {fileID: 1182040684823980, guid: ee3e068e34838425f8da830aa3010a0b, type: 2}
