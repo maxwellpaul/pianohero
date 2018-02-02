@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour {
 		float noteThreeX = .5f;
 		float noteFourX = 1.5f;
         float startY = -3;
-        string path = "Assets/Songs/test.txt";
+        string path = "Assets/Songs/MyFile.txt";
 
 		//Read the text from directly from the test.txt file
 		StreamReader reader = new StreamReader(path);
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour {
             noteString = reader.ReadLine();
             string[] subStrings = noteString.Split(':');
             float yCoord = startY + (noteSpeed * float.Parse(subStrings[1]));
-            print("Ycoord" + yCoord);
+            print("Ycoord" + yCoord + " " + noteSpeed + " " + float.Parse(subStrings[1]));
             switch(subStrings[0]) {
                 case "1":
                     Instantiate(note, new Vector3(noteOneX, yCoord, 0), Quaternion.identity);
