@@ -32,8 +32,12 @@ D = [];
 C = [];
 E = [];
 
+%put first index in
+%push next one that is over .5
+
+
 for index = 1:length(pks)
-    if pks(index) > .35
+    if pks(index) > .15
         A = [A,pks(index)];
         B = [B,locs(index)];
         %get the index from locs, then index into y with that
@@ -45,11 +49,14 @@ end
 
 maxElem = max(C);
 minElem = min(C);
-diff = maxElem - minElem;
-thresholdLength = diff/4;
-div1 = minElem + thresholdLength;
-div2 = div1 + thresholdLength;
-div3 = div2 + thresholdLength;
+
+F = sort(C);
+fSize = length(F);
+fSize = ceil(fSize / 4);
+
+div1 = F(fSize);
+div2 = F(2*fSize);
+div3 = F(3*fSize);
 
 for index = 1:length(C)
     if C(index) >= minElem && C(index) < div1
@@ -65,9 +72,20 @@ end
 
 siz = length(t) / fs;
 
+G = []
+H = []
+G = [G,E(1)];
+H = [H,D(1)];
+for index = 2:length(E)
+    if (E(index)*siz) - (G(length(G))*siz) >= .25
+        G = [G,E(index)];
+        H = [H,D(index)];
+    end
+end
+
 fid=fopen('MyFile.txt','w');
-for index = 1:length(D)
-    fprintf(fid, '%d:%f\n', D(index), E(index) * siz);
+for index = 1:length(G)
+    fprintf(fid, '%d:%f\n', H(index), G(index) * siz);
 end
 fclose(fid);
     % code
