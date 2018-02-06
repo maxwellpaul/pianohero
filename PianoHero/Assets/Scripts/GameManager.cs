@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	int mult_length = 4;
     public GameObject note;
     float noteSpeed;
+	bool ready = false;
 
 	// Use this for initialization
 	void Start () {
@@ -26,7 +27,8 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (ready && GameObject.FindGameObjectsWithTag ("Note").Length == 0)
+			Win ();
 	}
 
 	public void HitNote() {
@@ -80,8 +82,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		ResetStreak ();
 		Destroy (col.gameObject);
+		MissedNote ();
 	}
 
 	void ReadString()
@@ -96,10 +98,11 @@ public class GameManager : MonoBehaviour {
 		//Read the text from directly from the test.txt file
 		StreamReader reader = new StreamReader(path);
         string noteString;
-        while(!reader.EndOfStream) {
+		float yCoord = 0;
+		while(!reader.EndOfStream) {
             noteString = reader.ReadLine();
             string[] subStrings = noteString.Split(':');
-            float yCoord = startY + (noteSpeed * float.Parse(subStrings[1]));
+            yCoord = startY + (noteSpeed * float.Parse(subStrings[1]));
             print("Ycoord" + yCoord + " " + noteSpeed + " " + float.Parse(subStrings[1]));
             switch(subStrings[0]) {
                 case "1":
@@ -119,6 +122,8 @@ public class GameManager : MonoBehaviour {
                     break;
             }
         }
+
+		ready = true;
 		reader.Close();
 	}
 
