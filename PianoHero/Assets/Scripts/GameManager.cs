@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		PlayerPrefs.SetInt ("Score", 0);
 		PlayerPrefs.SetInt ("RockMeter", 25);
+		PlayerPrefs.SetInt ("MaxMult", 1);
+		PlayerPrefs.SetInt ("MaxStreak", 1);
 
 		UpdateGUI();
         noteSpeed = note.GetComponent<Note>().speed;
@@ -45,15 +47,21 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void AddStreak() {
-		RockMeterUp ();
-
 		streak += 1;
 		multiplier = 1 + streak / mult_length;
+
+		PlayerPrefs.SetInt (
+			"MaxStreak", 
+			Mathf.Max (streak, PlayerPrefs.GetInt ("MaxStreak"))
+		);
+
+		PlayerPrefs.SetInt (
+			"MaxMult",
+			Mathf.Max (multiplier, PlayerPrefs.GetInt ("MaxMult"))
+		);
 	}
 
 	private void ResetStreak() {
-		RockMeterDown ();
-
 		streak = 0;
 		multiplier = 1;
 	}
@@ -115,6 +123,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Win() {
+		int score = Mathf.Max (PlayerPrefs.GetInt ("Score"), PlayerPrefs.GetInt("HighScore"));
+		PlayerPrefs.SetInt ("HighScore", score);
+
+		int streak = Mathf.Max (PlayerPrefs.GetInt ("MaxStreak"), PlayerPrefs.GetInt ("HighStreak"));
+		PlayerPrefs.SetInt ("HighStreak", streak);
+
+		int mult = Mathf.Max (PlayerPrefs.GetInt ("MaxMult"), PlayerPrefs.GetInt ("HighMult"));
+		PlayerPrefs.SetInt ("HighMult", mult);
+
 		SceneManager.LoadScene (2);	
 	}
 
