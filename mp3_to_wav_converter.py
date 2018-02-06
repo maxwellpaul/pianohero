@@ -19,7 +19,7 @@ pydub.AudioSegment.converter = r"/usr/local/Cellar/ffmpeg/3.4.1/bin/ffmpeg"
 song = AudioSegment.from_mp3(song_name_mp3)
 
 song.export(song_name_wav, format = "wav")
-
+song.export("PianoHero/Assets/Songs/song_wav/" + str(sys.argv[1]) + ".wav", format = "wav")
 
 # FIGURE OUT HOW TO USE SAGE!!
 #songg = sage.media.wav.Wave(song_name_wav)
