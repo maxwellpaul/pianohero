@@ -10,15 +10,17 @@ public class GameManager : MonoBehaviour {
 	int streak = 0;
 	int mult_length = 4;
     public GameObject note;
+	public GameObject rockMeter;
     float noteSpeed;
 	bool ready = false;
 
 	// Use this for initialization
 	void Start () {
 		PlayerPrefs.SetInt ("Score", 0);
-		PlayerPrefs.SetInt ("RockMeter", 25);
 		PlayerPrefs.SetInt ("MaxMult", 1);
 		PlayerPrefs.SetInt ("MaxStreak", 1);
+
+		rockMeter = GameObject.Find ("RockMeter");
 
 		UpdateGUI();
         noteSpeed = note.GetComponent<Note>().speed;
@@ -69,11 +71,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void RockMeterUp() {
-		PlayerPrefs.SetInt("RockMeter", Mathf.Min(100, PlayerPrefs.GetInt("RockMeter") + 1));
+		rockMeter.GetComponent<RockMeter> ().MeterUp ();
+
 	}
 
 	private void RockMeterDown() {
-		PlayerPrefs.SetInt ("RockMeter", Mathf.Max (0, PlayerPrefs.GetInt ("RockMeter") - 1));
+		rockMeter.GetComponent<RockMeter> ().MeterDown ();
 	}
 
 	void UpdateGUI() {
@@ -92,7 +95,8 @@ public class GameManager : MonoBehaviour {
         float noteTwoX = -.5f;
 		float noteThreeX = .5f;
 		float noteFourX = 1.5f;
-        float startY = -3;
+        //float startY = -3;
+		float startY = 7;
         string path = "Assets/Songs/MyFile.txt";
 
 		//Read the text from directly from the test.txt file
@@ -142,5 +146,6 @@ public class GameManager : MonoBehaviour {
 
 	public void Lose() {
 		// Load the lose screen
+		Win();
 	}
 }
