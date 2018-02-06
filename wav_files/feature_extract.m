@@ -14,7 +14,9 @@
 %print(pks)
 %plot(pks, locs);
 
-[y,fs] = audioread('Simple_Piano.wav');
+%Change to whatever wav you want
+%reads in frequencies and converts to amplitude
+[y,fs] = audioread('start_me_up.wav');
     dt = 1/fs;
     t = 0:dt:(length(y)*dt)-dt;
     %plot(t,y); 
@@ -22,70 +24,83 @@
      ylabel ('Amplitude');
 
 
-
+%finds peaks of amplitude
 [pks, locs] = findpeaks(y(:,2));
 plot(t, y, t(locs), pks, 'or');
 
-A = [];
-B = [];
-D = [];
-C = [];
-E = [];
+peakValues = [];
+peakFreqs = [];
+timeRatios = [];
+
 
 %put first index in
 %push next one that is over .5
 
-
+%stores values of peaks and their indices that are above a certain threshold
+%Will have to find a way to programatically calculate this threshold
 for index = 1:length(pks)
-    if pks(index) > .15
-        A = [A,pks(index)];
-        B = [B,locs(index)];
-        %get the index from locs, then index into y with that
-        C = [C, y(locs(index),2)];
-        time = locs(index) / length(t);
-        E = [E,time];
+    %if peak is above this threshold, store it and its index
+    if pks(index) > .25
+        peakValues = [peakValues, pks(index)];
+        %Grab the corresponding frequency for the peak
+        peakFreqs = [peakFreqs, y(locs(index),2)];
+        %Take the index of the peak and divide it by the total num of
+        %indices to find approx location in song
+        timeRatios = [timeRatios, locs(index) / length(t)];
     end
 end
 
-maxElem = max(C);
-minElem = min(C);
+%Find the max and min frequencies out of the filtered peaks
+maxElem = max(peakFreqs);
+minElem = min(peakFreqs);
 
-F = sort(C);
-fSize = length(F);
-fSize = ceil(fSize / 4);
+%find the number of filtered frequencies so you can divide them into 4 sections
+sortedFreqs = sort(peakFreqs);
+freqsSize = length(sortedFreqs);
+freqsSize = ceil(freqsSize / 4);
 
-div1 = F(fSize);
-div2 = F(2*fSize);
-div3 = F(3*fSize);
+%Indices to divide notes into 4 sections
+divider1 = sortedFreqs(freqsSize);
+divider2 = sortedFreqs(2*freqsSize);
+divider3 = sortedFreqs(3*freqsSize);
 
-for index = 1:length(C)
-    if C(index) >= minElem && C(index) < div1
-        D = [D,1];
-    elseif C(index) >= div1 && C(index) < div2
-        D = [D,2];
-    elseif C(index) >= div2 && C(index) < div3
-        D = [D,3];
+%Assign each peak a note based on the frequency
+notes = zeros(1,length(peakFreqs));
+for index = 1:length(peakFreqs)
+    if peakFreqs(index) >= minElem && peakFreqs(index) < divider1
+        notes(index) = 1;
+    elseif peakFreqs(index) >= divider1 && peakFreqs(index) < divider2
+        notes(index) = 2;
+    elseif peakFreqs(index) >= divider2 && peakFreqs(index) < divider3
+        notes(index) = 3;
     else
-        D = [D,4];
+        notes(index) = 4;
     end
 end
 
-siz = length(t) / fs;
+%Believe this is the length of each snapshot
+snapShotSize = length(t) / fs;
 
-G = []
-H = []
-G = [G,E(1)];
-H = [H,D(1)];
-for index = 2:length(E)
-    if (E(index)*siz) - (G(length(G))*siz) >= .25
-        G = [G,E(index)];
-        H = [H,D(index)];
+%Filter all notes by how far away in seconds they are from each other
+%Right now I have it so that if a note is less than .25 seconds away from
+%the last note you don't keep it
+filteredNoteTimes = [];
+filteredNotes = [];
+%Initialize with the first note
+filteredNoteTimes = [filteredNoteTimes,timeRatios(1)];
+filteredNotes = [filteredNotes,notes(1)];
+for index = 2:length(timeRatios)
+    %If the notes are more than .25 second apart keep them
+    if (timeRatios(index)*snapShotSize) - (filteredNoteTimes(length(filteredNoteTimes))*snapShotSize) >= .25
+        filteredNoteTimes = [filteredNoteTimes,timeRatios(index)];
+        filteredNotes = [filteredNotes,notes(index)];
     end
 end
 
+%Open a file to write the notes to
 fid=fopen('MyFile.txt','w');
-for index = 1:length(G)
-    fprintf(fid, '%d:%f\n', H(index), G(index) * siz);
+for index = 1:length(filteredNoteTimes)
+    fprintf(fid, '%d:%f\n', filteredNotes(index), filteredNoteTimes(index) * snapShotSize);
 end
 fclose(fid);
     % code
