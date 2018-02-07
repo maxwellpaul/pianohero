@@ -16,6 +16,14 @@
 
 %Change to whatever wav you want
 %reads in frequencies and converts to amplitude
+<<<<<<< HEAD
+[y,fs] = audioread('beet.wav');
+    dt = 1/fs;
+    t = 0:dt:(length(y)*dt)-dt;
+    %plot(t,y); 
+     xlabel('Seconds'); 
+     ylabel ('Amplitude');
+=======
 
 [y,fs] = audioread(strcat(songName, '.wav'));
 dt = 1/fs;
@@ -23,15 +31,16 @@ t = 0:dt:(length(y)*dt)-dt;
 %plot(t,y); 
 xlabel('Seconds'); 
 ylabel ('Amplitude');
+>>>>>>> 3b283a695373f962391d17684ce6e62e34514de9
 
 
 %finds peaks of amplitude
 [pks, locs] = findpeaks(y(:,2));
 plot(t, y, t(locs), pks, 'or');
 
-peakValues = [];
-peakFreqs = [];
-timeRatios = [];
+peakValues = zeros(1,length(pks));
+peakFreqs = zeros(1,length(pks));
+timeRatios = zeros(1,length(pks));
 
 
 %put first index in
@@ -41,15 +50,21 @@ timeRatios = [];
 %Will have to find a way to programatically calculate this threshold
 for index = 1:length(pks)
     %if peak is above this threshold, store it and its index
-    if pks(index) > .25
-        peakValues = [peakValues, pks(index)];
+    if pks(index) > .03
+        peakValues(index) = pks(index);
         %Grab the corresponding frequency for the peak
-        peakFreqs = [peakFreqs, y(locs(index),2)];
+        peakFreqs(index) = y(locs(index),2);
         %Take the index of the peak and divide it by the total num of
         %indices to find approx location in song
-        timeRatios = [timeRatios, locs(index) / length(t)];
+        timeRatios(index) = locs(index) / length(t);
     end
 end
+
+peakValues = peakValues(peakValues ~= 0);
+peakFreqs = peakFreqs(peakFreqs ~= 0);
+timeRatios = timeRatios(timeRatios ~= 0);
+
+%initialize to 0's
 
 %Find the max and min frequencies out of the filtered peaks
 maxElem = max(peakFreqs);
