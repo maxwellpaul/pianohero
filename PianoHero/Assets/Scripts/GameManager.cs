@@ -10,12 +10,17 @@ public class GameManager : MonoBehaviour {
 	int streak = 0;
 	int mult_length = 4;
     public GameObject note;
+	public GameObject rockMeter;
     float noteSpeed;
+	bool ready = false;
 
 	// Use this for initialization
 	void Start () {
 		PlayerPrefs.SetInt ("Score", 0);
-		PlayerPrefs.SetInt ("RockMeter", 25);
+		PlayerPrefs.SetInt ("MaxMult", 1);
+		PlayerPrefs.SetInt ("MaxStreak", 1);
+
+		rockMeter = GameObject.Find ("RockMeter");
 
 		UpdateGUI();
         noteSpeed = note.GetComponent<Note>().speed;
@@ -24,7 +29,8 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (ready && GameObject.FindGameObjectsWithTag ("Note").Length == 0)
+			Win ();
 	}
 
 	public void HitNote() {
@@ -45,25 +51,32 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void AddStreak() {
-		RockMeterUp ();
-
 		streak += 1;
 		multiplier = 1 + streak / mult_length;
+
+		PlayerPrefs.SetInt (
+			"MaxStreak", 
+			Mathf.Max (streak, PlayerPrefs.GetInt ("MaxStreak"))
+		);
+
+		PlayerPrefs.SetInt (
+			"MaxMult",
+			Mathf.Max (multiplier, PlayerPrefs.GetInt ("MaxMult"))
+		);
 	}
 
 	private void ResetStreak() {
-		RockMeterDown ();
-
 		streak = 0;
 		multiplier = 1;
 	}
 
 	private void RockMeterUp() {
-		PlayerPrefs.SetInt("RockMeter", Mathf.Min(100, PlayerPrefs.GetInt("RockMeter") + 1));
+		rockMeter.GetComponent<RockMeter> ().MeterUp ();
+
 	}
 
 	private void RockMeterDown() {
-		PlayerPrefs.SetInt ("RockMeter", Mathf.Max (0, PlayerPrefs.GetInt ("RockMeter") - 1));
+		rockMeter.GetComponent<RockMeter> ().MeterDown ();
 	}
 
 	void UpdateGUI() {
@@ -72,8 +85,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		ResetStreak ();
 		Destroy (col.gameObject);
+		MissedNote ();
 	}
 
 	void ReadString()
@@ -82,16 +95,18 @@ public class GameManager : MonoBehaviour {
         float noteTwoX = -.5f;
 		float noteThreeX = .5f;
 		float noteFourX = 1.5f;
-        float startY = -3;
+        //float startY = -3;
+		float startY = 7;
         string path = "Assets/Songs/MyFile.txt";
 
 		//Read the text from directly from the test.txt file
 		StreamReader reader = new StreamReader(path);
         string noteString;
-        while(!reader.EndOfStream) {
+		float yCoord = 0;
+		while(!reader.EndOfStream) {
             noteString = reader.ReadLine();
             string[] subStrings = noteString.Split(':');
-            float yCoord = startY + (noteSpeed * float.Parse(subStrings[1]));
+            yCoord = startY + (noteSpeed * float.Parse(subStrings[1]));
             print("Ycoord" + yCoord + " " + noteSpeed + " " + float.Parse(subStrings[1]));
             switch(subStrings[0]) {
                 case "1":
@@ -111,14 +126,26 @@ public class GameManager : MonoBehaviour {
                     break;
             }
         }
+
+		ready = true;
 		reader.Close();
 	}
 
 	public void Win() {
+		int score = Mathf.Max (PlayerPrefs.GetInt ("Score"), PlayerPrefs.GetInt("HighScore"));
+		PlayerPrefs.SetInt ("HighScore", score);
+
+		int streak = Mathf.Max (PlayerPrefs.GetInt ("MaxStreak"), PlayerPrefs.GetInt ("HighStreak"));
+		PlayerPrefs.SetInt ("HighStreak", streak);
+
+		int mult = Mathf.Max (PlayerPrefs.GetInt ("MaxMult"), PlayerPrefs.GetInt ("HighMult"));
+		PlayerPrefs.SetInt ("HighMult", mult);
+
 		SceneManager.LoadScene (2);	
 	}
 
 	public void Lose() {
 		// Load the lose screen
+		Win();
 	}
 }

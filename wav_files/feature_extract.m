@@ -16,12 +16,22 @@
 
 %Change to whatever wav you want
 %reads in frequencies and converts to amplitude
+<<<<<<< HEAD
 [y,fs] = audioread('beet.wav');
     dt = 1/fs;
     t = 0:dt:(length(y)*dt)-dt;
     %plot(t,y); 
      xlabel('Seconds'); 
      ylabel ('Amplitude');
+=======
+
+[y,fs] = audioread(strcat(songName, '.wav'));
+dt = 1/fs;
+t = 0:dt:(length(y)*dt)-dt;
+%plot(t,y); 
+xlabel('Seconds'); 
+ylabel ('Amplitude');
+>>>>>>> 3b283a695373f962391d17684ce6e62e34514de9
 
 
 %finds peaks of amplitude
@@ -84,7 +94,7 @@ for index = 1:length(peakFreqs)
     end
 end
 
-%Believe this is the length of each snapshot
+%this is the length of each snapshot
 snapShotSize = length(t) / fs;
 
 %Filter all notes by how far away in seconds they are from each other
@@ -103,13 +113,17 @@ for index = 2:length(timeRatios)
     end
 end
 
+outFileName = strcat(songName,'.txt');
+
 %Open a file to write the notes to
-fid=fopen('MyFile.txt','w');
+fid=fopen(outFileName,'w');
 for index = 1:length(filteredNoteTimes)
     fprintf(fid, '%d:%f\n', filteredNotes(index), filteredNoteTimes(index) * snapShotSize);
 end
 fclose(fid);
-    % code
+
+movefile(outFileName, '../PianoHero/Assets/Songs');
+% code
 
 %[y2,fs2] = audioread('Simple_Piano.wav');
 %y2 = y2(:, 2);
