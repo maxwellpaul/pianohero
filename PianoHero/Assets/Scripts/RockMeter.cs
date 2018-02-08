@@ -14,9 +14,19 @@ public class RockMeter : MonoBehaviour {
 	void Start () {
 		needle = transform.Find ("Needle").gameObject;
 		gm = GameObject.Find ("GameManager");
-
 		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 		rotationPoint = transform.Find ("BottomNeedle").position + new Vector3 (0, -0.6F, 0);
+		SetToWin ();
+	}
+
+	public void SetToWin() {
+		print ("Called with rock " + PlayerPrefs.GetInt("amtOfRock"));
+		needle.transform.RotateAround (rotationPoint, Vector3.back, PlayerPrefs.GetInt("amtOfRock"));
+		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
+	}
+
+	void Awake() {
+		//DontDestroyOnLoad(transform.gameObject);
 	}
 
 	public void MeterUp() {
@@ -24,6 +34,7 @@ public class RockMeter : MonoBehaviour {
 			needle.transform.RotateAround (rotationPoint, Vector3.back, 1);
 			needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 			++amtOfRock;
+			PlayerPrefs.SetInt ("amtOfRock", amtOfRock);
 		}
 	}
 
@@ -36,6 +47,7 @@ public class RockMeter : MonoBehaviour {
 		needle.transform.RotateAround (rotationPoint, Vector3.back, -1);
 		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 		--amtOfRock;
+		PlayerPrefs.SetInt ("amtOfRock", amtOfRock);
 	}
 
 	// Update is called once per frame

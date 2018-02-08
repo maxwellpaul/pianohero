@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt ("Score", 0);
 		PlayerPrefs.SetInt ("MaxMult", 1);
 		PlayerPrefs.SetInt ("MaxStreak", 0);
+		PlayerPrefs.SetInt ("amtOfRock", 0);
 
 		rockMeter = GameObject.Find ("RockMeter");
 
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour {
         noteSpeed = note.GetComponent<Note>().speed;
         ReadString();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (ready && GameObject.FindGameObjectsWithTag ("Note").Length == 0)
@@ -72,7 +73,6 @@ public class GameManager : MonoBehaviour {
 
 	private void RockMeterUp() {
 		rockMeter.GetComponent<RockMeter> ().MeterUp ();
-
 	}
 
 	private void RockMeterDown() {
@@ -107,7 +107,6 @@ public class GameManager : MonoBehaviour {
             noteString = reader.ReadLine();
             string[] subStrings = noteString.Split(':');
             yCoord = startY + (noteSpeed * float.Parse(subStrings[1]));
-            print("Ycoord" + yCoord + " " + noteSpeed + " " + float.Parse(subStrings[1]));
             switch(subStrings[0]) {
                 case "1":
                     Instantiate(note, new Vector3(noteOneX, yCoord, 0), Quaternion.identity);
@@ -154,6 +153,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void PlayAgain() {
+		PlayerPrefs.SetInt ("amtOfRock", 0);
 		SceneManager.LoadScene (1);	
 	}
 }
