@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		PlayerPrefs.SetInt ("Score", 0);
 		PlayerPrefs.SetInt ("MaxMult", 1);
-		PlayerPrefs.SetInt ("MaxStreak", 1);
+		PlayerPrefs.SetInt ("MaxStreak", 0);
 
 		rockMeter = GameObject.Find ("RockMeter");
 
@@ -147,5 +147,13 @@ public class GameManager : MonoBehaviour {
 	public void Lose() {
 		// Load the lose screen
 		Win();
+	}
+
+	public void MainMenu() {
+		SceneManager.LoadScene (0);	
+	}
+
+	public void PlayAgain() {
+		SceneManager.LoadScene (1);	
 	}
 }
