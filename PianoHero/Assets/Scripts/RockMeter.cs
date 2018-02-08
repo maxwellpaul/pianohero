@@ -25,10 +25,6 @@ public class RockMeter : MonoBehaviour {
 		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 	}
 
-	void Awake() {
-		//DontDestroyOnLoad(transform.gameObject);
-	}
-
 	public void MeterUp() {
 		if (amtOfRock < 35) {
 			needle.transform.RotateAround (rotationPoint, Vector3.back, 1);

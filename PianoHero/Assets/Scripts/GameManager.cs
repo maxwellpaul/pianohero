@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour {
     float noteSpeed;
 	bool ready = false;
 
+	string songPath = "Assets/Songs/";
+	string songInfo = "MyFile.txt";
+
 	// Use this for initialization
 	void Start () {
 		PlayerPrefs.SetInt ("Score", 0);
@@ -32,6 +35,10 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (ready && GameObject.FindGameObjectsWithTag ("Note").Length == 0)
 			Win ();
+	}
+
+	public void SetSong(string song) {
+		songInfo = song;
 	}
 
 	public void HitNote() {
@@ -97,7 +104,7 @@ public class GameManager : MonoBehaviour {
 		float noteFourX = 1.5f;
         //float startY = -3;
 		float startY = 7;
-        string path = "Assets/Songs/MyFile.txt";
+		string path = songPath + songInfo;
 
 		//Read the text from directly from the test.txt file
 		StreamReader reader = new StreamReader(path);
