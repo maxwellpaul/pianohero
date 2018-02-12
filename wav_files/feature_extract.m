@@ -10,128 +10,197 @@ function r = feature_extract(songName)
     xlabel('Seconds'); 
     ylabel ('Amplitude');
 
-    %this is the length of each snapshot
-    snapShotSize = length(t) / fs;
+    %Length of the song in seconds
+    songLengthSecs = length(t) / fs;
 
     %finds peaks of amplitude
     [pks, locs] = findpeaks(y(:,2));
+    
+    %The vector of amplitude data we are actually using from y
     real_y = y(:,2);
 
-    % How many y values represent a second
-    second_frame_size = ceil(length(real_y)/snapShotSize);
+    % How many frames are in a second
+    second_frame_size = ceil(length(real_y)/songLengthSecs);
 
-
-
-    total = zeros(1,(5 * second_frame_size));
-    size_y = ceil(length(real_y)/(5 * second_frame_size));
-    averages = zeros(size_y);
+    %Number of frames in a window of 5 seconds
+    framesPerWindow = 5 * second_frame_size;
+    
+    %Array that holds the data of the current window you are looking at
+    window = zeros(1,(framesPerWindow));
+    
+    %The number of ~5 second windows in the song
+    numWindows = ceil(length(real_y)/(framesPerWindow));
+    
+    %Array that will hold the average amplitudes for each window
+    averages = zeros(1,numWindows);
+    
     average_index = 1;
-    total_index = 1;
+    window_index = 1;
 
+    %SUMMARY:This for loop is grabbing the average amplitude value for data
+    %above our minimum threshold, for every single window of length 5
+    %seconds in our song
     for index = 1:length(real_y)
-        if(real_y(index) > .03)
-            total(total_index) = real_y(index);
+        %If the amplitude exceeds our bare minimum of .05
+        if(real_y(index) > .05)
+            %add that val to the current windows data
+            window(window_index) = real_y(index);
         end
-        total_index = total_index + 1;
-        if (mod(index, (5 * second_frame_size)) == 0)
-            total = total(total ~= 0);
-            averages(average_index) = mean(total);
+        window_index = window_index + 1;
+        %If we have passed over a whole window
+        if (mod(index, (framesPerWindow)) == 0)
+            %get rid of all excess 0's
+            window = window(window ~= 0);
+            %Grabs the average amplitude of that window
+            averages(average_index) = mean(window);
             average_index = average_index + 1;
-            total = zeros(1,(5 * second_frame_size));
-            total_index = 1;
+            %reset the window
+            window = zeros(1,(framesPerWindow));
+            window_index = 1;
         end
     end
-    x_var = (1:1:size_y);
+    
+    %Used for plotting the averages
+    x_var = (1:1:numWindows);
     plot(x_var, averages);
 
-    %average_amps = mean(total);
+    %average_amps = mean(window);
 
     %plot(t, y, t(locs), pks, 'or');
 
-    peakValues = zeros(1,length(pks));
-    peakFreqs = zeros(1,length(pks));
-    timeRatios = zeros(1,length(pks));
+    %Initializing relevant arrays
+    peakValues = zeros(1,length(real_y));
+    peakLocs = zeros(1,length(real_y));
+    timeRatios = zeros(1,length(real_y));
 
-
-    %put first index in
-    %push next one that is over .5
-
-    %stores values of peaks and their indices that are above a certain threshold
-    %Will have to find a way to programatically calculate this threshold
-    av_index = 2;
-    current_average = averages(1);
-    note_divider_indices = zeros(1, length(averages));
-    note_divider_index = 1; 
-    for index = 1:length(pks)
-        % adjusts the current average for time of song
-        if (mod(index, (5 * second_frame_size)) == 0)
-            note_divider_indices(note_divider_index) = index;
-            note_divider_index = note_divider_index + 1;
-            current_average = averages(av_index);
+    %Obtaining the notes(amplitudes and timeRatios) as well as the note
+    %value dividers for each window
+    %TODO: Need to test for unlikely case where the number of frames in the
+    %song wraps exactly around the modulus. I believe this will call and
+    %index out of range error
+    av_index = 1;
+    current_average = averages(av_index);
+    current_pk_index = 1;
+    currentWindow = zeros(1,framesPerWindow);
+    divider_index = 1;
+    dividers = zeros(1,3*numWindows);
+    for index = 1:length(real_y)
+        if (mod(index, (framesPerWindow)) == 0)
             av_index = av_index + 1;
+            current_average = averages(av_index);
+            currentWindow = currentWindow(currentWindow ~= 0);
+            currentWindow = sort(currentWindow);
+            totalSize = ceil(length(currentWindow) / 4);
+            
+            %if there are less than 4 peaks in the window, can't really
+            %index into it because you will go off of the edge so just
+            %going to use 0 as the divider for all dividers. Can prob find
+            %a better method for this later
+            if length(currentWindow) < 4
+                if(isempty(currentWindow))
+                    dividers(divider_index) = 0;
+                    divider_index = divider_index + 1;
+                    dividers(divider_index) = 0;
+                    divider_index = divider_index + 1;
+                    dividers(divider_index) = 0;
+                    divider_index = divider_index + 1;
+                else
+                    dividers(divider_index) = currentWindow(1);
+                    divider_index = divider_index + 1;
+                    dividers(divider_index) = currentWindow(1);
+                    divider_index = divider_index + 1;
+                    dividers(divider_index) = currentWindow(1);
+                    divider_index = divider_index + 1;
+                end 
+            else
+                dividers(divider_index) = currentWindow(totalSize);
+                divider_index = divider_index + 1;
+                dividers(divider_index) = currentWindow(totalSize*2);
+                divider_index = divider_index + 1;
+                dividers(divider_index) = currentWindow(totalSize*3);
+                divider_index = divider_index + 1;
+            end 
         end
 
         %if peak is above this threshold, store it and its index
-        if pks(index) > current_average
-            peakValues(index) = pks(index);
-            %Grab the corresponding frequency for the peak
-            peakFreqs(index) = y(locs(index),2);
+        if locs(current_pk_index) == index && pks(current_pk_index) > current_average
+            %We are basically saving the notes amplitude and its place in the song
+            %here
+            peakValues(index) = pks(current_pk_index);
+            peakLocs(index) = locs(current_pk_index);
+            %TODO: Check if the plus 1 here is ok
+            currentWindow(mod(index, (framesPerWindow))+1) = pks(current_pk_index);
             %Take the index of the peak and divide it by the total num of
             %indices to find approx location in song
-            timeRatios(index) = locs(index) / length(t);
+            timeRatios(index) = locs(current_pk_index) / length(t);
+            current_pk_index = current_pk_index + 1;
+        end 
+        if locs(current_pk_index) == index && pks(current_pk_index) <= current_average
+            current_pk_index = current_pk_index + 1;
         end
-
+        %Run this if there are no more pks, basically skips going
+        %everything else and grabs the last set of dividers. However if the
+        %last pk index falls exactly on the mod, this might be called an
+        %extra time which we dont want because it will probably exceed the
+        %array indices
+        if current_pk_index > length(locs)
+            currentWindow = currentWindow(currentWindow ~= 0);
+            currentWindow = sort(currentWindow);
+            totalSize = ceil(length(currentWindow) / 4);
+            
+            if length(currentWindow) < 4
+                if(isempty(currentWindow))
+                    dividers(divider_index) = 0;
+                    divider_index = divider_index + 1;
+                    dividers(divider_index) = 0;
+                    divider_index = divider_index + 1;
+                    dividers(divider_index) = 0;
+                    divider_index = divider_index + 1;
+                else
+                    dividers(divider_index) = currentWindow(1);
+                    divider_index = divider_index + 1;
+                    dividers(divider_index) = currentWindow(1);
+                    divider_index = divider_index + 1;
+                    dividers(divider_index) = currentWindow(1);
+                    divider_index = divider_index + 1;
+                end 
+            else
+                dividers(divider_index) = currentWindow(totalSize);
+                divider_index = divider_index + 1;
+                dividers(divider_index) = currentWindow(totalSize*2);
+                divider_index = divider_index + 1;
+                dividers(divider_index) = currentWindow(totalSize*3);
+                divider_index = divider_index + 1;
+            end 
+            break;
+        end
     end
     
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FIX THIS%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    dividers = zeros(1, length(averages)*3);
-    divider_index = 1;
-    current_section = [];
-    for index = 1:length(peakFreqs)
-        if(peakFreqs(index) ~= 0)
-            current_section = [current_section, peakFreqs(index)];
-        end
-        if(mod(index, size_y) == 0)
-            if(length(current_section) ~=0)
-                current_section = sort(current_section);
-                totalSize = ceil(length(current_section) / 4);
-                dividers(divider_index) = current_section(totalSize);
-                divider_index = divider_index + 1;
-                dividers(divider_index) = current_section(totalSize*2);
-                divider_index = divider_index + 1;
-                dividers(divider_index) = current_section(totalSize*3);
-                divider_index = divider_index + 1;
-                current_section = [];
-            end
-        end
-    end
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FIX THIS%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    
-
+    %Should have all of our note amplitudes and where they are in the song
+    peakValues = peakValues(peakValues ~= 0);
+    peakLocs = peakLocs(peakLocs ~= 0);
     timeRatios = timeRatios(timeRatios ~= 0);
-    for_size = peakFreqs(peakFreqs ~= 0);
     %initialize to 0's
 
     %Assign each peak a note based on the frequency
-    notes = zeros(1,length(for_size));
+    notes = zeros(1,length(peakValues));
     current_divider = 1;
-    note_divider_index = 1; 
+    currentModIndex = framesPerWindow; 
     
-    for index = 1:length(peakFreqs)
-        if (peakFreqs(index) ~= 0)
-            if peakFreqs(index) < dividers(current_divider)
-                notes(index) = 1;
-            elseif peakFreqs(index) >= dividers(current_divider) && peakFreqs(index) < dividers(current_divider+1)
-                notes(index) = 2;
-            elseif peakFreqs(index) >= dividers(current_divider+1) && peakFreqs(index) < dividers(current_divider+2)
-                notes(index) = 3;
-            else
-                notes(index) = 4;
-            end
-            if (index == note_divider_indices(note_divider_index))
+    for index = 1:length(peakValues)
+        if peakValues(index) < dividers(current_divider)
+            notes(index) = 1;
+        elseif peakValues(index) >= dividers(current_divider) && peakValues(index) < dividers(current_divider+1)
+            notes(index) = 2;
+        elseif peakValues(index) >= dividers(current_divider+1) && peakValues(index) < dividers(current_divider+2)
+            notes(index) = 3;
+        else
+            notes(index) = 4;
+        end
+        if (peakLocs(index) > currentModIndex)
+            while(peakLocs(index) > currentModIndex)
                 current_divider = current_divider + 3;
-                note_divider_index = note_divider_index + 1;
+                currentModIndex = currentModIndex + framesPerWindow;
             end
         end
     end
@@ -146,7 +215,7 @@ function r = feature_extract(songName)
     filteredNotes = [filteredNotes,notes(1)];
     for index = 2:length(timeRatios)
     %If the notes are more than .25 second apart keep them
-    if (timeRatios(index)*snapShotSize) - (filteredNoteTimes(length(filteredNoteTimes))*snapShotSize) >= .25
+    if (timeRatios(index)*songLengthSecs) - (filteredNoteTimes(length(filteredNoteTimes))*songLengthSecs) >= .25
         filteredNoteTimes = [filteredNoteTimes,timeRatios(index)];
         filteredNotes = [filteredNotes,notes(index)];
     end
@@ -157,7 +226,7 @@ function r = feature_extract(songName)
     %Open a file to write the notes to
     fid=fopen(outFileName,'w');
     for index = 1:length(filteredNoteTimes)
-    fprintf(fid, '%d:%f\n', filteredNotes(index), filteredNoteTimes(index) * snapShotSize);
+    fprintf(fid, '%d:%f\n', filteredNotes(index), filteredNoteTimes(index) * songLengthSecs);
     end
     fclose(fid);
 
