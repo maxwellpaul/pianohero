@@ -1,25 +1,24 @@
-﻿using System.IO;
-using UnityEngine;
+﻿//C# Example
 using UnityEditor;
+using UnityEngine;
+using System.Collections.Generic;
 
-public class HighScores : EditorWindow {
+public class HighScores : EditorWindow
+{
+	static List<string> songsWithHighScores;
 
 	public static void ShowWindow() {
-		GetWindow<LoadWAV> ("Load WAV File");
+		EditorWindow.GetWindow(typeof(HighScores));
+	}
+
+	public void SetSongs(List<string> songsToDisplay) {
+		songsWithHighScores = songsToDisplay;
 	}
 
 	void OnGUI() {
+		GUILayout.Label ("User High Scores", EditorStyles.boldLabel);
+		foreach (string songName in songsWithHighScores) {
 
-	}
-
-	[MenuItem("Example/Load Textures To Folder")]
-	static void Apply()
-	{
-		string path = EditorUtility.OpenFolderPanel("Load png Textures", "", "");
-		string[] files = Directory.GetFiles(path);
-
-		foreach (string file in files)
-			if (file.EndsWith(".png"))
-				File.Copy(file, EditorApplication.currentScene);
+		}
 	}
 }

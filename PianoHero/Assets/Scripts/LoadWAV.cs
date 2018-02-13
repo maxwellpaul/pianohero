@@ -1,26 +1,29 @@
-﻿using System.IO;
-using UnityEngine;
+﻿//C# Example
 using UnityEditor;
+using UnityEngine;
 
-public class LoadWAV : EditorWindow {
+public class LoadWAV : EditorWindow
+{
+	string myString = "Hello World";
+	bool groupEnabled;
+	bool myBool = true;
+	float myFloat = 1.23f;
 
-	public static void ShowWindow() {
-		GetWindow<LoadWAV> ("Load WAV File");
-	}
-
-	void OnGUI() {
-
-	}
-
-	[MenuItem("Example/Load Textures To Folder")]
-	static void Apply()
+	// Add menu item named "My Window" to the Window menu
+	public static void ShowWindow()
 	{
-		string path = EditorUtility.OpenFolderPanel("Load png Textures", "", "");
-		string[] files = Directory.GetFiles(path);
-
-		foreach (string file in files)
-			if (file.EndsWith(".png"))
-				File.Copy(file, EditorApplication.currentScene);
+		//Show existing window instance. If one doesn't exist, make one.
+		EditorWindow.GetWindow(typeof(LoadWAV));
 	}
 
+	void OnGUI()
+	{
+		GUILayout.Label ("Base Settings", EditorStyles.boldLabel);
+		myString = EditorGUILayout.TextField ("Text Field", myString);
+
+		groupEnabled = EditorGUILayout.BeginToggleGroup ("Optional Settings", groupEnabled);
+		myBool = EditorGUILayout.Toggle ("Toggle", myBool);
+		myFloat = EditorGUILayout.Slider ("Slider", myFloat, -3, 3);
+		EditorGUILayout.EndToggleGroup ();
+	}
 }

@@ -141,20 +141,30 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Win() {
-		int score = Mathf.Max (PlayerPrefs.GetInt ("Score"), PlayerPrefs.GetInt("HighScore"));
+		string songChoice = PlayerPrefs.GetString ("SongChoice");
+
+		// Save song specific information
+
+		int score = Mathf.Max (PlayerPrefs.GetInt ("Score"), PlayerPrefs.GetInt(songChoice + "HighScore"));
+		PlayerPrefs.SetInt (songChoice + "HighScore", score);
+
+		int streak = Mathf.Max (PlayerPrefs.GetInt ("MaxStreak"), PlayerPrefs.GetInt (songChoice + "HighStreak"));
+		PlayerPrefs.SetInt (songChoice + "HighStreak", streak);
+
+		int mult = Mathf.Max (PlayerPrefs.GetInt ("MaxMult"), PlayerPrefs.GetInt (songChoice + "HighMult"));
+		PlayerPrefs.SetInt (songChoice + "HighMult", mult);
+
+		// Set the scores for the win screen
 		PlayerPrefs.SetInt ("HighScore", score);
-
-		int streak = Mathf.Max (PlayerPrefs.GetInt ("MaxStreak"), PlayerPrefs.GetInt ("HighStreak"));
 		PlayerPrefs.SetInt ("HighStreak", streak);
-
-		int mult = Mathf.Max (PlayerPrefs.GetInt ("MaxMult"), PlayerPrefs.GetInt ("HighMult"));
 		PlayerPrefs.SetInt ("HighMult", mult);
+
 
 		SceneManager.LoadScene (2);	
 	}
 
 	public void Lose() {
-		// Load the lose screen
+		// Load the lose screen, TODO add a lose screen
 		Win();
 	}
 

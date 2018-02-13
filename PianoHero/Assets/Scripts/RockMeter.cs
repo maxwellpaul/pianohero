@@ -20,7 +20,6 @@ public class RockMeter : MonoBehaviour {
 	}
 
 	public void SetToWin() {
-		print ("Called with rock " + PlayerPrefs.GetInt("amtOfRock"));
 		needle.transform.RotateAround (rotationPoint, Vector3.back, PlayerPrefs.GetInt("amtOfRock"));
 		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 	}

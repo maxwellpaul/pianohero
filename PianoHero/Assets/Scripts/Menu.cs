@@ -6,23 +6,21 @@ using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine.SceneManagement;
 
+
 public class Menu : MonoBehaviour {
 
 	GameObject gm;
 	public Dropdown dropdown;
-	Regex r_text = new Regex (@"(\.txt)", RegexOptions.IgnoreCase);
-	Regex r_meta = new Regex (@"(\.meta)", RegexOptions.IgnoreCase);
 	LoadWAV loadWindow;
 	HighScores highScoresWindow;
 
 	List<string> textFiles = new List<string> ();
-
-	private string songChoice;
+	List<string> displaySongs = new List<string> ();
 
 	// Use this for initialization
 	void Start () {
 		PopulateList ();
-		PlayerPrefs.SetString("SongChoice", textFiles [0]);
+		DropDownIndexChanged (0);
 	}
 	
 	// Update is called once per frame
@@ -32,6 +30,7 @@ public class Menu : MonoBehaviour {
 
 	public void ViewHighScores() {
 		highScoresWindow = ScriptableObject.CreateInstance<HighScores> ();
+		highScoresWindow.SetSongs (textFiles);
 		highScoresWindow.Show ();
 	}
 
@@ -41,11 +40,12 @@ public class Menu : MonoBehaviour {
 	}
 
 	public void PlayButton() {
-		SceneManager.LoadScene (1);	
+		SceneManager.LoadScene (1);
 	}
 
 	public void DropDownIndexChanged (int index) {
 		PlayerPrefs.SetString("SongChoice", textFiles [index]);
+		PlayerPrefs.SetString ("SongFormattedTitle", displaySongs [index]);
 	}
 
 	public void PopulateList() {
@@ -61,14 +61,16 @@ public class Menu : MonoBehaviour {
 			}
 		}
 
-		List<string> songs = new List<string> () {};
 		foreach (string filename in textFiles) {
-			songs.Add (splitFilename (filename));
+			displaySongs.Add (parseFilename (filename));
 		}
-		dropdown.AddOptions (songs);
+		dropdown.AddOptions (displaySongs);
 	}
 
-	string splitFilename(string filename) {
+	string parseFilename(string filename) {
+		// TODO add asserts
+		filename = filename.Split ('.')[0];
+		filename = filename.Replace ('_', ' ');
 		return filename;
 	}
 }
