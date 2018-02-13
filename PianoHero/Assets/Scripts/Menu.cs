@@ -25,6 +25,10 @@ public class Menu : MonoBehaviour {
 		
 	}
 
+	public void LoadWAVFile() {
+		
+	}
+
 	public void PlayButton() {
 		print ("Play game!!");
 		SceneManager.LoadScene (1);	
@@ -42,7 +46,7 @@ public class Menu : MonoBehaviour {
 		foreach (string file in System.IO.Directory.GetFiles(currPath)) {
 			string[] filenameArr = file.Split('/');
 			string filename = filenameArr [filenameArr.Length - 1];
-			if (isValidFile(filename)) {
+			if (filename.EndsWith (".txt")) {
 				textFiles.Add (filename);
 			}
 		}
@@ -52,10 +56,6 @@ public class Menu : MonoBehaviour {
 			songs.Add (splitFilename (filename));
 		}
 		dropdown.AddOptions (songs);
-	}
-
-	private bool isValidFile(string filename) {
-		return r_text.IsMatch (filename) && !r_meta.IsMatch (filename);
 	}
 
 	string splitFilename(string filename) {

@@ -2,23 +2,25 @@
 using UnityEngine;
 using UnityEditor;
 
-public class LoadWAV : EditorWindow
-{
-	[MenuItem("Example/Overwrite Texture")]
+public class LoadWAV : EditorWindow {
+
+	public static void ShowWindow() {
+		GetWindow<LoadWAV> ("Load WAV File");
+	}
+
+	void OnGUI() {
+
+	}
+
+	[MenuItem("Example/Load Textures To Folder")]
 	static void Apply()
 	{
-		Texture2D texture = Selection.activeObject as Texture2D;
-		if (texture == null)
-		{
-			EditorUtility.DisplayDialog("Select Texture", "You must select a texture first!", "OK");
-			return;
-		}
+		string path = EditorUtility.OpenFolderPanel("Load png Textures", "", "");
+		string[] files = Directory.GetFiles(path);
 
-		string path = EditorUtility.OpenFilePanel("Overwrite with png", "", "png");
-		if (path.Length != 0)
-		{
-			var fileContent = File.ReadAllBytes(path);
-			texture.LoadImage(fileContent);
-		}
+		foreach (string file in files)
+			if (file.EndsWith(".png"))
+				File.Copy(file, EditorApplication.currentScene);
 	}
+
 }
