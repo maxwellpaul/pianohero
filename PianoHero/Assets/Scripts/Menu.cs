@@ -12,13 +12,15 @@ public class Menu : MonoBehaviour {
 	public Dropdown dropdown;
 	Regex r_text = new Regex (@"(\.txt)", RegexOptions.IgnoreCase);
 	Regex r_meta = new Regex (@"(\.meta)", RegexOptions.IgnoreCase);
-	LoadWAV window;
+	LoadWAV loadWindow;
+	HighScores highScoresWindow;
 
 	List<string> textFiles = new List<string> ();
 
 	// Use this for initialization
 	void Start () {
 		PopulateList ();
+		gm.GetComponent<GameManager> ().SetSong (textFiles [0]);
 	}
 	
 	// Update is called once per frame
@@ -26,13 +28,17 @@ public class Menu : MonoBehaviour {
 		
 	}
 
+	public void ViewHighScores() {
+		highScoresWindow = ScriptableObject.CreateInstance<HighScores> ();
+		highScoresWindow.Show ();
+	}
+
 	public void LoadWAVFile() {
-		window = ScriptableObject.CreateInstance<LoadWAV> ();
-		window.Show ();
+		loadWindow = ScriptableObject.CreateInstance<LoadWAV> ();
+		loadWindow.Show ();
 	}
 
 	public void PlayButton() {
-		print ("Play game!!");
 		SceneManager.LoadScene (1);	
 	}
 
