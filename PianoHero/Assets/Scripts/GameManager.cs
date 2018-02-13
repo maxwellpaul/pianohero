@@ -31,14 +31,15 @@ public class GameManager : MonoBehaviour {
         ReadString();
 	}
 
+	public void SetSong(string filename_txt) {
+		// add an assert
+		songInfo = filename_txt;
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (ready && GameObject.FindGameObjectsWithTag ("Note").Length == 0)
 			Win ();
-	}
-
-	public void SetSong(string song) {
-		songInfo = song;
 	}
 
 	public void HitNote() {
