@@ -12,6 +12,7 @@ public class Menu : MonoBehaviour {
 	public Dropdown dropdown;
 	Regex r_text = new Regex (@"(\.txt)", RegexOptions.IgnoreCase);
 	Regex r_meta = new Regex (@"(\.meta)", RegexOptions.IgnoreCase);
+	LoadWAV window;
 
 	List<string> textFiles = new List<string> ();
 
@@ -26,7 +27,8 @@ public class Menu : MonoBehaviour {
 	}
 
 	public void LoadWAVFile() {
-		
+		window = ScriptableObject.CreateInstance<LoadWAV> ();
+		window.Show ();
 	}
 
 	public void PlayButton() {
