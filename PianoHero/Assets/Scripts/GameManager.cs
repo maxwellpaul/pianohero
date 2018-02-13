@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour {
 
 		rockMeter = GameObject.Find ("RockMeter");
 
+		songInfo = PlayerPrefs.GetString ("SongChoice");
+
 		UpdateGUI();
         noteSpeed = note.GetComponent<Note>().speed;
         ReadString();

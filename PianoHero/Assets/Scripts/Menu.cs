@@ -17,10 +17,12 @@ public class Menu : MonoBehaviour {
 
 	List<string> textFiles = new List<string> ();
 
+	private string songChoice;
+
 	// Use this for initialization
 	void Start () {
 		PopulateList ();
-		gm.GetComponent<GameManager> ().SetSong (textFiles [0]);
+		PlayerPrefs.SetString("SongChoice", textFiles [0]);
 	}
 	
 	// Update is called once per frame
@@ -43,7 +45,7 @@ public class Menu : MonoBehaviour {
 	}
 
 	public void DropDownIndexChanged (int index) {
-		gm.GetComponent<GameManager> ().SetSong (textFiles [index]);
+		PlayerPrefs.SetString("SongChoice", textFiles [index]);
 	}
 
 	public void PopulateList() {
