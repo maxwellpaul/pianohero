@@ -29,10 +29,12 @@ public class HighScores : EditorWindow
 	}
 
 	private void drawTable () {
-		GUI.Label(new Rect(0, 32, 128,32), "Song Name");
-		GUI.Label(new Rect(128, 32, 128,32), "High Score");
-		GUI.Label(new Rect(256, 32, 64,32), "High Streak");
-		GUI.Label(new Rect(320, 32, 64,32), "High Mult");
+		GUIStyle headerStyle = new GUIStyle ();
+		headerStyle.fontStyle = FontStyle.Bold;
+		GUI.Label(new Rect(0, 32, 128,32), "Song Name", headerStyle);
+		GUI.Label(new Rect(128, 32, 128,32), "High Score", headerStyle);
+		GUI.Label(new Rect(256, 32, 64,32), "High Streak", headerStyle);
+		GUI.Label(new Rect(320, 32, 64,32), "High Mult", headerStyle);
 
 		int i = 0;
 		foreach (string song in songTokens) {
