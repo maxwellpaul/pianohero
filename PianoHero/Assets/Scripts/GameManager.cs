@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
 	bool ready = false;
 
 	string songPath = "Assets/Songs/";
-	string songInfo = "MyFile.txt";
+	string songInfo;
 
 	// Use this for initialization
 	void Start () {
@@ -25,8 +25,7 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (PHeroConsts.amountOfRockKey, 0);
 
 		rockMeter = GameObject.Find ("RockMeter");
-
-		songInfo = PlayerPrefs.GetString ("SongChoice");
+		songInfo = PlayerPrefs.GetString (PHeroConsts.songChoiceTokenKey) + ".txt";
 
 		UpdateGUI();
         noteSpeed = note.GetComponent<Note>().speed;
@@ -137,6 +136,7 @@ public class GameManager : MonoBehaviour {
 
 	public void Win() {
 		string songChoiceToken = PlayerPrefs.GetString (PHeroConsts.songChoiceTokenKey);
+		print ("song choice token" + songChoiceToken);
 
 		string songHighScoreKey = Utility.makeHighScoreKey (songChoiceToken, PHeroConsts.highScoreKey);
 		int score = Mathf.Max (PlayerPrefs.GetInt ("Score"), PlayerPrefs.GetInt(songHighScoreKey));

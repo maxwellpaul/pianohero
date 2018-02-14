@@ -11,8 +11,8 @@ public class HighScores : EditorWindow
 		EditorWindow.GetWindow(typeof(HighScores));
 	}
 
-	public void SetSongs(List<string> tokens) {
-		songTokens = tokens;
+	public void SetSongs(List<string> songs) {
+		songTokens = songs;
 	}
 
 	void OnGUI() {
@@ -23,9 +23,9 @@ public class HighScores : EditorWindow
 	private void drawsingleline (int pos, string songToken) {
 		pos += 2;
 		GUI.Label(new Rect(0, pos*32, 128,32), Utility.tokenToDisplay(songToken));
-		GUI.Label(new Rect(128, pos*32, 128,32), PlayerPrefs.GetString(Utility.makeHighScoreKey(songToken, PHeroConsts.highScoreKey)));
-		GUI.Label(new Rect(256, pos*32, 64,32), PlayerPrefs.GetString(Utility.makeHighScoreKey(songToken, PHeroConsts.highStreakKey)));
-		GUI.Label(new Rect(320, pos*32, 64,32), PlayerPrefs.GetString(Utility.makeHighScoreKey(songToken, PHeroConsts.highMultKey)));
+		GUI.Label(new Rect(128, pos*32, 128,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, PHeroConsts.highScoreKey)).ToString());
+		GUI.Label(new Rect(256, pos*32, 64,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, PHeroConsts.highStreakKey)).ToString());
+		GUI.Label(new Rect(320, pos*32, 64,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, PHeroConsts.highMultKey)).ToString());
 	}
 
 	private void drawTable () {
