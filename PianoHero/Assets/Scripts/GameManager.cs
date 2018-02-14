@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     float noteSpeed;
 	bool ready = false;
 
+	string WAVPath = "Assets/Songs/";
 	string songPath = "Assets/Songs/";
 	string songInfo;
 
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour {
 
 		rockMeter = GameObject.Find ("RockMeter");
 		songInfo = PlayerPrefs.GetString (PHeroConsts.songChoiceTokenKey) + ".txt";
+		SetMusicToMatch ();
 
 		UpdateGUI();
         noteSpeed = note.GetComponent<Note>().speed;
@@ -36,6 +38,11 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (ready && GameObject.FindGameObjectsWithTag ("Note").Length == 0)
 			Win ();
+	}
+
+	// TODO
+	private void SetMusicToMatch() {
+
 	}
 
 	public void HitNote() {

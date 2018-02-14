@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class LoadWAV : EditorWindow
 {
-	string myString = "Hello World";
-	bool groupEnabled;
-	bool myBool = true;
-	float myFloat = 1.23f;
+	string WAVPath;
+	string songName;
 
 	// Add menu item named "My Window" to the Window menu
 	public static void ShowWindow()
@@ -18,12 +16,14 @@ public class LoadWAV : EditorWindow
 
 	void OnGUI()
 	{
-		GUILayout.Label ("Base Settings", EditorStyles.boldLabel);
-		myString = EditorGUILayout.TextField ("Text Field", myString);
+		GUILayout.Label ("Enter the full path to the WAV file", EditorStyles.boldLabel);
+		WAVPath = EditorGUILayout.TextField ("Full Path", WAVPath);
+		songName = EditorGUILayout.TextField ("Song Name", songName);
+		if (GUILayout.Button ("Load"))
+			LoadFile ();
+	}
 
-		groupEnabled = EditorGUILayout.BeginToggleGroup ("Optional Settings", groupEnabled);
-		myBool = EditorGUILayout.Toggle ("Toggle", myBool);
-		myFloat = EditorGUILayout.Slider ("Slider", myFloat, -3, 3);
-		EditorGUILayout.EndToggleGroup ();
+	void LoadFile() {
+
 	}
 }
