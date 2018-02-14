@@ -19,10 +19,10 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		PlayerPrefs.SetInt ("Score", 0);
-		PlayerPrefs.SetInt ("MaxMult", 1);
-		PlayerPrefs.SetInt ("MaxStreak", 0);
-		PlayerPrefs.SetInt ("amtOfRock", 0);
+		PlayerPrefs.SetInt (PHeroConsts.scoreKey, 0);
+		PlayerPrefs.SetInt (PHeroConsts.maxMultKey, 1);
+		PlayerPrefs.SetInt (PHeroConsts.maxStreakKey, 0);
+		PlayerPrefs.SetInt (PHeroConsts.amountOfRockKey, 0);
 
 		rockMeter = GameObject.Find ("RockMeter");
 
@@ -31,11 +31,6 @@ public class GameManager : MonoBehaviour {
 		UpdateGUI();
         noteSpeed = note.GetComponent<Note>().speed;
         ReadString();
-	}
-
-	public void SetSong(string filename_txt) {
-		// add an assert
-		songInfo = filename_txt;
 	}
 
 	// Update is called once per frame
@@ -58,7 +53,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void AddScore() {
-		PlayerPrefs.SetInt ("Score", PlayerPrefs.GetInt ("Score") + 100 * multiplier);
+		PlayerPrefs.SetInt (PHeroConsts.scoreKey, PlayerPrefs.GetInt (PHeroConsts.scoreKey) + 100 * multiplier);
 	}
 
 	private void AddStreak() {
@@ -66,13 +61,13 @@ public class GameManager : MonoBehaviour {
 		multiplier = 1 + streak / mult_length;
 
 		PlayerPrefs.SetInt (
-			"MaxStreak", 
-			Mathf.Max (streak, PlayerPrefs.GetInt ("MaxStreak"))
+			PHeroConsts.maxStreakKey, 
+			Mathf.Max (streak, PlayerPrefs.GetInt (PHeroConsts.maxStreakKey))
 		);
 
 		PlayerPrefs.SetInt (
-			"MaxMult",
-			Mathf.Max (multiplier, PlayerPrefs.GetInt ("MaxMult"))
+			PHeroConsts.maxMultKey,
+			Mathf.Max (multiplier, PlayerPrefs.GetInt (PHeroConsts.maxMultKey))
 		);
 	}
 
@@ -90,8 +85,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void UpdateGUI() {
-		PlayerPrefs.SetInt ("Streak", streak);
-		PlayerPrefs.SetInt ("Mult", multiplier);
+		PlayerPrefs.SetInt (PHeroConsts.streakKey, streak);
+		PlayerPrefs.SetInt (PHeroConsts.multKey, multiplier);
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
@@ -141,26 +136,26 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Win() {
-		string songChoice = PlayerPrefs.GetString ("SongChoice");
+		string songChoiceToken = PlayerPrefs.GetString (PHeroConsts.songChoiceTokenKey);
 
-		// Save song specific information
+		string songHighScoreKey = Utility.makeHighScoreKey (songChoiceToken, PHeroConsts.highScoreKey);
+		int score = Mathf.Max (PlayerPrefs.GetInt ("Score"), PlayerPrefs.GetInt(songHighScoreKey));
+		PlayerPrefs.SetInt (songHighScoreKey, score);
 
-		int score = Mathf.Max (PlayerPrefs.GetInt ("Score"), PlayerPrefs.GetInt(songChoice + "HighScore"));
-		PlayerPrefs.SetInt (songChoice + "HighScore", score);
+		string songHighStreakKey = Utility.makeHighScoreKey (songChoiceToken, PHeroConsts.highStreakKey);
+		int streak = Mathf.Max (PlayerPrefs.GetInt ("MaxStreak"), PlayerPrefs.GetInt (songHighStreakKey));
+		PlayerPrefs.SetInt (songHighStreakKey, streak);
 
-		int streak = Mathf.Max (PlayerPrefs.GetInt ("MaxStreak"), PlayerPrefs.GetInt (songChoice + "HighStreak"));
-		PlayerPrefs.SetInt (songChoice + "HighStreak", streak);
-
-		int mult = Mathf.Max (PlayerPrefs.GetInt ("MaxMult"), PlayerPrefs.GetInt (songChoice + "HighMult"));
-		PlayerPrefs.SetInt (songChoice + "HighMult", mult);
+		string songHighMultKey = Utility.makeHighScoreKey (songChoiceToken, PHeroConsts.highMultKey);
+		int mult = Mathf.Max (PlayerPrefs.GetInt ("MaxMult"), PlayerPrefs.GetInt (songHighMultKey));
+		PlayerPrefs.SetInt (songHighMultKey, mult);
 
 		// Set the scores for the win screen
-		PlayerPrefs.SetInt ("HighScore", score);
-		PlayerPrefs.SetInt ("HighStreak", streak);
-		PlayerPrefs.SetInt ("HighMult", mult);
+		PlayerPrefs.SetInt (PHeroConsts.highScoreKey, score);
+		PlayerPrefs.SetInt (PHeroConsts.highStreakKey, streak);
+		PlayerPrefs.SetInt (PHeroConsts.highMultKey, mult);
 
-
-		SceneManager.LoadScene (2);	
+		SceneManager.LoadScene (PHeroConsts.WinScreenScene);	
 	}
 
 	public void Lose() {
@@ -169,11 +164,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void MainMenu() {
-		SceneManager.LoadScene (0);	
+		SceneManager.LoadScene (PHeroConsts.MainMenuScene);	
 	}
 
 	public void PlayAgain() {
-		PlayerPrefs.SetInt ("amtOfRock", 0);
-		SceneManager.LoadScene (1);	
+		PlayerPrefs.SetInt (PHeroConsts.amountOfRockKey, 0);
+		SceneManager.LoadScene (PHeroConsts.MainMenuScene);	
 	}
 }

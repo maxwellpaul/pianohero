@@ -14,8 +14,7 @@ public class Menu : MonoBehaviour {
 	LoadWAV loadWindow;
 	HighScores highScoresWindow;
 
-	List<string> textFiles = new List<string> ();
-	List<string> displaySongs = new List<string> ();
+	List<string> songTokens = new List<string> ();
 
 	// Use this for initialization
 	void Start () {
@@ -30,7 +29,7 @@ public class Menu : MonoBehaviour {
 
 	public void ViewHighScores() {
 		highScoresWindow = ScriptableObject.CreateInstance<HighScores> ();
-		highScoresWindow.SetSongs (textFiles);
+		highScoresWindow.SetSongs (songTokens);
 		highScoresWindow.Show ();
 	}
 
@@ -40,16 +39,15 @@ public class Menu : MonoBehaviour {
 	}
 
 	public void PlayButton() {
-		SceneManager.LoadScene (1);
+		SceneManager.LoadScene (PHeroConsts.GamePlayScene);
 	}
 
 	public void DropDownIndexChanged (int index) {
-		PlayerPrefs.SetString("SongChoice", textFiles [index]);
-		PlayerPrefs.SetString ("SongFormattedTitle", displaySongs [index]);
+		PlayerPrefs.SetString(PHeroConsts.songChoiceTokenKey, songTokens [index]);
 	}
 
 	public void PopulateList() {
-		textFiles.Clear ();
+		songTokens.Clear ();
 		dropdown.ClearOptions ();
 
 		string currPath = Application.dataPath + "/Songs/";
@@ -57,20 +55,14 @@ public class Menu : MonoBehaviour {
 			string[] filenameArr = file.Split('/');
 			string filename = filenameArr [filenameArr.Length - 1];
 			if (filename.EndsWith (".txt")) {
-				textFiles.Add (filename);
+				songTokens.Add (Utility.textToToken(filename));
 			}
 		}
 
-		foreach (string filename in textFiles) {
-			displaySongs.Add (parseFilename (filename));
+		List<string> displaySongs = new List<string> ();
+		foreach (string filename in songTokens) {
+			displaySongs.Add (Utility.tokenToDisplay (filename));
 		}
 		dropdown.AddOptions (displaySongs);
-	}
-
-	string parseFilename(string filename) {
-		// TODO add asserts
-		filename = filename.Split ('.')[0];
-		filename = filename.Replace ('_', ' ');
-		return filename;
 	}
 }
