@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour {
     float noteSpeed;
 	bool ready = false;
 
-	string WAVPath = "Assets/Songs/";
 	string songPath = "Assets/Songs/";
 	string songInfo;
 

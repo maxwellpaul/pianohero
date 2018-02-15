@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine.SceneManagement;
+using System;
 
 
 public class Menu : MonoBehaviour {
@@ -16,13 +17,14 @@ public class Menu : MonoBehaviour {
 	GameObject gm;
 	public Dropdown dropdown;
 
+	string pythonExe = "TODO";
+	string matlabExe = "TODO";
+
 	// Current songTokens
 	List<string> songTokens = new List<string> ();
 
 	// Use this for initialization
 	void Start () {
-		PlayerPrefs.SetString (PHeroConsts.loadPath, string.Empty);
-		PlayerPrefs.SetString (PHeroConsts.songName, string.Empty);
 
 		PopulateList ();
 		DropDownIndexChanged (0);
@@ -78,25 +80,37 @@ public class Menu : MonoBehaviour {
 	// Only called from OpenLoadWindow, load the file and call the backend TODO
 	public void LoadFile() {
 		loadWindow.Close ();
+
 		string MP3Path = loadWindow.getMP3Path ();
-		string songName = loadWindow.getSong();
-		string targetPath = Application.dataPath + "/Songs";
+		string songName = loadWindow.getSong ();
+		string sourcePath = MP3Path.Remove (MP3Path.LastIndexOf('/'));
+		string sourceFileName = MP3Path.Substring (MP3Path.LastIndexOf ('/'));
+		string destToken = Utility.DisplayToToken (songName);
+		string destFileName = destToken + ".txt";
 
-		string[] temp = MP3Path.Split ('/');
-		string origFileName = temp [temp.Length - 1];
-		string sourcePath = MP3Path.Remove(MP3Path.LastIndexOf ('/'));
-		string fileName = songName.Replace (' ', '_') + ".txt";
+		CopyFile (sourcePath, MP3Path, destFileName);
+	
+		Program python = new Program (pythonExe, destToken);
+		Program matlab = new Program (matlabExe, destToken);
 
-		print ("WAVPath " + MP3Path);
+		PopulateList ();
+	}
 
-		if (System.IO.Directory.Exists(sourcePath)) {
-			string[] files = System.IO.Directory.GetFiles(sourcePath);
-			// TODO verify that file is there
-
-			string destFile = System.IO.Path.Combine(targetPath, fileName);
-			System.IO.File.Copy(MP3Path, destFile, true);
+	private void CopyFile(string sourcePath, string MP3Path, string destFileName) {
+		if (System.IO.Directory.Exists (sourcePath)) {
+			string targetPath = Application.dataPath + "/Songs/MP3Files/";
+			string destFilePath = System.IO.Path.Combine (targetPath, destFileName);
+			foreach (string s in System.IO.Directory.GetFiles(sourcePath)) {
+				if (s.Equals (MP3Path)) {
+					System.IO.File.Copy (MP3Path, destFilePath, true);
+					print ("Copy of " + MP3Path + " success!");
+					return;
+				}
+			}
+			print ("Copy of " + MP3Path + " Failed");
 		} else {
-			print("Source path does not exist!");
+			print ("Source path does not exist: " + MP3Path);
+			return;
 		}
 	}
 }

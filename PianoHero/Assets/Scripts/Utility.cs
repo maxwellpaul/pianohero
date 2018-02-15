@@ -15,4 +15,8 @@ public class Utility {
 	public static string makeHighScoreKey(string songToken, string type) {
 		return songToken + "-" + type;
 	}
+
+	public static string DisplayToToken(string name) {
+		return name.Replace (' ', '_');
+	}
 }
