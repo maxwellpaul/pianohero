@@ -23,6 +23,10 @@ public class Const {
 	public static string LocalNotePath = SongFolder + "NoteFiles/";
 	public static string LocalWAVPath = SongFolder + "WAVFiles/";
 
+	private static string ExeFolder = "/Executables/";
+	public static string pythonExe = ExeFolder + "TODO";
+	public static string matlabExe = ExeFolder + "TODO";
+
 	public static string NeedleObj = "Needle";
 	public static string GameManagerObj = "GameManager";
 	public static string BottomNeedleObj = "BottomNeedle";

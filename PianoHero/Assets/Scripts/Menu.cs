@@ -17,9 +17,6 @@ public class Menu : MonoBehaviour {
 	GameObject gm;
 	public Dropdown dropdown;
 
-	string pythonExe = "TODO";
-	string matlabExe = "TODO";
-
 	// Current songTokens
 	List<string> songTokens = new List<string> ();
 
@@ -89,8 +86,8 @@ public class Menu : MonoBehaviour {
 
 		CopyMP3File (sourcePath, MP3Path, destFileName);
 	
-		Program python = new Program (pythonExe, destToken);
-		Program matlab = new Program (matlabExe, destToken);
+		Program python = new Program (Const.pythonExe, destToken);
+		Program matlab = new Program (Const.matlabExe, destToken);
 
 		PopulateList ();
 	}
