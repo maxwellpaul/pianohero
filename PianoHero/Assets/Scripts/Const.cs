@@ -18,12 +18,17 @@ public class Const {
 	public static string amountOfRockKey = "amtOfRock";
 	public static string songChoiceTokenKey = "SongChoiceToken";
 
-	public static string MP3Path = "/Assets";
+	private static string SongFolder = "/Songs/";
+	public static string LocalMP3Path = SongFolder + "MP3Files/";
+	public static string LocalNotePath = SongFolder + "NoteFiles/";
+	public static string LocalWAVPath = SongFolder + "WAVFiles/";
 
 	public static string NeedleObj = "Needle";
 	public static string GameManagerObj = "GameManager";
 	public static string BottomNeedleObj = "BottomNeedle";
 	public static string MenuManagerObj = "MenuManager";
+	public static string RockMeterObj = "RockMeter";
+	public static string NoteObj = "Note";
 
 	public static int MainMenuScene = 0;
 	public static int GamePlayScene = 1;

@@ -48,7 +48,7 @@ public class Menu : MonoBehaviour {
 		dropdown.ClearOptions ();
 
 		// Get the text songs in the given directory
-		string currPath = Application.dataPath + "/Songs/";
+		string currPath = Application.dataPath + Const.LocalNotePath;
 		foreach (string file in System.IO.Directory.GetFiles(currPath)) {
 			string[] filenameArr = file.Split('/');
 			string filename = filenameArr [filenameArr.Length - 1];

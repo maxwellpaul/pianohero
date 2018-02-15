@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour {
     float noteSpeed;
 	bool ready = false;
 
-	string songPath = "Assets/Songs/";
 	string songInfo;
 
 	// Use this for initialization
@@ -24,7 +23,7 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (Const.maxStreakKey, 0);
 		PlayerPrefs.SetInt (Const.amountOfRockKey, 0);
 
-		rockMeter = GameObject.Find ("RockMeter");
+		rockMeter = GameObject.Find (Const.RockMeterObj);
 		songInfo = PlayerPrefs.GetString (Const.songChoiceTokenKey) + ".txt";
 		SetMusicToMatch ();
 
@@ -35,7 +34,7 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (ready && GameObject.FindGameObjectsWithTag ("Note").Length == 0)
+		if (ready && GameObject.FindGameObjectsWithTag (Const.NoteObj).Length == 0)
 			Win ();
 	}
 
@@ -107,7 +106,7 @@ public class GameManager : MonoBehaviour {
 		float noteFourX = 1.5f;
         //float startY = -3;
 		float startY = -3;
-		string path = songPath + songInfo;
+		string path = Const.LocalMP3Path + songInfo;
 
 		//Read the text from directly from the test.txt file
 		StreamReader reader = new StreamReader(path);
@@ -145,15 +144,15 @@ public class GameManager : MonoBehaviour {
 		print ("song choice token" + songChoiceToken);
 
 		string songHighScoreKey = Utility.makeHighScoreKey (songChoiceToken, Const.highScoreKey);
-		int score = Mathf.Max (PlayerPrefs.GetInt ("Score"), PlayerPrefs.GetInt(songHighScoreKey));
+		int score = Mathf.Max (PlayerPrefs.GetInt (Const.scoreKey), PlayerPrefs.GetInt(songHighScoreKey));
 		PlayerPrefs.SetInt (songHighScoreKey, score);
 
 		string songHighStreakKey = Utility.makeHighScoreKey (songChoiceToken, Const.highStreakKey);
-		int streak = Mathf.Max (PlayerPrefs.GetInt ("MaxStreak"), PlayerPrefs.GetInt (songHighStreakKey));
+		int streak = Mathf.Max (PlayerPrefs.GetInt (Const.maxStreakKey), PlayerPrefs.GetInt (songHighStreakKey));
 		PlayerPrefs.SetInt (songHighStreakKey, streak);
 
 		string songHighMultKey = Utility.makeHighScoreKey (songChoiceToken, Const.highMultKey);
-		int mult = Mathf.Max (PlayerPrefs.GetInt ("MaxMult"), PlayerPrefs.GetInt (songHighMultKey));
+		int mult = Mathf.Max (PlayerPrefs.GetInt (Const.maxMultKey), PlayerPrefs.GetInt (songHighMultKey));
 		PlayerPrefs.SetInt (songHighMultKey, mult);
 
 		// Set the scores for the win screen
