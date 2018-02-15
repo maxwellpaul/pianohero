@@ -25,7 +25,6 @@ public class Menu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
 		PopulateList ();
 		DropDownIndexChanged (0);
 	}
@@ -88,7 +87,7 @@ public class Menu : MonoBehaviour {
 		string destToken = Utility.DisplayToToken (songName);
 		string destFileName = destToken + ".txt";
 
-		CopyFile (sourcePath, MP3Path, destFileName);
+		CopyMP3File (sourcePath, MP3Path, destFileName);
 	
 		Program python = new Program (pythonExe, destToken);
 		Program matlab = new Program (matlabExe, destToken);
@@ -96,9 +95,9 @@ public class Menu : MonoBehaviour {
 		PopulateList ();
 	}
 
-	private void CopyFile(string sourcePath, string MP3Path, string destFileName) {
+	private void CopyMP3File(string sourcePath, string MP3Path, string destFileName) {
 		if (System.IO.Directory.Exists (sourcePath)) {
-			string targetPath = Application.dataPath + "/Songs/MP3Files/";
+			string targetPath = Application.dataPath + Const.LocalMP3Path;
 			string destFilePath = System.IO.Path.Combine (targetPath, destFileName);
 			foreach (string s in System.IO.Directory.GetFiles(sourcePath)) {
 				if (s.Equals (MP3Path)) {

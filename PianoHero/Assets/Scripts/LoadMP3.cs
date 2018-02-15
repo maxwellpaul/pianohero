@@ -23,7 +23,12 @@ public class LoadMP3 : EditorWindow {
 		GUILayout.Label ("Enter the full path to the WAV file", EditorStyles.boldLabel);
 		MP3Path = EditorGUILayout.TextField ("Full Path", MP3Path);
 		songName = EditorGUILayout.TextField ("Song Name", songName);
-		if (GUILayout.Button ("Load"))
+		if (GUILayout.Button ("Load") && CheckValid ()) {
 			menu.GetComponent<Menu> ().LoadFile ();
+		}
+	}
+
+	bool CheckValid() {
+		return true; // TODO
 	}
 }
