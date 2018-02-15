@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PHeroConsts {
+	
 	public static string scoreKey = "Score";
 	public static string multKey = "Mult";
 	public static string streakKey = "Streak";
@@ -16,9 +17,6 @@ public class PHeroConsts {
 
 	public static string amountOfRockKey = "amtOfRock";
 	public static string songChoiceTokenKey = "SongChoiceToken";
-
-	public static string loadPath = "loadPath";
-	public static string songName = "songName";
 
 	public static string WAVPath = "/Assets";
 

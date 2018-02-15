@@ -254,7 +254,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Load WAV File
+  m_Text: Load MP3 File
 --- !u!222 &47873170
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -903,7 +903,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 260996321}
-        m_MethodName: LoadWAVFile
+        m_MethodName: OpenLoadWindowButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1305,7 +1305,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 260996321}
-        m_MethodName: ViewHighScores
+        m_MethodName: OpenHighScoresWindowButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -3,8 +3,8 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class HighScores : EditorWindow
-{
+public class HighScores : EditorWindow {
+	
 	List<string> songTokens = new List<string>();
 
 	public static void ShowWindow() {

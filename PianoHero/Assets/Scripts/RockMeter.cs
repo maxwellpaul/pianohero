@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class RockMeter : MonoBehaviour {
-
+	
 	int amtOfRock = 0;
 	GameObject needle;
 	GameObject gm;
@@ -43,10 +43,5 @@ public class RockMeter : MonoBehaviour {
 		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 		--amtOfRock;
 		PlayerPrefs.SetInt ("amtOfRock", amtOfRock);
-	}
-
-	// Update is called once per frame
-	void Update () {
-
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ppText : MonoBehaviour {
-
+	
 	public string name;
 	
 	// Update is called once per frame

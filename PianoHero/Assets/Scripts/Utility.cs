@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Utility {
+	
 	public static string textToToken(string filename) {
 		return filename.Split ('.')[0];
 	}
