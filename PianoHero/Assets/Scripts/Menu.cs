@@ -18,6 +18,9 @@ public class Menu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		PlayerPrefs.SetString (PHeroConsts.loadPath, string.Empty);
+		PlayerPrefs.SetString (PHeroConsts.songName, string.Empty);
+
 		PopulateList ();
 		DropDownIndexChanged (0);
 	}
@@ -36,6 +39,30 @@ public class Menu : MonoBehaviour {
 	public void LoadWAVFile() {
 		loadWindow = ScriptableObject.CreateInstance<LoadWAV> ();
 		loadWindow.Show ();
+		print ("hello!");
+	}
+
+	void LoadFile() {
+		string WAVPath = PlayerPrefs.GetString (PHeroConsts.loadPath);
+		string songName = PlayerPrefs.GetString (PHeroConsts.songName);
+		string targetPath = Application.dataPath + "/Songs";
+
+		string[] temp = WAVPath.Split ('/');
+		string origFileName = temp [temp.Length - 1];
+		string sourcePath = WAVPath.Remove(WAVPath.LastIndexOf ('/'));
+		string fileName = songName.Replace (' ', '_') + ".txt";
+
+		print ("WAVPath " + WAVPath);
+
+		if (System.IO.Directory.Exists(sourcePath)) {
+			string[] files = System.IO.Directory.GetFiles(sourcePath);
+			// TODO verify that file is there
+
+			string destFile = System.IO.Path.Combine(targetPath, fileName);
+			System.IO.File.Copy(WAVPath, destFile, true);
+		} else {
+			print("Source path does not exist!");
+		}
 	}
 
 	public void PlayButton() {
@@ -46,7 +73,7 @@ public class Menu : MonoBehaviour {
 		PlayerPrefs.SetString(PHeroConsts.songChoiceTokenKey, songTokens [index]);
 	}
 
-	public void PopulateList() {
+	private void PopulateList() {
 		songTokens.Clear ();
 		dropdown.ClearOptions ();
 

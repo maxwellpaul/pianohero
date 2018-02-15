@@ -17,6 +17,9 @@ public class PHeroConsts {
 	public static string amountOfRockKey = "amtOfRock";
 	public static string songChoiceTokenKey = "SongChoiceToken";
 
+	public static string loadPath = "loadPath";
+	public static string songName = "songName";
+
 	public static string WAVPath = "/Assets";
 
 	public static int MainMenuScene = 0;
