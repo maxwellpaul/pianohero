@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PHeroConsts {
-	
+public class Const {
+
 	public static string scoreKey = "Score";
 	public static string multKey = "Mult";
 	public static string streakKey = "Streak";
@@ -18,7 +18,12 @@ public class PHeroConsts {
 	public static string amountOfRockKey = "amtOfRock";
 	public static string songChoiceTokenKey = "SongChoiceToken";
 
-	public static string WAVPath = "/Assets";
+	public static string MP3Path = "/Assets";
+
+	public static string NeedleObj = "Needle";
+	public static string GameManagerObj = "GameManager";
+	public static string BottomNeedleObj = "BottomNeedle";
+	public static string MenuManagerObj = "MenuManager";
 
 	public static int MainMenuScene = 0;
 	public static int GamePlayScene = 1;

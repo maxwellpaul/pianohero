@@ -23,9 +23,9 @@ public class HighScores : EditorWindow {
 	private void drawsingleline (int pos, string songToken) {
 		pos += 2;
 		GUI.Label(new Rect(0, pos*32, 128,32), Utility.tokenToDisplay(songToken));
-		GUI.Label(new Rect(128, pos*32, 128,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, PHeroConsts.highScoreKey)).ToString());
-		GUI.Label(new Rect(256, pos*32, 64,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, PHeroConsts.highStreakKey)).ToString());
-		GUI.Label(new Rect(320, pos*32, 64,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, PHeroConsts.highMultKey)).ToString());
+		GUI.Label(new Rect(128, pos*32, 128,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, Const.highScoreKey)).ToString());
+		GUI.Label(new Rect(256, pos*32, 64,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, Const.highStreakKey)).ToString());
+		GUI.Label(new Rect(320, pos*32, 64,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, Const.highMultKey)).ToString());
 	}
 
 	private void drawTable () {

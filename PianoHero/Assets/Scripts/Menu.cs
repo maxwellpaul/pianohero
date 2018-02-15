@@ -32,12 +32,12 @@ public class Menu : MonoBehaviour {
 
 	// Play the game
 	public void PlayButton() {
-		SceneManager.LoadScene (PHeroConsts.GamePlayScene);
+		SceneManager.LoadScene (Const.GamePlayScene);
 	}
 
 	// Called when the user selects something from the dropdown menu
 	public void DropDownIndexChanged (int index) {
-		PlayerPrefs.SetString(PHeroConsts.songChoiceTokenKey, songTokens [index]);
+		PlayerPrefs.SetString(Const.songChoiceTokenKey, songTokens [index]);
 	}
 
 	// Called to populate the dropdown and songTokens

@@ -19,7 +19,7 @@ public class LoadMP3 : EditorWindow {
 	}
 
 	void OnGUI() {
-		menu = GameObject.Find ("MenuManager");
+		menu = GameObject.Find (Const.MenuManagerObj);
 		GUILayout.Label ("Enter the full path to the WAV file", EditorStyles.boldLabel);
 		MP3Path = EditorGUILayout.TextField ("Full Path", MP3Path);
 		songName = EditorGUILayout.TextField ("Song Name", songName);

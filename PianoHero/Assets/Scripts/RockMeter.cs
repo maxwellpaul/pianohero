@@ -12,15 +12,15 @@ public class RockMeter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		needle = transform.Find ("Needle").gameObject;
-		gm = GameObject.Find ("GameManager");
+		needle = transform.Find (Const.NeedleObj).gameObject;
+		gm = GameObject.Find (Const.GameManagerObj);
 		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
-		rotationPoint = transform.Find ("BottomNeedle").position + new Vector3 (0, -0.6F, 0);
+		rotationPoint = transform.Find (Const.BottomNeedleObj).position + new Vector3 (0, -0.6F, 0);
 		SetToWin ();
 	}
 
 	public void SetToWin() {
-		needle.transform.RotateAround (rotationPoint, Vector3.back, PlayerPrefs.GetInt("amtOfRock"));
+		needle.transform.RotateAround (rotationPoint, Vector3.back, PlayerPrefs.GetInt(Const.amountOfRockKey));
 		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 	}
 
@@ -29,7 +29,7 @@ public class RockMeter : MonoBehaviour {
 			needle.transform.RotateAround (rotationPoint, Vector3.back, 1);
 			needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 			++amtOfRock;
-			PlayerPrefs.SetInt ("amtOfRock", amtOfRock);
+			PlayerPrefs.SetInt (Const.amountOfRockKey, amtOfRock);
 		}
 	}
 
@@ -42,6 +42,6 @@ public class RockMeter : MonoBehaviour {
 		needle.transform.RotateAround (rotationPoint, Vector3.back, -1);
 		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 		--amtOfRock;
-		PlayerPrefs.SetInt ("amtOfRock", amtOfRock);
+		PlayerPrefs.SetInt (Const.amountOfRockKey, amtOfRock);
 	}
 }

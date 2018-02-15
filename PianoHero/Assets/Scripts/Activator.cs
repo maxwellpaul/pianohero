@@ -20,11 +20,11 @@ public class Activator : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		sr = GetComponent<SpriteRenderer> ();
-		PlayerPrefs.SetInt ("Score", 0);	
+		PlayerPrefs.SetInt (Const.scoreKey, 0);	
 	}
 
 	void Start() {
-		gm = GameObject.Find ("GameManager");
+		gm = GameObject.Find (Const.GameManagerObj);
 		old = sr.color;
 	}
 
