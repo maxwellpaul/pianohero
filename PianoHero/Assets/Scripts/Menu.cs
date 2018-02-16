@@ -82,7 +82,7 @@ public class Menu : MonoBehaviour {
 		string sourcePath = MP3Path.Remove (MP3Path.LastIndexOf('/'));
 		string sourceFileName = MP3Path.Substring (MP3Path.LastIndexOf ('/'));
 		string destToken = Utility.DisplayToToken (songName);
-		string destFileName = destToken + ".txt";
+		string destFileName = destToken + ".mp3";
 
 		CopyMP3File (sourcePath, MP3Path, destFileName);
 	

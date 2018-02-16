@@ -19,11 +19,13 @@ public class Activator : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+		//sr = GetComponentInChildren<SpriteRenderer> ();
 		sr = GetComponent<SpriteRenderer> ();
 		PlayerPrefs.SetInt (Const.scoreKey, 0);	
 	}
 
 	void Start() {
+		//old = sr [1].color;
 		gm = GameObject.Find (Const.GameManagerObj);
 		old = sr.color;
 	}
@@ -57,6 +59,7 @@ public class Activator : MonoBehaviour {
 	}
 
 	IEnumerator Pressed() {
+		// sr[1].color = new Color(0,0,0);
 		sr.color = new Color (0, 0, 0);
 		yield return new WaitForSeconds (0.05f);
 		sr.color = old;
