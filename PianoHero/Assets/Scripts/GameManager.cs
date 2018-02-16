@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
@@ -13,7 +14,6 @@ public class GameManager : MonoBehaviour {
 	public GameObject rockMeter;
     float noteSpeed;
 	bool ready = false;
-	GameObject music;
 
 	string songInfo;
 
@@ -25,10 +25,8 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (Const.amountOfRockKey, 0);
 
 		rockMeter = GameObject.Find (Const.RockMeterObj);
-		music = GameObject.Find ("MusicObject");
 
 		songInfo = PlayerPrefs.GetString (Const.songChoiceTokenKey) + ".txt";
-		SetMusicToMatch ();
 
 		UpdateGUI();
         noteSpeed = note.GetComponent<Note>().speed;
@@ -39,16 +37,6 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (ready && GameObject.FindGameObjectsWithTag (Const.NoteObj).Length == 0)
 			Win ();
-	}
-
-	// TODO
-	private void SetMusicToMatch() {
-		WWW audioLoader = new WWW (Const.LocalWAVPath + PlayerPrefs.GetString (Const.songChoiceTokenKey) + ".wav");
-		while (!audioLoader.isDone) {
-			print("Loading...");
-		}
-
-		music.GetComponent<AudioSource> ().clip = audioLoader.GetAudioClip (false, false, AudioType.WAV);
 	}
 
 	public void HitNote() {
@@ -182,6 +170,6 @@ public class GameManager : MonoBehaviour {
 
 	public void PlayAgain() {
 		PlayerPrefs.SetInt (Const.amountOfRockKey, 0);
-		SceneManager.LoadScene (Const.MainMenuScene);	
+		SceneManager.LoadScene (Const.GamePlayScene);	
 	}
 }
