@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject rockMeter;
     float noteSpeed;
 	bool ready = false;
+	GameObject music;
 
 	string songInfo;
 
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (Const.amountOfRockKey, 0);
 
 		rockMeter = GameObject.Find (Const.RockMeterObj);
+		music = GameObject.Find ("MusicObject");
+
 		songInfo = PlayerPrefs.GetString (Const.songChoiceTokenKey) + ".txt";
 		SetMusicToMatch ();
 
@@ -40,7 +43,12 @@ public class GameManager : MonoBehaviour {
 
 	// TODO
 	private void SetMusicToMatch() {
+		WWW audioLoader = new WWW (Const.LocalWAVPath + PlayerPrefs.GetString (Const.songChoiceTokenKey) + ".wav");
+		while (!audioLoader.isDone) {
+			print("Loading...");
+		}
 
+		music.GetComponent<AudioSource> ().clip = audioLoader.GetAudioClip (false, false, AudioType.WAV);
 	}
 
 	public void HitNote() {
