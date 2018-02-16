@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour {
 		float noteThreeX = .5f;
 		float noteFourX = 1.5f;
         //float startY = -3;
-		float startY = -3;
+		float startY = 6;
 		string path = Application.dataPath + Const.LocalNotePath + songInfo;
 
 		//Read the text from directly from the test.txt file
