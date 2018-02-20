@@ -26,10 +26,36 @@ public class Menu : MonoBehaviour {
 		DropDownIndexChanged (0);
 	}
 
+	/// ----------
+	/// Buttons
+	/// ----------
+
 	// Play the game
 	public void PlayButton() {
 		SceneManager.LoadScene (Const.GamePlayScene);
 	}
+
+	// Quit the game
+	public void QuitGameButton() {
+		Application.Quit ();
+	}
+
+	// Button to open high scores dialog
+	public void OpenHighScoresWindowButton() {
+		highScoresWindow = ScriptableObject.CreateInstance<HighScores> ();
+		highScoresWindow.SetSongs (songTokens);
+		highScoresWindow.Show ();
+	}
+
+	// Button to open the high scores dialog
+	public void OpenLoadWindowButton() {
+		loadWindow = ScriptableObject.CreateInstance<LoadMP3> ();
+		loadWindow.Show();
+	}
+
+	/// ----------
+	/// Helper Functions
+	/// ----------
 
 	// Called when the user selects something from the dropdown menu
 	public void DropDownIndexChanged (int index) {
@@ -58,19 +84,6 @@ public class Menu : MonoBehaviour {
 		foreach (string filename in songTokens)
 			displaySongs.Add (Utility.tokenToDisplay (filename));
 		dropdown.AddOptions (displaySongs);
-	}
-
-	// Button to open high scores dialog
-	public void OpenHighScoresWindowButton() {
-		highScoresWindow = ScriptableObject.CreateInstance<HighScores> ();
-		highScoresWindow.SetSongs (songTokens);
-		highScoresWindow.Show ();
-	}
-
-	// Button to open the high scores dialog
-	public void OpenLoadWindowButton() {
-		loadWindow = ScriptableObject.CreateInstance<LoadMP3> ();
-		loadWindow.Show();
 	}
 
 	// Only called from OpenLoadWindow, load the file and call the backend TODO
