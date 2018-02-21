@@ -630,12 +630,17 @@ PlayerSettings:
     daydream:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    ErrorHub: 0
+    Hub: 0
+    UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 2460b083-49ce-47bb-b551-48a952993bb5
+  cloudProjectId: 6f814477-6380-47ab-a398-2fd7e90c06d9
   projectName: PianoHero
-  organizationId: jtknox
+  organizationId: paulmax
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

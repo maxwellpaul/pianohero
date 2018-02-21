@@ -1,45 +1,36 @@
 ﻿//C# Example
-using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class HighScores : EditorWindow {
-	
-	List<string> songTokens = new List<string>();
+public class HighScores : MonoBehaviour {
+	public Dropdown drop;
 
-	public static void ShowWindow() {
-		EditorWindow.GetWindow(typeof(HighScores));
+	void Start() {
+		drop.ClearOptions ();
+
+		// Populate the dropdown with user readable names for the songs
+		List<string> displaySongs = new List<string> ();
+		foreach (string filename in Utility.songTokens)
+			displaySongs.Add (Utility.tokenToDisplay (filename));
+		drop.AddOptions (displaySongs);
+
+		SetHighScores (0);
 	}
 
-	public void SetSongs(List<string> songs) {
-		songTokens = songs;
+	public void BackToMenuButton() {
+		SceneManager.LoadScene (Const.MainMenuScene);
 	}
 
-	void OnGUI() {
-		GUILayout.Label ("User High Scores", EditorStyles.boldLabel);
-		drawTable ();
+	public void DropDownIndexChanged (int index) {
+		print ("Change index " + index);
+		SetHighScores (index);
 	}
 
-	private void drawsingleline (int pos, string songToken) {
-		pos += 2;
-		GUI.Label(new Rect(0, pos*32, 128,32), Utility.tokenToDisplay(songToken));
-		GUI.Label(new Rect(128, pos*32, 128,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, Const.highScoreKey)).ToString());
-		GUI.Label(new Rect(256, pos*32, 64,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, Const.highStreakKey)).ToString());
-		GUI.Label(new Rect(320, pos*32, 64,32), PlayerPrefs.GetInt (Utility.makeHighScoreKey (songToken, Const.highMultKey)).ToString());
-	}
-
-	private void drawTable () {
-		GUIStyle headerStyle = new GUIStyle ();
-		headerStyle.fontStyle = FontStyle.Bold;
-		GUI.Label(new Rect(0, 32, 128,32), "Song Name", headerStyle);
-		GUI.Label(new Rect(128, 32, 128,32), "High Score", headerStyle);
-		GUI.Label(new Rect(256, 32, 64,32), "High Streak", headerStyle);
-		GUI.Label(new Rect(320, 32, 64,32), "High Mult", headerStyle);
-
-		int i = 0;
-		foreach (string song in songTokens) {
-			drawsingleline(i, song);
-			i++;
-		}
+	private void SetHighScores(int index) {
+		PlayerPrefs.SetInt ("Score_Scene", PlayerPrefs.GetInt(Utility.makeHighScoreKey(Utility.songTokens[index], Const.highScoreKey)));
+		PlayerPrefs.SetInt ("Streak_Scene", PlayerPrefs.GetInt(Utility.makeHighScoreKey(Utility.songTokens[index], Const.highStreakKey)));
+		PlayerPrefs.SetInt ("Mult_Scene", PlayerPrefs.GetInt(Utility.makeHighScoreKey(Utility.songTokens[index], Const.highMultKey)));
 	}
 }

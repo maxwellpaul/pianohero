@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Utility {
+
+	public static List<string> songTokens = new List<string>();
 	
 	public static string textToToken(string filename) {
 		return filename.Split ('.')[0];

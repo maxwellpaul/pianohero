@@ -24,7 +24,7 @@ public class Const {
 	public static string LocalWAVPath = SongFolder + "WAVFiles/";
 
 	private static string ExeFolder = "/Executables/";
-	public static string pythonExe = ExeFolder + "TODO";
+	public static string pythonExe = ExeFolder + "hello.sh";
 	public static string matlabExe = ExeFolder + "TODO";
 
 	public static string NeedleObj = "Needle";
