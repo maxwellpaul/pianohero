@@ -1,34 +1,68 @@
 ﻿//C# Example
-using UnityEditor;
 using UnityEngine;
 using System.IO;
 using System;
+using UnityEngine.SceneManagement;
 
-public class LoadMP3 : EditorWindow {
+public class LoadMP3 : MonoBehaviour {
 	
 	string MP3Path;
 	string songName;
-	GameObject menu;
 
-	public string getSong() {
-		return songName;
+	public void SetMP3Path(string path) {
+		if (CheckValid())
+			MP3Path = path;
+		else
+			print ("Error: invalid path");
 	}
 
-	public string getMP3Path() {
-		return MP3Path;
+	public void SetSongName(string name) {
+		songName = name;
 	}
 
-	void OnGUI() {
-		menu = GameObject.Find (Const.MenuManagerObj);
-		GUILayout.Label ("Enter the full path to the WAV file", EditorStyles.boldLabel);
-		MP3Path = EditorGUILayout.TextField ("Full Path", MP3Path);
-		songName = EditorGUILayout.TextField ("Song Name", songName);
-		if (GUILayout.Button ("Load") && CheckValid ()) {
-			menu.GetComponent<Menu> ().LoadFile ();
-		}
+	public void LoadButton() {
+		LoadFile ();
 	}
 
 	bool CheckValid() {
 		return true; // TODO
+	}
+
+	public void MainMenuButton() {
+		SceneManager.LoadScene (Const.MainMenuScene);
+	}
+
+	// Only called from OpenLoadWindow, load the file and call the backend TODO
+	private void LoadFile() {
+		string sourcePath = MP3Path.Remove (MP3Path.LastIndexOf('/'));
+		string sourceFileName = MP3Path.Substring (MP3Path.LastIndexOf ('/'));
+		string destToken = Utility.DisplayToToken (songName);
+		string destFileName = destToken + ".mp3";
+
+		CopyMP3File (sourcePath, MP3Path, destFileName);
+
+		Program python = new Program (Const.pythonExe, destToken);
+		Program matlab = new Program (Const.matlabExe, destToken);
+
+		python.LaunchCommandLineApp ();
+		matlab.LaunchCommandLineApp ();
+	}
+
+	private void CopyMP3File(string sourcePath, string MP3Path, string destFileName) {
+		if (System.IO.Directory.Exists (sourcePath)) {
+			string targetPath = Application.dataPath + Const.LocalMP3Path;
+			string destFilePath = System.IO.Path.Combine (targetPath, destFileName);
+			foreach (string s in System.IO.Directory.GetFiles(sourcePath)) {
+				if (s.Equals (MP3Path)) {
+					System.IO.File.Copy (MP3Path, destFilePath, true);
+					print ("Copy of " + MP3Path + " success!");
+					return;
+				}
+			}
+			print ("Copy of " + MP3Path + " Failed");
+		} else {
+			print ("Source path does not exist: " + MP3Path);
+			return;
+		}
 	}
 }

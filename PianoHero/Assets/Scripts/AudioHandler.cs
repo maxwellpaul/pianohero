@@ -10,6 +10,7 @@ public class AudioHandler : MonoBehaviour {
 	void Start () {
 		music = GetComponent<AudioSource> ();
 		music.clip = Resources.Load<AudioClip> (PlayerPrefs.GetString (Const.songChoiceTokenKey));
-		music.Play();
+		music.PlayDelayed (2);
+		//music.Play();
 	}
 }

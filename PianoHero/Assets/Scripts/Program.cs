@@ -11,7 +11,6 @@ class Program {
 	}
 
 	public void LaunchCommandLineApp() {
-		// Use ProcessStartInfo class
 		ProcessStartInfo startInfo = new ProcessStartInfo();
 		startInfo.CreateNoWindow = false;
 		startInfo.UseShellExecute = false;
@@ -20,10 +19,8 @@ class Program {
 		startInfo.Arguments = arguments;
 
 		try {
-			// Start the process with the info we specified.
-			// Call WaitForExit and then the using statement will close.
-			using (Process exeProcess = Process.Start(startInfo))
-			{
+			System.Console.WriteLine("Executing " + fileName + " with " + arguments);
+			using (Process exeProcess = Process.Start(startInfo)) {
 				exeProcess.WaitForExit();
 			}
 		}
