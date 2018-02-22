@@ -1,0 +1,9 @@
+Steps on how to play Piano Hero:
+
+1. Start up the application
+2. Choose a song
+3. The controls for playing the notes are a,s,d,f on the keyboard
+4. As you successfully hit notes, the rock meter needle will move to the right
+5. If you miss a note the rock meter needle will move to the left
+6. If you miss enough notes, and the rock meter reaches all the way to the left, the game will end early
+7. When the song is over, you can choose to play the song again or go back to the main menu and choose a new song
