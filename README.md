@@ -39,7 +39,7 @@ Summary - This is where the meat of our project is. We have written an algorithm
 --------------------------------------------------PIPELINE FOR BETA--------------------------------------------------
 For the Beta release we hope to add the upload mp3 feature shown in the demo application which you sampled in the beggining of this tutorial. It will work by selecting a file, automatically calling mp3_to_wav_converter.py and converting the mp3 to a wav file. Then it will automatically run the matlab script feature_extract.m to generate the txt file. The application will then update its settings automatically to add the uploaded song to its list of playable tracks.
 
---------------------------------------------------CONTACT INFORMATION--------------------------------------------------
+--------------------------------------------------CONTACT INFORMATION-----------------------------------------------
 If you have any questions on how to run the application or how the algorithms work please feel free to email the Piano Hero team at any of:
 averubin@umich.edu,
 paulmax@umich.edu,
