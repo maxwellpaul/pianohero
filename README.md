@@ -1,5 +1,7 @@
 PLEASE READ ENTIRE READ ME BEFORE USE
+
 --------------------------------------------------APPLICATION DEMO INSTRUCTIONS--------------------------------------------------
+
 BACKEND FILES ARE NOT YET LINKED TO THE APPLICATION AND THE UPLOAD FEATURE ON THE DEMO APP WILL NOT FUNCTION. END OF README EXPLAINS EACH OF THE BACKEND FILES USED TO GENERATE SONGS AND HOW TO RUN THEM WITH THE DEMO MP3 FILES FOR YOU TO TRY
 Steps on how to play Piano Hero DEMO APPLICATION:
 
@@ -23,7 +25,7 @@ Summary - Most songs are downloaded as Mp3 files. Unfortunately, it is very diff
 3. Install the required libraries by running pip install -r requirements.txt (this should download all required libraries to run the algorithm)
 4. Run the script by calling python mp3_to_wav_converter.py 'songname.' We have supplied you with start_me_up.mp3 so to run it just call python mp3_to_wav_converter.py start_me_up. This will create a start_me_up.wav file in the directory wav_files and in the PianoHero Unity assets. 
 
-feature_extract.m
+feature_extract.m:
 Summary - This is where the meat of our project is. We have written an algorithm which analyzes running averages of amplitudes of pitch of wav files and based on moving thresholds, converts a segment of the wav file to one of four possible notes. The output of this is a txt file where each line represent a note (0-3) and a timestamp (where exactly in the song the note corresponds to)To run this file follow these steps: (you need matlab)
 1. Navigate to the wav_files directory and open the directory in Matlab
 2. You can now run the script on any wav file in the directory provided but for this example lets use the wav file you just generated using mp3_to_wav_converter.py. To do this go to the command windown and type in 'feature_extract('start_me_up')'
