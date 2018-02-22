@@ -28,6 +28,7 @@ Summary - Most songs are downloaded as Mp3 files. Unfortunately, it is very diff
 3. Install the required libraries by running pip install -r requirements.txt (this should download all required libraries to run the algorithm)
 4. Run the script by calling python mp3_to_wav_converter.py 'songname.' We have supplied you with start_me_up.mp3 so to run it just call python mp3_to_wav_converter.py start_me_up. This will create a start_me_up.wav file in the directory wav_files and in the PianoHero Unity assets. 
 
+
 feature_extract.m:
 
 Summary - This is where the meat of our project is. We have written an algorithm which analyzes running averages of amplitudes of pitch of wav files and based on moving thresholds, converts a segment of the wav file to one of four possible notes. The output of this is a txt file where each line represent a note (0-3) and a timestamp (where exactly in the song the note corresponds to)To run this file follow these steps: (you need matlab)
