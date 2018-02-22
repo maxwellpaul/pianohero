@@ -9,8 +9,15 @@ public class AudioHandler : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		music = GetComponent<AudioSource> ();
-		music.clip = Resources.Load<AudioClip> (PlayerPrefs.GetString (Const.songChoiceTokenKey));
-		music.PlayDelayed (2);
-		//music.Play();
+		LoadFile(Const.LocalWAVPath + PlayerPrefs.GetString (Const.songChoiceTokenKey) + ".wav");
+		music.PlayDelayed (2.2f);
+	}
+
+	void LoadFile (string path) {
+		WWW www = new WWW("file://" + path);
+		AudioClip clip = www.GetAudioClip();
+		while (!clip.isReadyToPlay);
+		clip = www.GetAudioClip(false);
+		music.clip = clip;
 	}
 }

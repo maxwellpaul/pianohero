@@ -14,11 +14,17 @@ public class Menu : MonoBehaviour {
 	GameObject gm;
 	public Dropdown dropdown;
 
-	// Current songTokens
-	//List<string> songTokens = new List<string> ();
-
 	// Use this for initialization
 	void Start () {
+		Const.ResourcePath = PlayerPrefs.GetString ("ResourcePath");
+		Const.LocalMP3Path = Const.ResourcePath + "MP3Files/";
+		Const.LocalNotePath = Const.ResourcePath + "NoteFiles/";
+		Const.LocalWAVPath = Const.ResourcePath + "WAVFiles/";
+
+		PlayerPrefs.SetInt ("Score_Scene", 0);
+		PlayerPrefs.SetInt ("Streak_Scene", 0);
+		PlayerPrefs.SetInt ("Mult_Scene", 0);
+
 		PopulateList ();
 		DropDownIndexChanged (0);
 	}
@@ -47,6 +53,10 @@ public class Menu : MonoBehaviour {
 		SceneManager.LoadScene (4);
 	}
 
+	public void OpenSettingsButton() {
+		SceneManager.LoadScene (Const.SettingsScene);
+	}
+
 	/// ----------
 	/// Helper Functions
 	/// ----------
@@ -64,7 +74,10 @@ public class Menu : MonoBehaviour {
 		dropdown.ClearOptions ();
 
 		// Get the text songs in the given directory
-		string currPath = Application.dataPath + Const.LocalNotePath;
+		string currPath = Const.LocalNotePath;
+		if (!System.IO.Directory.Exists (currPath))
+			print ("Error: path dne - " + currPath);
+
 		foreach (string file in System.IO.Directory.GetFiles(currPath)) {
 			string[] filenameArr = file.Split('/');
 			string filename = filenameArr [filenameArr.Length - 1];

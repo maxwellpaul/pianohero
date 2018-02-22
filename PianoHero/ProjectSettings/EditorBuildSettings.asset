@@ -20,3 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadSong.unity
     guid: 7220e7518db52478f8137fa5c382b686
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: b78712e588a6b462bbbce351fcfe16ff

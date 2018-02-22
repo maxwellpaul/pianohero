@@ -50,7 +50,7 @@ public class LoadMP3 : MonoBehaviour {
 
 	private void CopyMP3File(string sourcePath, string MP3Path, string destFileName) {
 		if (System.IO.Directory.Exists (sourcePath)) {
-			string targetPath = Application.dataPath + Const.LocalMP3Path;
+			string targetPath = Const.LocalMP3Path;
 			string destFilePath = System.IO.Path.Combine (targetPath, destFileName);
 			foreach (string s in System.IO.Directory.GetFiles(sourcePath)) {
 				if (s.Equals (MP3Path)) {

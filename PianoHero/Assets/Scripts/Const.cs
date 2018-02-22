@@ -18,10 +18,12 @@ public class Const {
 	public static string amountOfRockKey = "amtOfRock";
 	public static string songChoiceTokenKey = "SongChoiceToken";
 
-	private static string SongFolder = "/Songs/";
-	public static string LocalMP3Path = SongFolder + "MP3Files/";
-	public static string LocalNotePath = SongFolder + "NoteFiles/";
-	public static string LocalWAVPath = SongFolder + "WAVFiles/";
+	public static string ResourcePath;
+
+	public static string LocalMP3Path;
+	public static string LocalNotePath;
+	public static string LocalWAVPath;
+	public static string AssetBundlePath;
 
 	private static string ExeFolder = "/Executables/";
 	public static string pythonExe = ExeFolder + "hello.sh";
@@ -37,4 +39,5 @@ public class Const {
 	public static int MainMenuScene = 0;
 	public static int GamePlayScene = 1;
 	public static int WinScreenScene = 2;
+	public static int SettingsScene = 5;
 }
