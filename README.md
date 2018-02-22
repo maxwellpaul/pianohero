@@ -7,7 +7,7 @@ BACKEND FILES ARE NOT YET LINKED TO THE APPLICATION AND THE UPLOAD FEATURE ON TH
 
 Steps on how to play Piano Hero DEMO APPLICATION:
 
-As you successfully hit notes, the rock meter needle will move to the right. If you miss a note the rock meter needle will move to the left. If you miss enough notes, and the rock meter reaches all the way to the left, the game will end early
+As you successfully hit notes, the rock meter needle will move to the right. If you miss a note the rock meter needle will move to the left. If you miss enough notes, and the rock meter reaches all the way to the left, the game will end early. The controls for playing the notes are a,s,d,f on the keyboard
 
 1. Pull from Git Repo
 2. Start up the application (PianoHeroApp) by double clicking on it
@@ -15,8 +15,7 @@ As you successfully hit notes, the rock meter needle will move to the right. If 
 4. Click back to main menu
 5. Click select a song and choose start me up. (Simple piano will not work, we pre loaded the application with start me up)(the notes generated for this song were generated using our algorithm)
 6. Once song has been selected hit play!
-7. The controls for playing the notes are a,s,d,f on the keyboard
-8. When the song is over, you can choose to play the song again or go back to the main menu and choose a new song
+7. When the song is over, you can choose to play the song again or go back to the main menu and choose a new song
 
 
 --------------------------------------------------BACKEND--------------------------------------------------
