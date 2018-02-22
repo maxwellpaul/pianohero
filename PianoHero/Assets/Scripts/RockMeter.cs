@@ -12,14 +12,25 @@ public class RockMeter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		amtOfRock = PlayerPrefs.GetInt (Const.amountOfRockKey);
+
 		needle = transform.Find (Const.NeedleObj).gameObject;
+		while (needle == null)
+			needle = transform.Find (Const.NeedleObj).gameObject;
+		
 		gm = GameObject.Find (Const.GameManagerObj);
 		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
-		rotationPoint = transform.Find (Const.BottomNeedleObj).position + new Vector3 (0, -0.6F, 0);
+
+		Transform bottomNeedle = transform.Find (Const.BottomNeedleObj);
+		while (bottomNeedle == null)
+			bottomNeedle = transform.Find (Const.BottomNeedleObj);
+		
+		rotationPoint = bottomNeedle.position + new Vector3 (0, -0.6F, 0);
 		SetToWin ();
 	}
 
-	public void SetToWin() {
+	private void SetToWin() {
+		amtOfRock = PlayerPrefs.GetInt (Const.amountOfRockKey);
 		needle.transform.RotateAround (rotationPoint, Vector3.back, PlayerPrefs.GetInt(Const.amountOfRockKey));
 		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 	}
@@ -34,6 +45,7 @@ public class RockMeter : MonoBehaviour {
 	}
 
 	public void MeterDown() {
+		print ("amt " + amtOfRock);
 		if (amtOfRock == -35) {
 			gm.GetComponent<GameManager> ().Lose();
 			return;

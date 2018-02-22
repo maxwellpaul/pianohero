@@ -23,13 +23,16 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (Const.maxStreakKey, 0);
 		PlayerPrefs.SetInt (Const.amountOfRockKey, 0);
 
-		rockMeter = GameObject.Find (Const.RockMeterObj);
-
 		songInfo = PlayerPrefs.GetString (Const.songChoiceTokenKey) + ".txt";
 
 		UpdateGUI();
         noteSpeed = note.GetComponent<Note>().speed;
         ReadString();
+	}
+
+	void OnLevelWasLoaded(int level) {
+		PlayerPrefs.SetInt (Const.amountOfRockKey, 0);
+		rockMeter = GameObject.Find (Const.RockMeterObj);
 	}
 
 	// Update is called once per frame
