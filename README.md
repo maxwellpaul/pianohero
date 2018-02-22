@@ -3,6 +3,8 @@ PLEASE READ ENTIRE READ ME BEFORE USE
 -----------------------------------APPLICATION DEMO INSTRUCTIONS--------------------------------------------------
 
 BACKEND FILES ARE NOT YET LINKED TO THE APPLICATION AND THE UPLOAD FEATURE ON THE DEMO APP WILL NOT FUNCTION. END OF README EXPLAINS EACH OF THE BACKEND FILES USED TO GENERATE SONGS AND HOW TO RUN THEM WITH THE DEMO MP3 FILES FOR YOU TO TRY
+
+
 Steps on how to play Piano Hero DEMO APPLICATION:
 
 As you successfully hit notes, the rock meter needle will move to the right. If you miss a note the rock meter needle will move to the left. If you miss enough notes, and the rock meter reaches all the way to the left, the game will end early
