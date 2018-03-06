@@ -1,31 +1,23 @@
 ﻿using System.Diagnostics;
+using UnityEngine;
 
 class Program {
 
 	string fileName;
-	string arguments;
+	string argument;
 
 	public Program(string fn, string arg) {
 		fileName = fn;
-		arguments = arg;
+		argument = arg;
 	}
 
 	public void LaunchCommandLineApp() {
-		ProcessStartInfo startInfo = new ProcessStartInfo();
-		startInfo.CreateNoWindow = false;
-		startInfo.UseShellExecute = false;
-		startInfo.FileName = fileName;
-		startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-		startInfo.Arguments = arguments;
+		ProcessStartInfo psi = new ProcessStartInfo (fileName, argument);
+		psi.CreateNoWindow = true;
+		psi.UseShellExecute = false;
 
-		try {
-			System.Console.WriteLine("Executing " + fileName + " with " + arguments);
-			using (Process exeProcess = Process.Start(startInfo)) {
-				exeProcess.WaitForExit();
-			}
-		}
-		catch {
-			System.Console.WriteLine ("Error Occured in exe: " + fileName + " with " + arguments);
-		}
+		Process process = Process.Start (psi);
+		process.WaitForExit ();
+		process.Close ();
 	}
 }
