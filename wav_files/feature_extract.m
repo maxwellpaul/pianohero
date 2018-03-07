@@ -1,7 +1,8 @@
-%Change to whatever wav you want
+%This file runs through all wav files in the song_queue directory
 %reads in frequencies and converts to amplitude
-function r = feature_extract(songName)
-
+files = dir('song_queue/*.wav');
+for file = files'
+    songName = file.name(1:end-4);
     [y,fs] = audioread(strcat(songName, '.wav'));
     %[y,fs] = audioread('beet.wav');
     dt = 1/fs;

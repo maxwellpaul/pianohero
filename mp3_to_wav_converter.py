@@ -1,5 +1,4 @@
 import pydub, sys, os, wave
-#import sage.media
 import numpy as np
 import scipy.io.wavfile
 from pydub import AudioSegment
@@ -20,25 +19,4 @@ song = AudioSegment.from_mp3(song_name_mp3)
 
 song.export(song_name_wav, format = "wav")
 song.export("PianoHero/Assets/Songs/song_wav/" + str(sys.argv[1]) + ".wav", format = "wav")
-
-# FIGURE OUT HOW TO USE SAGE!!
-#songg = sage.media.wav.Wave(song_name_wav)
-
-#rate, data = scipy.io.wavfile.read(song_name_wav)
-
-#print (data)
-
-#plt.plot(data)
-#plt.show()
-
-#print(song_data.getnchannels())
-#frames = song_data.readframes(song_data.getnframes())
-#print(type(frames))
-#plt.plot(frames)
-#plt.show()
-
-#sig, samplerate = sf.read(song_name_wav)
-
-#print(sig.shape)
-#plt.plot(sig);
-#plt.show()
+song.export("wav_files/song_queue/" + str(sys.argv[1]) + ".wav", format = "wav")
