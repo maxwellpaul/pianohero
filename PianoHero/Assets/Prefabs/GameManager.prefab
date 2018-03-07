@@ -77,7 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9856db421cec8459eb1816a905b3e714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplier: 1
-  streak: 0
-  mult_length: 10
   note: {fileID: 1182040684823980, guid: ee3e068e34838425f8da830aa3010a0b, type: 2}
+  rockMeter: {fileID: 0}
+  noteSpeed: 0

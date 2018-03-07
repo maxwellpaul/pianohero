@@ -9,7 +9,9 @@ public class AudioHandler : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		music = GetComponent<AudioSource> ();
-		LoadFile(Const.LocalWAVPath + PlayerPrefs.GetString (Const.songChoiceTokenKey) + ".wav");
+        string songName = PlayerPrefs.GetString(Const.songChoiceTokenKey);
+        songName = songName.Substring(0, songName.Length - 5);
+        LoadFile(Const.LocalWAVPath + songName + ".wav");
 		music.PlayDelayed (2.2f);
 	}
 

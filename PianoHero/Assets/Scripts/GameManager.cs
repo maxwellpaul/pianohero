@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
 	int mult_length = 4;
     public GameObject note;
 	public GameObject rockMeter;
-    float noteSpeed;
+    public float noteSpeed;
 	bool ready = false;
 
 	string songInfo;
@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour {
 		songInfo = PlayerPrefs.GetString (Const.songChoiceTokenKey) + ".txt";
 
 		UpdateGUI();
-        noteSpeed = note.GetComponent<Note>().speed;
         ReadString();
 	}
 
@@ -103,11 +102,12 @@ public class GameManager : MonoBehaviour {
 		float noteThreeX = .5f;
 		float noteFourX = 1.5f;
         //float startY = -3;
-		float startY = 6;
 		string path = Const.LocalNotePath + songInfo;
 
 		//Read the text from directly from the test.txt file
 		StreamReader reader = new StreamReader(path);
+        noteSpeed = 1 / float.Parse(reader.ReadLine());
+        float startY = -3 + noteSpeed * 2.2f;
         string noteString;
 		float yCoord = 0;
 		while(!reader.EndOfStream) {
