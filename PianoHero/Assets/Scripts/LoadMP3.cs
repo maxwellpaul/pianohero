@@ -34,6 +34,9 @@ public class LoadMP3 : MonoBehaviour {
 
 	// Only called from OpenLoadWindow, load the file and call the backend TODO
 	private void LoadFile() {
+
+		print ("Loading file");
+
 		string sourcePath = MP3Path.Remove (MP3Path.LastIndexOf('/'));
 		string sourceFileName = MP3Path.Substring (MP3Path.LastIndexOf ('/'));
 		string destToken = Utility.DisplayToToken (songName);
@@ -41,11 +44,8 @@ public class LoadMP3 : MonoBehaviour {
 
 		CopyMP3File (sourcePath, MP3Path, destFileName);
 
-		Program python = new Program (Const.pythonExe, destToken);
-		Program matlab = new Program (Const.matlabExe, destToken);
-
-		python.LaunchCommandLineApp ();
-		matlab.LaunchCommandLineApp ();
+		Program pipeline = new Program (Const.pipelineExe, "");
+		pipeline.LaunchCommandLineApp ();
 	}
 
 	private void CopyMP3File(string sourcePath, string MP3Path, string destFileName) {

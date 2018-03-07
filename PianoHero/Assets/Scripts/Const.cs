@@ -25,9 +25,10 @@ public class Const {
 	public static string LocalWAVPath;
 	public static string AssetBundlePath;
 
-	private static string ExeFolder = "/Executables/";
+	private static string ExeFolder = "/Scripts/";
 	public static string pythonExe = ExeFolder + "hello.sh";
 	public static string matlabExe = ExeFolder + "TODO";
+	public static string pipelineExe = Application.streamingAssetsPath + "/pipeline.sh";
 
 	public static string NeedleObj = "Needle";
 	public static string GameManagerObj = "GameManager";
