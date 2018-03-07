@@ -208,28 +208,120 @@ function r = feature_extract(songName)
     %Filter all notes by how far away in seconds they are from each other
     %Right now I have it so that if a note is less than .25 seconds away from
     %the last note you don't keep it
-    filteredNoteTimes = [];
-    filteredNotes = [];
+    filteredEasyNoteTimes = [];
+    filteredEasyNotes = [];
     %Initialize with the first note
-    filteredNoteTimes = [filteredNoteTimes,timeRatios(1)];
-    filteredNotes = [filteredNotes,notes(1)];
+    filteredEasyNoteTimes = [filteredEasyNoteTimes,timeRatios(1)];
+    filteredEasyNotes = [filteredEasyNotes,notes(1)];
     for index = 2:length(timeRatios)
     %If the notes are more than .25 second apart keep them
-    if (timeRatios(index)*songLengthSecs) - (filteredNoteTimes(length(filteredNoteTimes))*songLengthSecs) >= .25
-        filteredNoteTimes = [filteredNoteTimes,timeRatios(index)];
-        filteredNotes = [filteredNotes,notes(index)];
+    if (timeRatios(index)*songLengthSecs) - (filteredEasyNoteTimes(length(filteredEasyNoteTimes))*songLengthSecs) >= .7
+        filteredEasyNoteTimes = [filteredEasyNoteTimes,timeRatios(index)];
+        filteredEasyNotes = [filteredEasyNotes,notes(index)];
     end
     end
-
-    outFileName = strcat(songName,'.txt');
-
+    
+    easySongName = strcat(songName, '_EASY');
+    easyOutFileName = strcat(easySongName,'.txt');
+    
+    %MEDIUM
+    %Filter all notes by how far away in seconds they are from each other
+    %Right now I have it so that if a note is less than .25 seconds away from
+    %the last note you don't keep it
+    filteredMediumNoteTimes = [];
+    filteredMediumNotes = [];
+    %Initialize with the first note
+    filteredMediumNoteTimes = [filteredMediumNoteTimes,timeRatios(1)];
+    filteredMediumNotes = [filteredMediumNotes,notes(1)];
+    for index = 2:length(timeRatios)
+    %If the notes are more than .25 second apart keep them
+    if (timeRatios(index)*songLengthSecs) - (filteredMediumNoteTimes(length(filteredMediumNoteTimes))*songLengthSecs) >= .55
+        filteredMediumNoteTimes = [filteredMediumNoteTimes,timeRatios(index)];
+        filteredMediumNotes = [filteredMediumNotes,notes(index)];
+    end
+    end
+    
+    mediumSongName = strcat(songName, '_MEDI');
+    mediumOutFileName = strcat(mediumSongName,'.txt');
+    
+    %HARD
+    %Filter all notes by how far away in seconds they are from each other
+    %Right now I have it so that if a note is less than .25 seconds away from
+    %the last note you don't keep it
+    filteredHardNoteTimes = [];
+    filteredHardNotes = [];
+    %Initialize with the first note
+    filteredHardNoteTimes = [filteredHardNoteTimes,timeRatios(1)];
+    filteredHardNotes = [filteredHardNotes,notes(1)];
+    for index = 2:length(timeRatios)
+    %If the notes are more than .25 second apart keep them
+    if (timeRatios(index)*songLengthSecs) - (filteredHardNoteTimes(length(filteredHardNoteTimes))*songLengthSecs) >= .4
+        filteredHardNoteTimes = [filteredHardNoteTimes,timeRatios(index)];
+        filteredHardNotes = [filteredHardNotes,notes(index)];
+    end
+    end
+    
+    hardSongName = strcat(songName, '_HARD');
+    hardOutFileName = strcat(hardSongName,'.txt');
+    
+    %EXPERT
+    %Filter all notes by how far away in seconds they are from each other
+    %Right now I have it so that if a note is less than .25 seconds away from
+    %the last note you don't keep it
+    filteredExpertNoteTimes = [];
+    filteredExpertNotes = [];
+    %Initialize with the first note
+    filteredExpertNoteTimes = [filteredExpertNoteTimes,timeRatios(1)];
+    filteredExpertNotes = [filteredExpertNotes,notes(1)];
+    for index = 2:length(timeRatios)
+    %If the notes are more than .25 second apart keep them
+    if (timeRatios(index)*songLengthSecs) - (filteredExpertNoteTimes(length(filteredExpertNoteTimes))*songLengthSecs) >= .25
+        filteredExpertNoteTimes = [filteredExpertNoteTimes,timeRatios(index)];
+        filteredExpertNotes = [filteredExpertNotes,notes(index)];
+    end
+    end
+    
+    expertSongName = strcat(songName, '_EXPE');
+    expertOutFileName = strcat(expertSongName,'.txt');
+    
     %Open a file to write the notes to
-    fid=fopen(outFileName,'w');
-    for index = 1:length(filteredNoteTimes)
-    fprintf(fid, '%d:%f\n', filteredNotes(index), filteredNoteTimes(index) * songLengthSecs);
+    fid=fopen(easyOutFileName,'w');
+    fprintf(fid, '%f\n', .7);
+    for index = 1:length(filteredEasyNoteTimes)
+    fprintf(fid, '%d:%f\n', filteredEasyNotes(index), filteredEasyNoteTimes(index) * songLengthSecs);
     end
     fclose(fid);
 
-    movefile(outFileName, '../PianoHero/Assets/Songs');
+    movefile(easyOutFileName, '../PianoHeroResources/NoteFiles/');
+    
+    %Open a file to write the notes to
+    fid=fopen(mediumOutFileName,'w');
+    fprintf(fid, '%f\n', .55);
+    for index = 1:length(filteredMediumNoteTimes)
+    fprintf(fid, '%d:%f\n', filteredMediumNotes(index), filteredMediumNoteTimes(index) * songLengthSecs);
+    end
+    fclose(fid);
+
+    movefile(mediumOutFileName, '../PianoHeroResources/NoteFiles/');
+    
+    %Open a file to write the notes to
+    fid=fopen(hardOutFileName,'w');
+    fprintf(fid, '%f\n', .4);
+    for index = 1:length(filteredHardNoteTimes)
+    fprintf(fid, '%d:%f\n', filteredHardNotes(index), filteredHardNoteTimes(index) * songLengthSecs);
+    end
+    fclose(fid);
+
+    movefile(hardOutFileName, '../PianoHeroResources/NoteFiles/');
+    
+    %Open a file to write the notes to
+    fid=fopen(expertOutFileName,'w');
+    fprintf(fid, '%f\n', .25);
+    for index = 1:length(filteredExpertNoteTimes)
+    fprintf(fid, '%d:%f\n', filteredExpertNotes(index), filteredExpertNoteTimes(index) * songLengthSecs);
+    end
+    fclose(fid);
+
+    movefile(expertOutFileName, '../PianoHeroResources/NoteFiles/');
     
 end
