@@ -10,7 +10,6 @@ public class AudioHandler : MonoBehaviour {
 	void Start () {
 		music = GetComponent<AudioSource> ();
         string songName = PlayerPrefs.GetString(Const.songChoiceTokenKey);
-        songName = songName.Substring(0, songName.Length - 5);
         LoadFile(Const.LocalWAVPath + songName + ".wav");
 		music.PlayDelayed (2.2f);
 	}

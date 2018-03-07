@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
     public float noteSpeed;
 	bool ready = false;
 
-	string songInfo;
+	string noteFile;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (Const.maxStreakKey, 0);
 		PlayerPrefs.SetInt (Const.amountOfRockKey, 0);
 
-		songInfo = PlayerPrefs.GetString (Const.songChoiceTokenKey) + ".txt";
+		noteFile = PlayerPrefs.GetString (Const.songChoiceTokenKey) + "-" + PlayerPrefs.GetString(Const.difficultyLevel) + ".txt";
+		print (noteFile);
 
 		UpdateGUI();
         ReadString();
@@ -95,14 +96,16 @@ public class GameManager : MonoBehaviour {
 		MissedNote ();
 	}
 
-	void ReadString()
-    {
+	public void QuitButton() {
+		MainMenu ();
+	}
+
+	void ReadString() {
         float noteOneX = -1.5f;
         float noteTwoX = -.5f;
 		float noteThreeX = .5f;
 		float noteFourX = 1.5f;
-        //float startY = -3;
-		string path = Const.LocalNotePath + songInfo;
+		string path = Const.LocalNotePath + noteFile;
 
 		//Read the text from directly from the test.txt file
 		StreamReader reader = new StreamReader(path);
@@ -139,7 +142,6 @@ public class GameManager : MonoBehaviour {
 
 	public void Win() {
 		string songChoiceToken = PlayerPrefs.GetString (Const.songChoiceTokenKey);
-		print ("song choice token" + songChoiceToken);
 
 		string songHighScoreKey = Utility.makeHighScoreKey (songChoiceToken, Const.highScoreKey);
 		int score = Mathf.Max (PlayerPrefs.GetInt (Const.scoreKey), PlayerPrefs.GetInt(songHighScoreKey));

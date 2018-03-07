@@ -16,7 +16,6 @@ public class Note : MonoBehaviour {
 	void Start () {
         gm = FindObjectOfType<GameManager>();
         speed = gm.noteSpeed;
-        print(speed);
 		rb.velocity = new Vector2 (0, -speed);
 	}
 }

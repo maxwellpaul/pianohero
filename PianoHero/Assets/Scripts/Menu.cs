@@ -12,7 +12,8 @@ using System.Diagnostics;
 public class Menu : MonoBehaviour {
 
 	GameObject gm;
-	public Dropdown dropdown;
+	public Dropdown songDropdown;
+	public Dropdown difficultyDropdown;
 
 	// Use this for initialization
 	void Start () {
@@ -26,7 +27,8 @@ public class Menu : MonoBehaviour {
 		PlayerPrefs.SetInt ("Mult_Scene", 0);
 
 		PopulateList ();
-		DropDownIndexChanged (0);
+		SongDropDownIndexChanged (0);
+		DifficultyDropDownIndexChanged (0);
 	}
 
 	/// ----------
@@ -62,8 +64,27 @@ public class Menu : MonoBehaviour {
 	/// ----------
 
 	// Called when the user selects something from the dropdown menu
-	public void DropDownIndexChanged (int index) {
+	public void SongDropDownIndexChanged (int index) {
 		PlayerPrefs.SetString(Const.songChoiceTokenKey, Utility.songTokens [index]);
+	}
+
+	public void DifficultyDropDownIndexChanged (int index) {
+		switch (index) {
+		case 0:
+			PlayerPrefs.SetString (Const.difficultyLevel, "Easy");
+			break;
+		case 1:
+			PlayerPrefs.SetString (Const.difficultyLevel, "Medium");
+			break;
+		case 2:
+			PlayerPrefs.SetString (Const.difficultyLevel, "Hard");
+			break;
+		case 3:
+			PlayerPrefs.SetString (Const.difficultyLevel, "Expert");
+			break;
+		default:
+			break;
+		}
 	}
 
 	// Called to populate the dropdown and songTokens
@@ -71,7 +92,7 @@ public class Menu : MonoBehaviour {
 
 		// Clear previous data
 		Utility.songTokens.Clear ();
-		dropdown.ClearOptions ();
+		songDropdown.ClearOptions ();
 
 		// Get the text songs in the given directory
 		string currPath = Const.LocalNotePath;
@@ -82,7 +103,10 @@ public class Menu : MonoBehaviour {
 			string[] filenameArr = file.Split('/');
 			string filename = filenameArr [filenameArr.Length - 1];
 			if (filename.EndsWith (".txt")) {
-				Utility.songTokens.Add (Utility.textToToken(filename));
+				filenameArr = filename.Split ('-');
+				filename = filenameArr [0];
+				if (!Utility.songTokens.Contains (filename))
+					Utility.songTokens.Add (Utility.textToToken(filename));
 			}
 		}
 
@@ -90,6 +114,6 @@ public class Menu : MonoBehaviour {
 		List<string> displaySongs = new List<string> ();
 		foreach (string filename in Utility.songTokens)
 			displaySongs.Add (Utility.tokenToDisplay (filename));
-		dropdown.AddOptions (displaySongs);
+		songDropdown.AddOptions (displaySongs);
 	}
 }

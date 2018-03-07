@@ -18,6 +18,8 @@ public class Const {
 	public static string amountOfRockKey = "amtOfRock";
 	public static string songChoiceTokenKey = "SongChoiceToken";
 
+	public static string difficultyLevel = "difficultyLevel";
+
 	public static string ResourcePath;
 
 	public static string LocalMP3Path;

@@ -45,7 +45,6 @@ public class RockMeter : MonoBehaviour {
 	}
 
 	public void MeterDown() {
-		print ("amt " + amtOfRock);
 		if (amtOfRock == -35) {
 			gm.GetComponent<GameManager> ().Lose();
 			return;
