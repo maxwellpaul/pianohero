@@ -5,13 +5,13 @@ using UnityEngine;
 public class AudioHandler : MonoBehaviour {
 
 	AudioSource music;
+	const float delay = 2.2f;
 
-	// Use this for initialization
 	void Start () {
 		music = GetComponent<AudioSource> ();
-        string songName = PlayerPrefs.GetString(Const.songChoiceTokenKey);
-        LoadFile(Utility.LocalWAVPath + songName + ".wav");
-		music.PlayDelayed (2.2f);
+        string songName = Utility.songChoiceToken;
+		LoadFile(PlayerPrefs.GetString(Const.resourcePathKey) + "WAVFiles/" + songName + ".wav");
+		music.PlayDelayed (delay);
 	}
 
 	void LoadFile (string path) {

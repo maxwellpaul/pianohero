@@ -6,13 +6,11 @@ public class Utility {
 
 	public static List<string> songTokens = new List<string>();
 
-	public static string pipelineExePath = Application.streamingAssetsPath + "/pipeline.sh";
-
-	public static string ResourcePath;
-	public static string LocalMP3Path;
 	public static string LocalNotePath;
-	public static string LocalWAVPath;
-	public static string AssetBundlePath;
+
+	public static int amountOfRock;
+	public static string songChoiceToken;
+	public static string difficultyLevel;
 	
 	public static string textToToken(string filename) {
 		return filename.Split ('.')[0];

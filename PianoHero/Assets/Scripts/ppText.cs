@@ -7,7 +7,6 @@ public class ppText : MonoBehaviour {
 	
 	public string name;
 	
-	// Update is called once per frame
 	void Update () {
 		GetComponent<Text> ().text = PlayerPrefs.GetInt (name) + "";
 	}

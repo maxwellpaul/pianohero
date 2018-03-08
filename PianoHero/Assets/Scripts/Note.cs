@@ -12,7 +12,6 @@ public class Note : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
 	}
 
-	// Use this for initialization
 	void Start () {
         gm = FindObjectOfType<GameManager>();
         speed = gm.noteSpeed;

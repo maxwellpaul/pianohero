@@ -21,17 +21,17 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (Const.scoreKey, 0);
 		PlayerPrefs.SetInt (Const.maxMultKey, 1);
 		PlayerPrefs.SetInt (Const.maxStreakKey, 0);
-		PlayerPrefs.SetInt (Const.amountOfRockKey, 0);
+		Utility.amountOfRock = 0;
 
-		noteFile = PlayerPrefs.GetString (Const.songChoiceTokenKey) + "-" + PlayerPrefs.GetString(Const.difficultyLevelKey) + ".txt";
-		print (noteFile);
+		noteFile = Utility.songChoiceToken + "-" + Utility.difficultyLevel + ".txt";
 
 		UpdateGUI();
         ReadString();
 	}
 
+	// TODO remove or move?
 	void OnLevelWasLoaded(int level) {
-		PlayerPrefs.SetInt (Const.amountOfRockKey, 0);
+		Utility.amountOfRock = 0;
 		rockMeter = GameObject.Find (Const.RockMeterObj);
 	}
 
@@ -141,18 +141,16 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Win() {
-		string songChoiceToken = PlayerPrefs.GetString (Const.songChoiceTokenKey);
-		string diffLevel = PlayerPrefs.GetString (Const.difficultyLevelKey);
 
-		string songHighScoreKey = Utility.makeHighScoreKey (songChoiceToken, Const.highScoreKey, diffLevel);
+		string songHighScoreKey = Utility.makeHighScoreKey (Utility.songChoiceToken, Const.highScoreKey, Utility.difficultyLevel);
 		int score = Mathf.Max (PlayerPrefs.GetInt (Const.scoreKey), PlayerPrefs.GetInt(songHighScoreKey));
 		PlayerPrefs.SetInt (songHighScoreKey, score);
 
-		string songHighStreakKey = Utility.makeHighScoreKey (songChoiceToken, Const.highStreakKey, diffLevel);
+		string songHighStreakKey = Utility.makeHighScoreKey (Utility.songChoiceToken, Const.highStreakKey, Utility.difficultyLevel);
 		int streak = Mathf.Max (PlayerPrefs.GetInt (Const.maxStreakKey), PlayerPrefs.GetInt (songHighStreakKey));
 		PlayerPrefs.SetInt (songHighStreakKey, streak);
 
-		string songHighMultKey = Utility.makeHighScoreKey (songChoiceToken, Const.highMultKey, diffLevel);
+		string songHighMultKey = Utility.makeHighScoreKey (Utility.songChoiceToken, Const.highMultKey, Utility.difficultyLevel);
 		int mult = Mathf.Max (PlayerPrefs.GetInt (Const.maxMultKey), PlayerPrefs.GetInt (songHighMultKey));
 		PlayerPrefs.SetInt (songHighMultKey, mult);
 
@@ -165,7 +163,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Lose() {
-		// Load the lose screen, TODO add a lose screen
 		Win();
 	}
 
@@ -174,7 +171,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void PlayAgain() {
-		PlayerPrefs.SetInt (Const.amountOfRockKey, 0);
 		SceneManager.LoadScene (Const.GamePlayScene);	
 	}
 }

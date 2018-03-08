@@ -8,15 +8,12 @@ public class Settings : MonoBehaviour {
 
 	public InputField inputField;
 
-	// Use this for initialization
 	void Start () {
-		inputField.text = PlayerPrefs.GetString("ResourcePath");
+		inputField.text = PlayerPrefs.GetString(Const.resourcePathKey);
 	}
 
 	public void SetPathButton() {
-		string path = inputField.text;
-		PlayerPrefs.SetString ("ResourcePath", path);
-		Utility.ResourcePath = path;
+		PlayerPrefs.SetString (Const.resourcePathKey, inputField.text);
 	}
 
 	public void MainMenuButton() {

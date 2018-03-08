@@ -15,10 +15,7 @@ public class Const {
 	public const string highMultKey = "HighMult";
 	public const string highStreakKey = "HighStreak";
 
-	public const string amountOfRockKey = "amtOfRock";
-	public const string songChoiceTokenKey = "SongChoiceToken";
-
-	public const string difficultyLevelKey = "difficultyLevel";
+	public const string resourcePathKey = "ResourcePath";
 
 	public const string NeedleObj = "Needle";
 	public const string GameManagerObj = "GameManager";

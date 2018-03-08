@@ -19,13 +19,10 @@ public class Activator : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		//sr = GetComponentInChildren<SpriteRenderer> ();
 		sr = GetComponent<SpriteRenderer> ();
-		PlayerPrefs.SetInt (Const.scoreKey, 0);	
 	}
 
 	void Start() {
-		//old = sr [1].color;
 		gm = GameObject.Find (Const.GameManagerObj);
 		old = sr.color;
 	}
@@ -48,6 +45,7 @@ public class Activator : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col) {
 		active = true;
+
 		//If there is a note inside the activator, grab its game object
 		if (col.gameObject.tag == "Note") {
 			note = col.gameObject;
@@ -59,7 +57,6 @@ public class Activator : MonoBehaviour {
 	}
 
 	IEnumerator Pressed() {
-		// sr[1].color = new Color(0,0,0);
 		sr.color = new Color (0, 0, 0);
 		yield return new WaitForSeconds (0.05f);
 		sr.color = old;

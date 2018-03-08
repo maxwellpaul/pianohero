@@ -15,12 +15,12 @@ public class Menu : MonoBehaviour {
 	public Dropdown songDropdown;
 	public Dropdown difficultyDropdown;
 
-	// Use this for initialization
+	/// ----------
+	/// Init
+	/// ----------
+
 	void Start () {
-		Utility.ResourcePath = PlayerPrefs.GetString ("ResourcePath");
-		Utility.LocalMP3Path = Utility.ResourcePath + "MP3Files/";
-		Utility.LocalNotePath = Utility.ResourcePath + "NoteFiles/";
-		Utility.LocalWAVPath = Utility.ResourcePath + "WAVFiles/";
+		Utility.LocalNotePath = PlayerPrefs.GetString (Const.resourcePathKey) + "NoteFiles/";
 
 		PlayerPrefs.SetInt ("Score_Scene", 0);
 		PlayerPrefs.SetInt ("Streak_Scene", 0);
@@ -59,18 +59,17 @@ public class Menu : MonoBehaviour {
 		SceneManager.LoadScene (Const.SettingsScene);
 	}
 
-	/// ----------
-	/// Helper Functions
-	/// ----------
-
-	// Called when the user selects something from the dropdown menu
 	public void SongDropDownIndexChanged (int index) {
-		PlayerPrefs.SetString(Const.songChoiceTokenKey, Utility.songTokens [index]);
+		Utility.songChoiceToken = Utility.songTokens [index];
 	}
 
 	public void DifficultyDropDownIndexChanged (int index) {
-		PlayerPrefs.SetString (Const.difficultyLevelKey, Const.difficultyLevelsArray[index]);
+		Utility.difficultyLevel = Const.difficultyLevelsArray[index];
 	}
+
+	/// ----------
+	/// Helpers
+	/// ----------
 
 	// Called to populate the dropdown and songTokens
 	private void PopulateList() {
@@ -80,11 +79,10 @@ public class Menu : MonoBehaviour {
 		songDropdown.ClearOptions ();
 
 		// Get the text songs in the given directory
-		string currPath = Utility.LocalNotePath;
-		if (!System.IO.Directory.Exists (currPath))
-			print ("Error: path dne - " + currPath);
+		if (!System.IO.Directory.Exists (Utility.LocalNotePath))
+			print ("Error: path dne - " + Utility.LocalNotePath);
 
-		foreach (string file in System.IO.Directory.GetFiles(currPath)) {
+		foreach (string file in System.IO.Directory.GetFiles(Utility.LocalNotePath)) {
 			string[] filenameArr = file.Split('/');
 			string filename = filenameArr [filenameArr.Length - 1];
 			if (filename.EndsWith (".txt")) {

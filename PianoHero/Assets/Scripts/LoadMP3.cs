@@ -43,13 +43,13 @@ public class LoadMP3 : MonoBehaviour {
 
 		CopyMP3File (sourcePath, MP3Path, destFileName);
 
-		Program pipeline = new Program (Utility.pipelineExePath, "");
+		Program pipeline = new Program (Application.streamingAssetsPath + "/pipeline.sh", "");
 		pipeline.LaunchCommandLineApp ();
 	}
 
 	private void CopyMP3File(string sourcePath, string MP3Path, string destFileName) {
 		if (System.IO.Directory.Exists (sourcePath)) {
-			string targetPath = Utility.LocalMP3Path;
+			string targetPath = PlayerPrefs.GetString (Const.resourcePathKey) + "MP3Files/";
 			string destFilePath = System.IO.Path.Combine (targetPath, destFileName);
 			foreach (string s in System.IO.Directory.GetFiles(sourcePath)) {
 				if (s.Equals (MP3Path)) {

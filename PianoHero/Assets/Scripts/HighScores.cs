@@ -5,25 +5,31 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class HighScores : MonoBehaviour {
+	
 	public Dropdown songDrop;
 	public Dropdown diffDrop;
 
-	int songIndex;
-	int diffIndex;
+	int songIndex = 0;
+	int diffIndex = 0;
+
+	/// ----------
+	/// Init
+	/// ----------
 
 	void Start() {
 		songDrop.ClearOptions ();
 
-		// Populate the dropdown with user readable names for the songs
 		List<string> displaySongs = new List<string> ();
 		foreach (string filename in Utility.songTokens)
 			displaySongs.Add (Utility.tokenToDisplay (filename));
 		songDrop.AddOptions (displaySongs);
 
-		songIndex = 0;
-		diffIndex = 0;
 		RefreshHighScores ();
 	}
+
+	/// ----------
+	/// Buttons
+	/// ----------
 
 	public void BackToMenuButton() {
 		SceneManager.LoadScene (Const.MainMenuScene);
@@ -38,6 +44,10 @@ public class HighScores : MonoBehaviour {
 		diffIndex = index;
 		RefreshHighScores ();
 	}
+
+	/// ----------
+	/// Helpers
+	/// ----------
 
 	private void RefreshHighScores() {
 		string diffLevel = Const.difficultyLevelsArray [diffIndex];
