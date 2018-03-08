@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (Const.maxStreakKey, 0);
 		PlayerPrefs.SetInt (Const.amountOfRockKey, 0);
 
-		noteFile = PlayerPrefs.GetString (Const.songChoiceTokenKey) + "-" + PlayerPrefs.GetString(Const.difficultyLevel) + ".txt";
+		noteFile = PlayerPrefs.GetString (Const.songChoiceTokenKey) + "-" + PlayerPrefs.GetString(Const.difficultyLevelKey) + ".txt";
 		print (noteFile);
 
 		UpdateGUI();
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour {
         float noteTwoX = -.5f;
 		float noteThreeX = .5f;
 		float noteFourX = 1.5f;
-		string path = Const.LocalNotePath + noteFile;
+		string path = Utility.LocalNotePath + noteFile;
 
 		//Read the text from directly from the test.txt file
 		StreamReader reader = new StreamReader(path);
@@ -142,16 +142,17 @@ public class GameManager : MonoBehaviour {
 
 	public void Win() {
 		string songChoiceToken = PlayerPrefs.GetString (Const.songChoiceTokenKey);
+		string diffLevel = PlayerPrefs.GetString (Const.difficultyLevelKey);
 
-		string songHighScoreKey = Utility.makeHighScoreKey (songChoiceToken, Const.highScoreKey);
+		string songHighScoreKey = Utility.makeHighScoreKey (songChoiceToken, Const.highScoreKey, diffLevel);
 		int score = Mathf.Max (PlayerPrefs.GetInt (Const.scoreKey), PlayerPrefs.GetInt(songHighScoreKey));
 		PlayerPrefs.SetInt (songHighScoreKey, score);
 
-		string songHighStreakKey = Utility.makeHighScoreKey (songChoiceToken, Const.highStreakKey);
+		string songHighStreakKey = Utility.makeHighScoreKey (songChoiceToken, Const.highStreakKey, diffLevel);
 		int streak = Mathf.Max (PlayerPrefs.GetInt (Const.maxStreakKey), PlayerPrefs.GetInt (songHighStreakKey));
 		PlayerPrefs.SetInt (songHighStreakKey, streak);
 
-		string songHighMultKey = Utility.makeHighScoreKey (songChoiceToken, Const.highMultKey);
+		string songHighMultKey = Utility.makeHighScoreKey (songChoiceToken, Const.highMultKey, diffLevel);
 		int mult = Mathf.Max (PlayerPrefs.GetInt (Const.maxMultKey), PlayerPrefs.GetInt (songHighMultKey));
 		PlayerPrefs.SetInt (songHighMultKey, mult);
 

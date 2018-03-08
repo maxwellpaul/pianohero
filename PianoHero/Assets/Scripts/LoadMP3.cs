@@ -38,19 +38,18 @@ public class LoadMP3 : MonoBehaviour {
 		print ("Loading file");
 
 		string sourcePath = MP3Path.Remove (MP3Path.LastIndexOf('/'));
-		string sourceFileName = MP3Path.Substring (MP3Path.LastIndexOf ('/'));
 		string destToken = Utility.DisplayToToken (songName);
 		string destFileName = destToken + ".mp3";
 
 		CopyMP3File (sourcePath, MP3Path, destFileName);
 
-		Program pipeline = new Program (Const.pipelineExe, "");
+		Program pipeline = new Program (Utility.pipelineExePath, "");
 		pipeline.LaunchCommandLineApp ();
 	}
 
 	private void CopyMP3File(string sourcePath, string MP3Path, string destFileName) {
 		if (System.IO.Directory.Exists (sourcePath)) {
-			string targetPath = Const.LocalMP3Path;
+			string targetPath = Utility.LocalMP3Path;
 			string destFilePath = System.IO.Path.Combine (targetPath, destFileName);
 			foreach (string s in System.IO.Directory.GetFiles(sourcePath)) {
 				if (s.Equals (MP3Path)) {

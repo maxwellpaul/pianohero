@@ -5,32 +5,46 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class HighScores : MonoBehaviour {
-	public Dropdown drop;
+	public Dropdown songDrop;
+	public Dropdown diffDrop;
+
+	int songIndex;
+	int diffIndex;
 
 	void Start() {
-		drop.ClearOptions ();
+		songDrop.ClearOptions ();
 
 		// Populate the dropdown with user readable names for the songs
 		List<string> displaySongs = new List<string> ();
 		foreach (string filename in Utility.songTokens)
 			displaySongs.Add (Utility.tokenToDisplay (filename));
-		drop.AddOptions (displaySongs);
+		songDrop.AddOptions (displaySongs);
 
-		SetHighScores (0);
+		songIndex = 0;
+		diffIndex = 0;
+		RefreshHighScores ();
 	}
 
 	public void BackToMenuButton() {
 		SceneManager.LoadScene (Const.MainMenuScene);
 	}
 
-	public void DropDownIndexChanged (int index) {
-		print ("Change index " + index);
-		SetHighScores (index);
+	public void SongDropDownIndexChanged (int index) {
+		songIndex = index;
+		RefreshHighScores ();
 	}
 
-	private void SetHighScores(int index) {
-		PlayerPrefs.SetInt ("Score_Scene", PlayerPrefs.GetInt(Utility.makeHighScoreKey(Utility.songTokens[index], Const.highScoreKey)));
-		PlayerPrefs.SetInt ("Streak_Scene", PlayerPrefs.GetInt(Utility.makeHighScoreKey(Utility.songTokens[index], Const.highStreakKey)));
-		PlayerPrefs.SetInt ("Mult_Scene", PlayerPrefs.GetInt(Utility.makeHighScoreKey(Utility.songTokens[index], Const.highMultKey)));
+	public void DiffDropDownIndexChanged (int index) {
+		diffIndex = index;
+		RefreshHighScores ();
+	}
+
+	private void RefreshHighScores() {
+		string diffLevel = Const.difficultyLevelsArray [diffIndex];
+		string songToken = Utility.songTokens [songIndex];
+
+		PlayerPrefs.SetInt ("Score_Scene", PlayerPrefs.GetInt(Utility.makeHighScoreKey(songToken, Const.highScoreKey, diffLevel)));
+		PlayerPrefs.SetInt ("Streak_Scene", PlayerPrefs.GetInt(Utility.makeHighScoreKey(songToken, Const.highStreakKey, diffLevel)));
+		PlayerPrefs.SetInt ("Mult_Scene", PlayerPrefs.GetInt(Utility.makeHighScoreKey(songToken, Const.highMultKey, diffLevel)));
 	}
 }

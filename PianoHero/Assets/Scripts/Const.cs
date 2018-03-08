@@ -4,43 +4,38 @@ using UnityEngine;
 
 public class Const {
 
-	public static string scoreKey = "Score";
-	public static string multKey = "Mult";
-	public static string streakKey = "Streak";
+	public const string scoreKey = "Score";
+	public const string multKey = "Mult";
+	public const string streakKey = "Streak";
 
-	public static string maxMultKey = "MaxMult";
-	public static string maxStreakKey = "MaxStreak";
+	public const string maxMultKey = "MaxMult";
+	public const string maxStreakKey = "MaxStreak";
 
-	public static string highScoreKey = "HighScore";
-	public static string highMultKey = "HighMult";
-	public static string highStreakKey = "HighStreak";
+	public const string highScoreKey = "HighScore";
+	public const string highMultKey = "HighMult";
+	public const string highStreakKey = "HighStreak";
 
-	public static string amountOfRockKey = "amtOfRock";
-	public static string songChoiceTokenKey = "SongChoiceToken";
+	public const string amountOfRockKey = "amtOfRock";
+	public const string songChoiceTokenKey = "SongChoiceToken";
 
-	public static string difficultyLevel = "difficultyLevel";
+	public const string difficultyLevelKey = "difficultyLevel";
 
-	public static string ResourcePath;
+	public const string NeedleObj = "Needle";
+	public const string GameManagerObj = "GameManager";
+	public const string BottomNeedleObj = "BottomNeedle";
+	public const string MenuManagerObj = "MenuManager";
+	public const string RockMeterObj = "RockMeter";
+	public const string NoteObj = "Note";
 
-	public static string LocalMP3Path;
-	public static string LocalNotePath;
-	public static string LocalWAVPath;
-	public static string AssetBundlePath;
+	public const int MainMenuScene = 0;
+	public const int GamePlayScene = 1;
+	public const int WinScreenScene = 2;
+	public const int SettingsScene = 5;
 
-	private static string ExeFolder = "/Scripts/";
-	public static string pythonExe = ExeFolder + "hello.sh";
-	public static string matlabExe = ExeFolder + "TODO";
-	public static string pipelineExe = Application.streamingAssetsPath + "/pipeline.sh";
-
-	public static string NeedleObj = "Needle";
-	public static string GameManagerObj = "GameManager";
-	public static string BottomNeedleObj = "BottomNeedle";
-	public static string MenuManagerObj = "MenuManager";
-	public static string RockMeterObj = "RockMeter";
-	public static string NoteObj = "Note";
-
-	public static int MainMenuScene = 0;
-	public static int GamePlayScene = 1;
-	public static int WinScreenScene = 2;
-	public static int SettingsScene = 5;
+	public static readonly List<string> difficultyLevelsArray = new List<string>() { 
+		"Easy",
+		"Medium",
+		"Hard",
+		"Expert"
+	};
 }

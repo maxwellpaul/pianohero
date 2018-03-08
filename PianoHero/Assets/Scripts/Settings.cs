@@ -16,15 +16,10 @@ public class Settings : MonoBehaviour {
 	public void SetPathButton() {
 		string path = inputField.text;
 		PlayerPrefs.SetString ("ResourcePath", path);
-		Const.ResourcePath = path;
+		Utility.ResourcePath = path;
 	}
 
 	public void MainMenuButton() {
 		SceneManager.LoadScene (Const.MainMenuScene);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }

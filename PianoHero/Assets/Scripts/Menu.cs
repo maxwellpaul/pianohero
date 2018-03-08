@@ -17,10 +17,10 @@ public class Menu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Const.ResourcePath = PlayerPrefs.GetString ("ResourcePath");
-		Const.LocalMP3Path = Const.ResourcePath + "MP3Files/";
-		Const.LocalNotePath = Const.ResourcePath + "NoteFiles/";
-		Const.LocalWAVPath = Const.ResourcePath + "WAVFiles/";
+		Utility.ResourcePath = PlayerPrefs.GetString ("ResourcePath");
+		Utility.LocalMP3Path = Utility.ResourcePath + "MP3Files/";
+		Utility.LocalNotePath = Utility.ResourcePath + "NoteFiles/";
+		Utility.LocalWAVPath = Utility.ResourcePath + "WAVFiles/";
 
 		PlayerPrefs.SetInt ("Score_Scene", 0);
 		PlayerPrefs.SetInt ("Streak_Scene", 0);
@@ -69,22 +69,7 @@ public class Menu : MonoBehaviour {
 	}
 
 	public void DifficultyDropDownIndexChanged (int index) {
-		switch (index) {
-		case 0:
-			PlayerPrefs.SetString (Const.difficultyLevel, "Easy");
-			break;
-		case 1:
-			PlayerPrefs.SetString (Const.difficultyLevel, "Medium");
-			break;
-		case 2:
-			PlayerPrefs.SetString (Const.difficultyLevel, "Hard");
-			break;
-		case 3:
-			PlayerPrefs.SetString (Const.difficultyLevel, "Expert");
-			break;
-		default:
-			break;
-		}
+		PlayerPrefs.SetString (Const.difficultyLevelKey, Const.difficultyLevelsArray[index]);
 	}
 
 	// Called to populate the dropdown and songTokens
@@ -95,7 +80,7 @@ public class Menu : MonoBehaviour {
 		songDropdown.ClearOptions ();
 
 		// Get the text songs in the given directory
-		string currPath = Const.LocalNotePath;
+		string currPath = Utility.LocalNotePath;
 		if (!System.IO.Directory.Exists (currPath))
 			print ("Error: path dne - " + currPath);
 
