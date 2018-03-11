@@ -141,7 +141,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Win() {
-
 		string songHighScoreKey = Utility.makeHighScoreKey (Utility.songChoiceToken, Const.highScoreKey, Utility.difficultyLevel);
 		int score = Mathf.Max (PlayerPrefs.GetInt (Const.scoreKey), PlayerPrefs.GetInt(songHighScoreKey));
 		PlayerPrefs.SetInt (songHighScoreKey, score);

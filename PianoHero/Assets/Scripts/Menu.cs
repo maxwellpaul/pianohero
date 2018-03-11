@@ -22,10 +22,6 @@ public class Menu : MonoBehaviour {
 	void Start () {
 		Utility.LocalNotePath = PlayerPrefs.GetString (Const.resourcePathKey) + "NoteFiles/";
 
-		PlayerPrefs.SetInt ("Score_Scene", 0);
-		PlayerPrefs.SetInt ("Streak_Scene", 0);
-		PlayerPrefs.SetInt ("Mult_Scene", 0);
-
 		PopulateList ();
 		SongDropDownIndexChanged (0);
 		DifficultyDropDownIndexChanged (0);
@@ -71,16 +67,15 @@ public class Menu : MonoBehaviour {
 	/// Helpers
 	/// ----------
 
-	// Called to populate the dropdown and songTokens
 	private void PopulateList() {
-
-		// Clear previous data
 		Utility.songTokens.Clear ();
 		songDropdown.ClearOptions ();
 
 		// Get the text songs in the given directory
-		if (!System.IO.Directory.Exists (Utility.LocalNotePath))
+		if (!System.IO.Directory.Exists (Utility.LocalNotePath)) {
 			print ("Error: path dne - " + Utility.LocalNotePath);
+			return;
+		}
 
 		foreach (string file in System.IO.Directory.GetFiles(Utility.LocalNotePath)) {
 			string[] filenameArr = file.Split('/');

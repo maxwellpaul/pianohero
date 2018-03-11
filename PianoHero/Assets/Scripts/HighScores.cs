@@ -24,6 +24,10 @@ public class HighScores : MonoBehaviour {
 			displaySongs.Add (Utility.tokenToDisplay (filename));
 		songDrop.AddOptions (displaySongs);
 
+		PlayerPrefs.SetInt ("Score_Scene", 0);
+		PlayerPrefs.SetInt ("Streak_Scene", 0);
+		PlayerPrefs.SetInt ("Mult_Scene", 0);
+
 		RefreshHighScores ();
 	}
 

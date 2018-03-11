@@ -13,10 +13,19 @@ public class Settings : MonoBehaviour {
 	}
 
 	public void SetPathButton() {
+		if (!CheckValidity ()) {
+			print ("Error: check validity failed in Settings.cs");
+			return;
+		}
+
 		PlayerPrefs.SetString (Const.resourcePathKey, inputField.text);
 	}
 
 	public void MainMenuButton() {
 		SceneManager.LoadScene (Const.MainMenuScene);
+	}
+
+	private bool CheckValidity() {
+		return true; // TODO
 	}
 }
