@@ -9,6 +9,10 @@ public class LoadMP3 : MonoBehaviour {
 	string mp3Path;
 	string songName;
 
+	/// ----------
+	/// Buttons
+	/// ----------
+
 	public void SetMP3Path(string path) {
 		if (CheckValidPath(path))
 			mp3Path = path;
@@ -27,17 +31,25 @@ public class LoadMP3 : MonoBehaviour {
 		LoadFile ();
 	}
 
-	bool CheckValidPath(string path) {
-		return System.IO.File.Exists (path) && path.EndsWith(".mp3");
-	}
-
-	bool CheckValidSongName(string name) {
-		return !(name.Contains ("-") || name.Contains ("_") || name.Contains ("/"));
-	}
-
 	public void MainMenuButton() {
 		SceneManager.LoadScene (Const.MainMenuScene);
 	}
+
+	/// ----------
+	/// Validation Funcs
+	/// ----------
+
+	private bool CheckValidPath(string path) {
+		return System.IO.File.Exists (path) && path.EndsWith(".mp3");
+	}
+
+	private bool CheckValidSongName(string name) {
+		return !(name.Contains ("-") || name.Contains ("_") || name.Contains ("/"));
+	}
+
+	/// ----------
+	/// Helpers
+	/// ----------
 
 	private bool DoneLoading () {
 		return true;

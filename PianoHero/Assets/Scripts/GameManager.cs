@@ -16,7 +16,10 @@ public class GameManager : MonoBehaviour {
 
 	string noteFile;
 
-	// Use this for initialization
+	/// ----------
+	/// Init and Base funcs
+	/// ----------
+
 	void Start () {
 		PlayerPrefs.SetInt (Const.scoreKey, 0);
 		PlayerPrefs.SetInt (Const.maxMultKey, 1);
@@ -29,16 +32,39 @@ public class GameManager : MonoBehaviour {
         ReadString();
 	}
 
-	// TODO remove or move?
 	void OnLevelWasLoaded(int level) {
 		Utility.amountOfRock = 0;
 		rockMeter = GameObject.Find (Const.RockMeterObj);
 	}
 
-	// Update is called once per frame
 	void Update () {
 		if (ready && GameObject.FindGameObjectsWithTag (Const.NoteObj).Length == 0)
 			Win ();
+	}
+
+	void OnTriggerEnter2D(Collider2D col) {
+		Destroy (col.gameObject);
+		MissedNote ();
+	}
+
+	/// ----------
+	/// Buttons
+	/// ----------
+
+	public void QuitButton() {
+		MainMenu ();
+	}
+
+	public void Lose() {
+		Win();
+	}
+
+	public void MainMenu() {
+		SceneManager.LoadScene (Const.MainMenuScene);	
+	}
+
+	public void PlayAgain() {
+		SceneManager.LoadScene (Const.GamePlayScene);	
 	}
 
 	public void HitNote() {
@@ -53,6 +79,10 @@ public class GameManager : MonoBehaviour {
 		RockMeterDown ();
 		UpdateGUI ();
 	}
+
+	/// ----------
+	/// Helpers
+	/// ----------
 
 	private void AddScore() {
 		PlayerPrefs.SetInt (Const.scoreKey, PlayerPrefs.GetInt (Const.scoreKey) + 100 * multiplier);
@@ -86,21 +116,12 @@ public class GameManager : MonoBehaviour {
 		rockMeter.GetComponent<RockMeter> ().MeterDown ();
 	}
 
-	void UpdateGUI() {
+	private void UpdateGUI() {
 		PlayerPrefs.SetInt (Const.streakKey, streak);
 		PlayerPrefs.SetInt (Const.multKey, multiplier);
 	}
 
-	void OnTriggerEnter2D(Collider2D col) {
-		Destroy (col.gameObject);
-		MissedNote ();
-	}
-
-	public void QuitButton() {
-		MainMenu ();
-	}
-
-	void ReadString() {
+	private void ReadString() {
         float noteOneX = -1.5f;
         float noteTwoX = -.5f;
 		float noteThreeX = .5f;
@@ -140,7 +161,7 @@ public class GameManager : MonoBehaviour {
 		reader.Close();
 	}
 
-	public void Win() {
+	private void Win() {
 		string songHighScoreKey = Utility.makeHighScoreKey (Utility.songChoiceToken, Const.highScoreKey, Utility.difficultyLevel);
 		int score = Mathf.Max (PlayerPrefs.GetInt (Const.scoreKey), PlayerPrefs.GetInt(songHighScoreKey));
 		PlayerPrefs.SetInt (songHighScoreKey, score);
@@ -159,17 +180,5 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (Const.highMultKey, mult);
 
 		SceneManager.LoadScene (Const.WinScreenScene);	
-	}
-
-	public void Lose() {
-		Win();
-	}
-
-	public void MainMenu() {
-		SceneManager.LoadScene (Const.MainMenuScene);	
-	}
-
-	public void PlayAgain() {
-		SceneManager.LoadScene (Const.GamePlayScene);	
 	}
 }

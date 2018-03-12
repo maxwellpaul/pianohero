@@ -9,7 +9,10 @@ public class RockMeter : MonoBehaviour {
 	GameObject gm;
 	Vector3 rotationPoint;
 
-	// Use this for initialization
+	/// ----------
+	/// Init
+	/// ----------
+
 	void Start () {
 		needle = transform.Find (Const.NeedleObj).gameObject;
 		while (needle == null)
@@ -26,10 +29,9 @@ public class RockMeter : MonoBehaviour {
 		SetToWin ();
 	}
 
-	private void SetToWin() {
-		needle.transform.RotateAround (rotationPoint, Vector3.back, Utility.amountOfRock);
-		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
-	}
+	/// ----------
+	/// Callable Funcs
+	/// ----------
 
 	public void MeterUp() {
 		if (Utility.amountOfRock < 35) {
@@ -48,5 +50,14 @@ public class RockMeter : MonoBehaviour {
 		needle.transform.RotateAround (rotationPoint, Vector3.back, -1);
 		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 		--Utility.amountOfRock;
+	}
+
+	/// ----------
+	/// Helpers
+	/// ----------
+
+	private void SetToWin() {
+		needle.transform.RotateAround (rotationPoint, Vector3.back, Utility.amountOfRock);
+		needle.transform.localScale = new Vector3 (0.02F, 1F, 1F);
 	}
 }
