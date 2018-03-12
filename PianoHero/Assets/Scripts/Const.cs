@@ -27,7 +27,10 @@ public class Const {
 	public const int MainMenuScene = 0;
 	public const int GamePlayScene = 1;
 	public const int WinScreenScene = 2;
+	public const int HighScoresScene = 3;
+	public const int LoadSongScene = 4;
 	public const int SettingsScene = 5;
+	public const int HelpScene = 6;
 
 	public static readonly List<string> difficultyLevelsArray = new List<string>() { 
 		"Easy",

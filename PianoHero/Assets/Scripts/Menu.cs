@@ -43,16 +43,20 @@ public class Menu : MonoBehaviour {
 
 	// Button to open high scores dialog
 	public void OpenHighScoresWindowButton() {
-		SceneManager.LoadScene (3);
+		SceneManager.LoadScene (Const.HighScoresScene);
 	}
 
 	// Button to open the high scores dialog
 	public void OpenLoadWindowButton() {
-		SceneManager.LoadScene (4);
+		SceneManager.LoadScene (Const.LoadSongScene);
 	}
 
 	public void OpenSettingsButton() {
 		SceneManager.LoadScene (Const.SettingsScene);
+	}
+
+	public void OpenHelpButton() {
+		SceneManager.LoadScene (Const.HelpScene);
 	}
 
 	public void SongDropDownIndexChanged (int index) {

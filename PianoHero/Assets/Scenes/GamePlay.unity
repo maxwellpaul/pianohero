@@ -662,6 +662,11 @@ Prefab:
       propertyPath: m_Text
       value: 00000
       objectReference: {fileID: 0}
+    - target: {fileID: 223675815133569098, guid: 5c4f19e85f67d46cb8ed3586d6f43b6e,
+        type: 2}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c4f19e85f67d46cb8ed3586d6f43b6e, type: 2}
   m_IsPrefabParent: 0
