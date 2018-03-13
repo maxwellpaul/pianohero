@@ -222,7 +222,7 @@ for file = files'
     end
     end
     
-    easySongName = strcat(songName, '_EASY');
+    easySongName = strcat(songName, '-EASY');
     easyOutFileName = strcat(easySongName,'.txt');
     
     %MEDIUM
@@ -242,7 +242,7 @@ for file = files'
     end
     end
     
-    mediumSongName = strcat(songName, '_MEDI');
+    mediumSongName = strcat(songName, '-MEDI');
     mediumOutFileName = strcat(mediumSongName,'.txt');
     
     %HARD
@@ -262,7 +262,7 @@ for file = files'
     end
     end
     
-    hardSongName = strcat(songName, '_HARD');
+    hardSongName = strcat(songName, '-HARD');
     hardOutFileName = strcat(hardSongName,'.txt');
     
     %EXPERT
@@ -282,7 +282,7 @@ for file = files'
     end
     end
     
-    expertSongName = strcat(songName, '_EXPE');
+    expertSongName = strcat(songName, '-EXPE');
     expertOutFileName = strcat(expertSongName,'.txt');
     
     %Open a file to write the notes to
