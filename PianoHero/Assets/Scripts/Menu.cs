@@ -41,6 +41,12 @@ public class Menu : MonoBehaviour {
 		Application.Quit ();
 	}
 
+	// Alternate Play Screen
+	public void PlayAltGameButton()
+	{
+		SceneManager.LoadScene(Const.SongSelectScene);
+	}
+
 	// Button to open high scores dialog
 	public void OpenHighScoresWindowButton() {
 		SceneManager.LoadScene (Const.HighScoresScene);
@@ -61,10 +67,12 @@ public class Menu : MonoBehaviour {
 
 	public void SongDropDownIndexChanged (int index) {
 		Utility.songChoiceToken = Utility.songTokens [index];
+        print(Utility.songTokens[index]);
 	}
 
 	public void DifficultyDropDownIndexChanged (int index) {
 		Utility.difficultyLevel = Const.difficultyLevelsArray[index];
+        print(Const.difficultyLevelsArray[index]);
 	}
 
 	/// ----------

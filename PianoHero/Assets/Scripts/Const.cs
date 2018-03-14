@@ -31,6 +31,8 @@ public class Const {
 	public const int LoadSongScene = 4;
 	public const int SettingsScene = 5;
 	public const int HelpScene = 6;
+    public const int SongSelectScene = 7;
+    public const int DifficultySelectScene = 8;
 
 	public static readonly List<string> difficultyLevelsArray = new List<string>() { 
 		"Easy",
