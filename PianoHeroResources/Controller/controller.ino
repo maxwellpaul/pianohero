@@ -1,3 +1,5 @@
+#include <Keyboard.h>
+
 const int button1Pin = 3;
 const int button2Pin = 4;
 const int button3Pin = 5;
@@ -42,17 +44,21 @@ void loop() {
 
 void clickA(){
     Keyboard.write('A');
+    Serial.print("A");
 }
 
 void clickS(){
     Keyboard.write('S');
+    Serial.print("S");
 }
 
 void clickD(){
     Keyboard.write('D');
+    Serial.print("D");
 }
 
 void clickF(){
     Keyboard.write('F');
+    Serial.print("F");
 }
 
