@@ -42,14 +42,9 @@ public class SongSelectManager : MonoBehaviour {
         float SongOptionY = -2.2f;
         foreach (string filename in Utility.songTokens) {
             GameObject song = Instantiate(SongOption, new Vector3(SongOptionX, SongOptionY, 0), Quaternion.identity);
-            song.GetComponentInChildren<UnityEngine.UI.Text>().text = filename;
+			song.GetComponentInChildren<UnityEngine.UI.Text>().text = Utility.tokenToDisplay(filename);
             song.GetComponentInChildren<SongOption>().SongTitle = filename;
             SongOptionY -= 2.5f;
         }
     }
-
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
