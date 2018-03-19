@@ -12,8 +12,6 @@ using System.Diagnostics;
 public class Menu : MonoBehaviour {
 
 	GameObject gm;
-	public Dropdown songDropdown;
-	public Dropdown difficultyDropdown;
 
 	/// ----------
 	/// Init
@@ -21,20 +19,12 @@ public class Menu : MonoBehaviour {
 
 	void Start () {
 		Utility.LocalNotePath = PlayerPrefs.GetString (Const.resourcePathKey) + "NoteFiles/";
-
 		PopulateList ();
-		SongDropDownIndexChanged (0);
-		DifficultyDropDownIndexChanged (0);
 	}
 
 	/// ----------
 	/// Buttons
 	/// ----------
-
-	// Play the game
-	public void PlayButton() {
-		SceneManager.LoadScene (Const.GamePlayScene);
-	}
 
 	// Quit the game
 	public void QuitGameButton() {
@@ -42,8 +32,11 @@ public class Menu : MonoBehaviour {
 	}
 
 	// Alternate Play Screen
-	public void PlayAltGameButton()
-	{
+	public void PlayAltGameButton() {
+		List<string> options = PopulateList ();
+		if (options.Count == 0)
+			return;
+
 		SceneManager.LoadScene(Const.SongSelectScene);
 	}
 
@@ -65,28 +58,17 @@ public class Menu : MonoBehaviour {
 		SceneManager.LoadScene (Const.HelpScene);
 	}
 
-	public void SongDropDownIndexChanged (int index) {
-		Utility.songChoiceToken = Utility.songTokens [index];
-        print(Utility.songTokens[index]);
-	}
-
-	public void DifficultyDropDownIndexChanged (int index) {
-		Utility.difficultyLevel = Const.difficultyLevelsArray[index];
-        print(Const.difficultyLevelsArray[index]);
-	}
-
 	/// ----------
 	/// Helpers
 	/// ----------
 
-	private void PopulateList() {
+	private List<string> PopulateList() {
 		Utility.songTokens.Clear ();
-		songDropdown.ClearOptions ();
 
 		// Get the text songs in the given directory
 		if (!System.IO.Directory.Exists (Utility.LocalNotePath)) {
 			print ("Error: path dne - " + Utility.LocalNotePath);
-			return;
+			return new List<string>();
 		}
 
 		foreach (string file in System.IO.Directory.GetFiles(Utility.LocalNotePath)) {
@@ -104,6 +86,6 @@ public class Menu : MonoBehaviour {
 		List<string> displaySongs = new List<string> ();
 		foreach (string filename in Utility.songTokens)
 			displaySongs.Add (Utility.tokenToDisplay (filename));
-		songDropdown.AddOptions (displaySongs);
+		return displaySongs;
 	}
 }
