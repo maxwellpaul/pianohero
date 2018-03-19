@@ -57,8 +57,7 @@ public class LoadMP3 : MonoBehaviour {
 		string token = Utility.DisplayToToken (songName);
 		string resourcePath = PlayerPrefs.GetString (Const.resourcePathKey);
 
-		return 	System.IO.File.Exists (resourcePath + "MP3Files/" + token + ".mp3") && 
-			System.IO.File.Exists (resourcePath + "WAVFiles/" + token + ".wav") && 
+		return System.IO.File.Exists (resourcePath + "WAVFiles/" + token + ".wav") && 
 			System.IO.File.Exists(resourcePath + "NoteFiles/" + token + "-Easy.txt") &&
 			System.IO.File.Exists(resourcePath + "NoteFiles/" + token + "-Medium.txt") &&
 			System.IO.File.Exists(resourcePath + "NoteFiles/" + token + "-Hard.txt") &&
@@ -70,7 +69,7 @@ public class LoadMP3 : MonoBehaviour {
 
 		CopyMP3File (Utility.DisplayToToken (songName) + ".mp3");
 
-		Program pipeline = new Program (Application.streamingAssetsPath + "/pipeline.sh", "");
+		Program pipeline = new Program (Application.streamingAssetsPath + "/pipeline.sh", PlayerPrefs.GetString (Const.resourcePathKey));
 		pipeline.LaunchCommandLineApp ();
 
 		while (!DoneLoading());
