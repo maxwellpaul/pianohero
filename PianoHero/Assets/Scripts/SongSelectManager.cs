@@ -3,48 +3,98 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SongSelectManager : MonoBehaviour {
 
     public GameObject SongOption;
+//	public Button nextButton;
+//	public Button prevButton;
+
+	List<GameObject> currSongs;
+
+	int pageNum;
+	int maxPageNum;
+	int pageSize;
 
 	// Use this for initialization
 	void Start () {
 		Utility.LocalNotePath = PlayerPrefs.GetString(Const.resourcePathKey) + "NoteFiles/";
-        PopulateSongs();
+		pageSize = 3;
+		pageNum = 0;
+		currSongs = new List<GameObject> ();
+		maxPageNum = (Utility.songTokens.Count / pageSize);
+		SetButtons ();
+		PopulateSongs(pageNum);
 	}
-	
-    void PopulateSongs() {
-		Utility.songTokens.Clear();
 
-		// Get the text songs in the given directory
-		if (!System.IO.Directory.Exists(Utility.LocalNotePath))
-		{
-			print("Error: path dne - " + Utility.LocalNotePath);
+	void Update() {
+		if (Input.GetKeyDown ("f")) {
+			NextPageButton ();
+		} else if (Input.GetKeyDown ("a")) {
+			PrevPageButton ();
+		}
+	}
+
+	public void NextPageButton() {
+		if (pageNum == maxPageNum)
 			return;
-		}
 
-		foreach (string file in System.IO.Directory.GetFiles(Utility.LocalNotePath))
-		{
-			string[] filenameArr = file.Split('/');
-			string filename = filenameArr[filenameArr.Length - 1];
-			if (filename.EndsWith(".txt"))
-			{
-				filenameArr = filename.Split('-');
-				filename = filenameArr[0];
-				if (!Utility.songTokens.Contains(filename))
-					Utility.songTokens.Add(Utility.textToToken(filename));
-			}
-		}
+		++pageNum;
+		SetButtons ();
+		ClearPage ();
+		PopulateSongs (pageNum);
+	}
+
+	public void PrevPageButton() {
+		if (pageNum == 0)
+			return;
+
+		--pageNum;
+		SetButtons ();
+		ClearPage ();
+		PopulateSongs (pageNum);
+	}
+
+	public void SetButtons() {
+//		if (pageNum > 0) {
+//			prevButton.gameObject.SetActive (true);
+//		} else {
+//			prevButton.gameObject.SetActive (false);
+//		}
+//
+//		if (pageNum < maxPageNum) {
+//			nextButton.gameObject.SetActive (true);
+//		} else {
+//			nextButton.gameObject.SetActive (false);
+//		}
+	}
+
+	void ClearPage() {
+		foreach (GameObject obj in currSongs)
+			Destroy(obj);
+		currSongs.Clear ();
+	}
+
+
+	void PopulateSongs(int page) {
+
+		print ("Populating scene at page " + page);
 
         //Create Options For All Songs
         float SongOptionX = 0.0f;
         float SongOptionY = -2.2f;
-        foreach (string filename in Utility.songTokens) {
+
+		int endIndex = Mathf.Min ((page + 1) * pageSize, Utility.songTokens.Count);
+
+		for (int i = page * pageSize; i < endIndex; ++i) {
+			string filename = Utility.songTokens [i];
+
             GameObject song = Instantiate(SongOption, new Vector3(SongOptionX, SongOptionY, 0), Quaternion.identity);
 			song.GetComponentInChildren<UnityEngine.UI.Text>().text = Utility.tokenToDisplay(filename);
             song.GetComponentInChildren<SongOption>().SongTitle = filename;
             SongOptionY -= 2.5f;
+			currSongs.Add (song);
         }
     }
 }

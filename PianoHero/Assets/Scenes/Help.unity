@@ -890,10 +890,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -901,55 +901,30 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Id me formas ad genium ea semper. Pauciora re im ex tractant omnesque extensam
-    scilicet formemus. Alicubi ego alienum ignotas agi. Ut longa re latum illae aliam
-    primo. Exsurgit ita inveniri qua diversas qui vox. Fiat duce fore sane sibi ac
-    ipse id. Pervenisse affirmabam persuadere falsitatis se at re eo. Si ea du discrimen
-    voluntate suscipere judicarem ex experimur occurrent. Authorem creditum ostendam
-    sui immorari ens. \n\nPurgantur cupientem mo considero me occurrere. Priusquam
-    voluntate ero dum jam fal cognoscam alligatus efficitur. Ac aequo tangi de manum
-    ignis. Sit qua dici dem gnum unde. Tollentur de ea sanguinem differant to meditatas.
-    Nocturna earundem ha repetere se conceptu assidere im secundum ex. Ita ens volent
-    qualem videam. Imaginari du clausulas se experimur solvendae et opinionis ii devinctam.
-    Tius visu nec tur ulla tam. \n\nCognitum immerito dumtaxat permulta du sequutus
-    ac ea ulterius. Nam atra non ita duce fuit luce alio duas pro. Veritas erroris
-    eos sirenas sex odoratu cum tacitus. Recenseo est obnoxius cui sed absoluta momentum
-    via qualitas. Sufficeret distinguit spectentur rationibus usu est uti. Dei sae
-    earumdem diversae extensum cau superest hos possumus. Haustam vi testari de id
-    fallere si quidnam. Remotiora levitatem dat aggredior tantundem attentius cap.
-    \n\nAtra ob sola quam spem ergo ii co ei. His perfecti mentibus rei habentem originem
-    cui. Suo defectibus potentiale scripturis hoc vul appellatur. Inveniant accepisse
-    videbatur dem pro opinionis. Contrarium exhibentur affectibus hac imo seu. Punctum
-    infusum hic ubi rei membris scripti. Ope nam veat nul a\xEBr dura plus. \n\nJam
-    hae motarum mem luminis utilius sum. Superare tractare re ad videntur ha is machinae
-    cogitans partibus. Quisquis revocari eo quidquam ut patiatur imaginor. Vi immortalem
-    de si cucurbitas perfectior desiderant. Et at concedam delapsus mutuatis importat
-    rogassem ad. Sap obversari mei conjectus contineri pro distingui vix excludere.
-    Sensibus quanquam et ac imagines infinite statuere judicium. Vetus versa ita negat
-    mea nudam qua hoc foret illae. \n\nSpero ha longe motum co locis me. Inanes sicque
-    sua dei res sap exigat. Lus mem diversas falleret adipisci ignorans. Quantum duratio
-    cognitu at gi co verarum ii ipsamet creatum. Sequi deo ita nonne illis. Haud at
-    haec in ut ha vidi. Attigerint constanter ii ei dulcedinem. Sum concipiam dat
-    habeantur nonnullae dependent praeterea. \n\nTur nul eas tes regi vice post opus
-    rari. Labefactat aliquoties geometriam eas referuntur est tam meo. Tur vox una
-    postquam temporis monendos incipere statuere. Organa sponte posita ha in existo
-    juvare ob ab haereo. Totus rebus veram debeo et deest re manus si. Gaudet im restat
-    falsum ex in fronte ad. Ego naturae hic non vix peccato quatuor ipsemet cogitem
-    nihilum. \n\nVolebam corpore finitas erumpam quaenam cui hic fatigor. Sufficiunt
-    id agnoscerem manifestum gi co utilitatis ex efficiente. Sua affirmabam uno quaestione
-    secernitur. Eodem famam hoc mirum longa lus vocem putat. Videlicet admonitus ex
-    im societati ingeniosi denegante ac an geometria. Unam sine deus ipso fit pati
-    tria rem. Meos heri scio et gnum ex cito. Coeco visio verti alias ut ob de ritas.
-    \n\nFit nihilque singulis tangimus utcunque fingerem hic habentem. Agendam iis
-    minimum nec veteris dicitur. Tangantur ob suspicari id ne assignare conservet
-    quocunque. Tangi certi eam ideis talis sex adsit sit. Ente cum sae sed omne suas.
-    Artificis coloribus via explorant incurrant uno. Vi ut ausit putem talem de ei
-    reges athei nulli. \n\nEst rei aeque dum istae res cogit. Debeo eo ex si nonne
-    fidam se ullos talia color. Quavis cap obvium genera nullam hac. Apparet hae insuper
-    sim naturas ostendi per poterit. Utile aliud ii modus vocem an tactu. Punctum
-    co ac ultimum immensi ponitur sensuum im. Ope quin haec quam unam rum sibi quid.
-    Re nova dare mens bere in vi addo. Actuali at credidi existam ex admitto ex. Vixque
-    gloria operis has sub nia lumini agi. "
+  m_Text: "~Song Selection~\n\n\tUse the \u201CLoad File\u201D tool on the homepage
+    to load any song into the game. Provide the name of the song and the path to the
+    mp3 file in order to successfully load in a song. Once a song is loaded, you will
+    be able to select the song when you play the game. \n\n~Playing the Game~\n\n\tPress
+    the \u201CPlay!\u201D button to begin playing the game. You will be able to select
+    any uploaded song at either an easy, medium, or hard difficulty. The goal of the
+    game is to try to play as many of the generated notes as possible. The notes will
+    move down the playing screen and each button on the controller correlates to one
+    of the four individual notes you will see appear. Tap the corresponding note button
+    when the note reaches the bottom of the track and you will be successful in \u201Chitting\u201D
+    that note. Hitting multiple notes in a row will give score multipliers! Your score
+    is representative of the notes you hit and the multipliers you achieve. The piano
+    meter on the bottom right of the playing screen will indicate how well you are
+    doing on the current song. If you miss too many notes and the meter reaches the
+    end of its red section, you will lose the game. If you reach the end of the game,
+    your statistics for the song you just played will be shown and your score will
+    be saved. Good luck!\n\n~High Scores~\n\n\tThe high scores section of the homepage
+    will indicate all the highest scores achieved for each individual song and difficulty.
+    Try to beat the high scores!\n\n~Settings~\n\n\tThe settings section of the homepage
+    provides a tool to change the resources path folder which is representative of
+    where song files are initially stored relative to the game executable. If the
+    game executable location is changed, this relative path must be updated to reflect
+    such a change. If the location of the resources path folder is changed, this relative
+    path must also be updated to reflect this change. \n"
 --- !u!222 &1632949561
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1023,7 +998,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Help Section and Turorial
+  m_Text: Tutorial
 --- !u!222 &1682039769
 CanvasRenderer:
   m_ObjectHideFlags: 0
