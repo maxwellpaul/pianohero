@@ -19,17 +19,18 @@ for (dirpath, dirnames, filenames) in walk(mypath):
     break
 
 for filename in f:
-    name = filename[0:len(filename) - 4]
-    song_name_mp3 = "PianoHeroResources/MP3Files/" + name + ".mp3"
-    song_name_wav = "PianoHeroResources/WAVFiles/" + name + ".wav"
-    
-    pydub.AudioSegment.converter = r"/usr/local/Cellar/ffmpeg/3.4.1/bin/ffmpeg"
-    
-    song = AudioSegment.from_mp3(song_name_mp3)
-    
-    song.export(song_name_wav, format = "wav")
-    #song.export("PianoHero/Assets/Songs/song_wav/" + str(sys.argv[1]) + ".wav", format = "wav")
-    song.export("wav_files/song_queue/" + name + ".wav", format = "wav")
+    if(filename[0] != '.'):
+        name = filename[0:len(filename) - 4]
+        song_name_mp3 = "PianoHeroResources/MP3Files/" + name + ".mp3"
+        song_name_wav = "PianoHeroResources/WAVFiles/" + name + ".wav"
+        
+        pydub.AudioSegment.converter = r"/usr/local/Cellar/ffmpeg/3.4.1/bin/ffmpeg"
+        
+        song = AudioSegment.from_mp3(song_name_mp3)
+        
+        song.export(song_name_wav, format = "wav")
+        #song.export("PianoHero/Assets/Songs/song_wav/" + str(sys.argv[1]) + ".wav", format = "wav")
+        song.export("wav_files/song_queue/" + name + ".wav", format = "wav")
 
 #song_name_mp3 = "PianoHeroResources/MP3Files/" + str(sys.argv[1]) + ".mp3"
 #song_name_wav = "PianoHeroResources/WAVFiles/" + str(sys.argv[1]) + ".wav"

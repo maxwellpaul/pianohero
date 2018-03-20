@@ -26,7 +26,8 @@ public class Settings : MonoBehaviour {
 	}
 
 	private bool CheckValidity() {
+		print ("Checking " + inputField.text);
 		return 	System.IO.Directory.Exists (inputField.text) && 
-				inputField.text.EndsWith ("PianoHeroResource/");
+				inputField.text.EndsWith ("PianoHeroResources/");
 	}
 }

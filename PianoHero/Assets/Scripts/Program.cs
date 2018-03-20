@@ -12,6 +12,7 @@ class Program {
 	}
 
 	public void LaunchCommandLineApp() {
+		System.Diagnostics.Debug.WriteLine ("Started script");
 		ProcessStartInfo psi = new ProcessStartInfo (fileName, argument);
 		psi.CreateNoWindow = true;
 		psi.UseShellExecute = false;
@@ -19,5 +20,6 @@ class Program {
 		Process process = Process.Start (psi);
 		process.WaitForExit ();
 		process.Close ();
+		System.Diagnostics.Debug.WriteLine ("Completed script");
 	}
 }
