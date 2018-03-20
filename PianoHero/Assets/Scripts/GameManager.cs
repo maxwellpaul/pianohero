@@ -14,8 +14,6 @@ public class GameManager : MonoBehaviour {
     public float noteSpeed;
 	bool ready = false;
 
-	string noteFile;
-
 	/// ----------
 	/// Init and Base funcs
 	/// ----------
@@ -25,8 +23,6 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (Const.maxMultKey, 1);
 		PlayerPrefs.SetInt (Const.maxStreakKey, 0);
 		Utility.amountOfRock = 0;
-
-		noteFile = Utility.songChoiceToken + "-" + Utility.difficultyLevel + ".txt";
 
 		UpdateGUI();
         ReadString();
@@ -126,7 +122,7 @@ public class GameManager : MonoBehaviour {
         float noteTwoX = -.5f;
 		float noteThreeX = .5f;
 		float noteFourX = 1.5f;
-		string path = Utility.LocalNotePath + noteFile;
+		string path = Utility.LocalNotePath + Utility.songChoiceToken + "-" + Utility.difficultyLevel + ".txt";
 
 		//Read the text from directly from the test.txt file
 		StreamReader reader = new StreamReader(path);
