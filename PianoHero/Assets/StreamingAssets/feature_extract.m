@@ -1,11 +1,11 @@
 %This file runs through all wav files in the song_queue directory
 %reads in frequencies and converts to amplitude
-files = dir('../PianoHeroResources/MP3Files/*.mp3');
+files = dir('../../../PianoHeroResources/MP3Files/*.mp3');
 for file = files'
-    filename = strcat('../PianoHeroResources/MP3Files/', file.name);
+    filename = strcat('../../../PianoHeroResources/MP3Files/', file.name);
     signal = audioread(filename);
     songName = file.name(1:end-4);
-    wavFileName = strcat('../PianoHeroResources/WAVFiles/', songName);
+    wavFileName = strcat('../../../PianoHeroResources/WAVFiles/', songName);
     wavFileName = strcat(wavFileName, '.wav');
     info = audioinfo(filename); 
     audiowrite(wavFileName, signal, info.SampleRate);
@@ -14,8 +14,8 @@ for file = files'
     dt = 1/fs;
     t = 0:dt:(length(y)*dt)-dt;
     %plot(t,y); 
-    xlabel('Seconds'); 
-    ylabel ('Amplitude');
+    %xlabel('Seconds'); 
+    %ylabel ('Amplitude');
 
     %Length of the song in seconds
     songLengthSecs = length(t) / fs;
@@ -69,7 +69,7 @@ for file = files'
     
     %Used for plotting the averages
     x_var = (1:1:numWindows);
-    plot(x_var, averages);
+    %plot(x_var, averages);
 
     %average_amps = mean(window);
 
@@ -298,7 +298,7 @@ for file = files'
     end
     fclose(fid);
 
-    movefile(easyOutFileName, '../PianoHeroResources/NoteFiles/');
+    movefile(easyOutFileName, '../../../PianoHeroResources/NoteFiles/');
     
     %Open a file to write the notes to
     fid=fopen(mediumOutFileName,'w');
@@ -308,7 +308,7 @@ for file = files'
     end
     fclose(fid);
 
-    movefile(mediumOutFileName, '../PianoHeroResources/NoteFiles/');
+    movefile(mediumOutFileName, '../../../PianoHeroResources/NoteFiles/');
     
     %Open a file to write the notes to
     fid=fopen(hardOutFileName,'w');
@@ -318,7 +318,7 @@ for file = files'
     end
     fclose(fid);
 
-    movefile(hardOutFileName, '../PianoHeroResources/NoteFiles/');
+    movefile(hardOutFileName, '../../../PianoHeroResources/NoteFiles/');
     
     %Open a file to write the notes to
     fid=fopen(expertOutFileName,'w');
@@ -328,6 +328,6 @@ for file = files'
     end
     fclose(fid);
 
-    movefile(expertOutFileName, '../PianoHeroResources/NoteFiles/');
+    movefile(expertOutFileName, '../../../PianoHeroResources/NoteFiles/');
     
 end
