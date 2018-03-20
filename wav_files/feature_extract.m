@@ -1,9 +1,15 @@
 %This file runs through all wav files in the song_queue directory
 %reads in frequencies and converts to amplitude
-files = dir('song_queue/*.wav');
+files = dir('../../../PianoHeroResources/MP3Files/*.mp3');
 for file = files'
+    filename = strcat('../../../PianoHeroResources/MP3Files/', file.name);
+    signal = audioread(filename);
     songName = file.name(1:end-4);
-    [y,fs] = audioread(strcat(songName, '.wav'));
+    wavFileName = strcat('../../../PianoHeroResources/WAVFiles/', songName);
+    wavFileName = strcat(wavFileName, '.wav');
+    info = audioinfo(filename); 
+    audiowrite(wavFileName, signal, info.SampleRate);
+    [y,fs] = audioread(wavFileName);
     %[y,fs] = audioread('beet.wav');
     dt = 1/fs;
     t = 0:dt:(length(y)*dt)-dt;
@@ -134,9 +140,8 @@ for file = files'
             %Take the index of the peak and divide it by the total num of
             %indices to find approx location in song
             timeRatios(index) = locs(current_pk_index) / length(t);
-            current_pk_index = current_pk_index + 1;
-        end 
-        if locs(current_pk_index) == index && pks(current_pk_index) <= current_average
+            current_pk_index = current_pk_index + 1; 
+        elseif locs(current_pk_index) == index && pks(current_pk_index) <= current_average
             current_pk_index = current_pk_index + 1;
         end
         %Run this if there are no more pks, basically skips going
