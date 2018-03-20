@@ -67,10 +67,12 @@ public class LoadMP3 : MonoBehaviour {
 	private void LoadFile() {
 		print ("Loading file...");
 
-		//CopyMP3File (Utility.DisplayToToken (songName) + ".mp3");
+		CopyMP3File (Utility.DisplayToToken (songName) + ".mp3");
 
+		print ("Starting pipeline script");
 		Program pipeline = new Program (Application.streamingAssetsPath + "/pipeline.sh", PlayerPrefs.GetString (Const.resourcePathKey));
 		pipeline.LaunchCommandLineApp ();
+		print ("Completed pipeline script");
 
 		while (!DoneLoading());
 
