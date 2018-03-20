@@ -39,6 +39,15 @@ Summary - This is where the meat of our project is. We have written an algorithm
 --------------------------------------------------PIPELINE FOR BETA--------------------------------------------------
 For the Beta release we hope to add the upload mp3 feature shown in the demo application which you sampled in the beggining of this tutorial. It will work by selecting a file, automatically calling mp3_to_wav_converter.py and converting the mp3 to a wav file. Then it will automatically run the matlab script feature_extract.m to generate the txt file. The application will then update its settings automatically to add the uploaded song to its list of playable tracks.
 
+--------------------------------------------------BETA ACCOMPLISHMENTS--------------------------------------------------
+1. Added difficulty Levels for songs
+2. Updated and improved UI for bigger and easier to read functionality for the client
+3. Wrote all scripts to run controller along with set up all circuits necessary to run controller (Waiting on one part to come in to complete the controller)
+4. Updated and streamlined all backend conversion code. Pipeline now only consists of one file which handles converting Mp3 -> Wav -> Notes.
+5. Backend to Frontend Pipeline functions perfectly when operated through command line (Unity is giving us issues when running sh files but will be resolved)
+6. Updated UI to include "load song" functionality which actually runs the backend scripts.
+7. Uploaded songs recomended to us by the client to the demo platform in order to have Brad test and use the application on all difficulties.
+
 --------------------------------------------------CONTACT INFORMATION-----------------------------------------------
 If you have any questions on how to run the application or how the algorithms work please feel free to email the Piano Hero team at any of:
 averubin@umich.edu,
