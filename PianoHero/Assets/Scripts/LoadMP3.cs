@@ -3,6 +3,7 @@ using UnityEngine;
 using System.IO;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class LoadMP3 : MonoBehaviour {
 	
@@ -64,26 +65,48 @@ public class LoadMP3 : MonoBehaviour {
 			System.IO.File.Exists(resourcePath + "NoteFiles/" + token + "-Expert.txt");
 	}
 
-	private void LoadFile() {
-		print ("Loading file...");
+    public void ChooseFile() {
+		string path = EditorUtility.OpenFilePanel("Please Choose an MP3 File", "", "mp3");
+		if (path.Length != 0)
+		{
+            GameObject text = GameObject.Find("FilePathText");
+            text.GetComponent<UnityEngine.UI.Text>().text = path;
+            text.GetComponent<UnityEngine.UI.Text>().color = Color.white;
+			print(path);
+			SetMP3Path(path);
+		}
+    }
 
+	private void LoadFile() {
+        print("Loading file...");
 		CopyMP3File (Utility.DisplayToToken (songName) + ".mp3");
 
 		print ("Starting pipeline script");
 		Program pipeline = new Program (Application.streamingAssetsPath + "/run_feature_extract.sh", "/Applications/MATLAB/MATLAB_Runtime/v93");
 		pipeline.LaunchCommandLineApp ();
 		print ("Completed pipeline script");
-
+        MoveMP3File(Utility.DisplayToToken(songName) + ".mp3");
 		while (!DoneLoading());
 
 		return;
 	}
 
-	private void CopyMP3File(string destFileName) {
+    private void MoveMP3File(string destFileName) {
+        string sourcePath = PlayerPrefs.GetString(Const.resourcePathKey) + "SongQueue/";
+		string targetPath = PlayerPrefs.GetString(Const.resourcePathKey) + "MP3Files/";
+		string destFilePath = System.IO.Path.Combine(targetPath, destFileName);
+        string currMP3Path = System.IO.Path.Combine(sourcePath, destFileName);
+        System.IO.File.Move(currMP3Path, destFilePath);
+		print("Move of " + mp3Path + " success!");
+		return;
+    }
+
+
+    private void CopyMP3File(string destFileName) {
 		string sourcePath = mp3Path.Remove (mp3Path.LastIndexOf('/'));
 
 		if (System.IO.Directory.Exists (sourcePath)) {
-			string targetPath = PlayerPrefs.GetString (Const.resourcePathKey) + "MP3Files/";
+			string targetPath = PlayerPrefs.GetString (Const.resourcePathKey) + "SongQueue/";
 			string destFilePath = System.IO.Path.Combine (targetPath, destFileName);
 			foreach (string s in System.IO.Directory.GetFiles(sourcePath)) {
 				if (s.Equals (mp3Path)) {

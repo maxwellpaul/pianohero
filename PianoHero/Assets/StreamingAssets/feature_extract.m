@@ -1,10 +1,10 @@
 %This file runs through all wav files in the song_queue directory
 %reads in frequencies and converts to amplitude
-files = dir('../PianoHeroResources/MP3Files/*.mp3');
+files = dir('../PianoHeroResources/SongQueue/*.mp3');
 fid2=fopen("GIVEMENAMES",'w');
 fprintf(fid2, '%s\n', pwd);
 for file = files'
-    filename = strcat('../PianoHeroResources/MP3Files/', file.name);
+    filename = strcat('../PianoHeroResources/SongQueue/', file.name);
     fprintf(fid2, '%s\n', filename);
     signal = audioread(filename);
     songName = file.name(1:end-4);
