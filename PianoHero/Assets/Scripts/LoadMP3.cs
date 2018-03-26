@@ -1,20 +1,26 @@
-﻿//C# Example
+﻿﻿//C# Example
 using UnityEngine;
 using System.IO;
 using System;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using System.Collections;
 
 public class LoadMP3 : MonoBehaviour {
 	
 	string mp3Path;
 	string songName;
+    public GameObject waitMenu;
 
-	/// ----------
-	/// Buttons
-	/// ----------
+    private void Awake()
+    {
+        waitMenu.SetActive(false);
+    }
 
-	public void SetMP3Path(string path) {
+    /// ----------
+    /// Buttons
+    /// ----------
+    public void SetMP3Path(string path) {
 		if (CheckValidPath(path))
 			mp3Path = path;
 		else
@@ -29,8 +35,15 @@ public class LoadMP3 : MonoBehaviour {
 	}
 
 	public void LoadButton() {
-		LoadFile ();
+        waitMenu.SetActive(true);
+        StartCoroutine(waitForLoad());
+		//LoadFile ();
 	}
+
+    private IEnumerator waitForLoad() {
+        yield return new WaitForSeconds(1);
+        LoadFile();
+    }
 
 	public void MainMenuButton() {
 		SceneManager.LoadScene (Const.MainMenuScene);
@@ -79,6 +92,7 @@ public class LoadMP3 : MonoBehaviour {
 
 	private void LoadFile() {
         print("Loading file...");
+
 		CopyMP3File (Utility.DisplayToToken (songName) + ".mp3");
 
 		print ("Starting pipeline script");
@@ -87,7 +101,7 @@ public class LoadMP3 : MonoBehaviour {
 		print ("Completed pipeline script");
         MoveMP3File(Utility.DisplayToToken(songName) + ".mp3");
 		while (!DoneLoading());
-
+        waitMenu.SetActive(false);
 		return;
 	}
 
