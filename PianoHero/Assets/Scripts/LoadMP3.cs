@@ -3,8 +3,8 @@ using UnityEngine;
 using System.IO;
 using System;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 using System.Collections;
+using Crosstales.FB;
 
 public class LoadMP3 : MonoBehaviour {
 	
@@ -78,16 +78,18 @@ public class LoadMP3 : MonoBehaviour {
 			System.IO.File.Exists(resourcePath + "NoteFiles/" + token + "-Expert.txt");
 	}
 
-    public void ChooseFile() {
-		string path = EditorUtility.OpenFilePanel("Please Choose an MP3 File", "", "mp3");
-		if (path.Length != 0)
-		{
+    public void ChooseFile()
+    {
+        string path = FileBrowser.OpenSingleFile("Please Choose an MP3 File", "", "mp3");
+
+        if (path.Length != 0)
+        {
             GameObject text = GameObject.Find("FilePathText");
             text.GetComponent<UnityEngine.UI.Text>().text = path;
             text.GetComponent<UnityEngine.UI.Text>().color = Color.white;
-			print(path);
-			SetMP3Path(path);
-		}
+            print(path);
+            SetMP3Path(path);
+        }
     }
 
 	private void LoadFile() {

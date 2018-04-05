@@ -1,15 +1,15 @@
 %This file runs through all wav files in the song_queue directory
 %reads in frequencies and converts to amplitude
-files = dir('../PianoHeroResources/SongQueue/*.mp3');
+files = dir('../../../PianoHeroResources/SongQueue/*.mp3');
 fid2=fopen("GIVEMENAMES",'w');
 fprintf(fid2, '%s\n', pwd);
 for file = files'
-    filename = strcat('../PianoHeroResources/SongQueue/', file.name);
+    filename = strcat('../../../PianoHeroResources/SongQueue/', file.name);
     fprintf(fid2, '%s\n', filename);
     signal = audioread(filename);
     songName = file.name(1:end-4);
     fprintf(fid2, '%s\n', songName);
-    wavFileName = strcat('../PianoHeroResources/WAVFiles/', songName);
+    wavFileName = strcat('../../../PianoHeroResources/WAVFiles/', songName);
     wavFileName = strcat(wavFileName, '.wav');
     fprintf(fid2, '%s\n', wavFileName);
     fprintf(fid2, '%s\n', pwd);
@@ -31,8 +31,18 @@ for file = files'
     
     %The vector of amplitude data we are actually using from y
     real_y = y(:,2);
-
+    %real_y = zeros(1, length(y(:,2)));
+    %for index = 1:length(real_y)
+    %    if y(index,2) > y(index,1)
+    %        real_y(index) = y(index,2);
+    %    else
+    %        real_y(index) = y(index,1);
+    %    end
+    %end
+    
     % How many frames are in a second
+    %TODO: for rock you this is slightly off by rounding error, could be
+    %issue
     second_frame_size = ceil(length(real_y)/songLengthSecs);
 
     %Number of frames in a window of 5 seconds
@@ -42,6 +52,8 @@ for file = files'
     window = zeros(1,(framesPerWindow));
     
     %The number of ~5 second windows in the song
+    %TODO: The last window may be shorter than the length of 
+    % a regular window, account for this
     numWindows = ceil(length(real_y)/(framesPerWindow));
     
     %Array that will hold the average amplitudes for each window
@@ -50,7 +62,7 @@ for file = files'
     average_index = 1;
     window_index = 1;
 
-    %SUMMARY:This for loop is grabbing the average amplitude value for data
+       %SUMMARY:This for loop is grabbing the average amplitude value for data
     %above our minimum threshold, for every single window of length 5
     %seconds in our song
     for index = 1:length(real_y)
@@ -65,7 +77,11 @@ for file = files'
             %get rid of all excess 0's
             window = window(window ~= 0);
             %Grabs the average amplitude of that window
-            averages(average_index) = mean(window);
+            if length(window) == 0
+                averages(average_index) = 0;
+            else
+                averages(average_index) = mean(window);
+            end
             average_index = average_index + 1;
             %reset the window
             window = zeros(1,(framesPerWindow));
@@ -304,7 +320,7 @@ for file = files'
     end
     fclose(fid);
 
-    movefile(easyOutFileName, '../PianoHeroResources/NoteFiles/');
+    movefile(easyOutFileName, '../../../PianoHeroResources/NoteFiles/');
     
     %Open a file to write the notes to
     fid=fopen(mediumOutFileName,'w');
@@ -314,7 +330,7 @@ for file = files'
     end
     fclose(fid);
 
-    movefile(mediumOutFileName, '../PianoHeroResources/NoteFiles/');
+    movefile(mediumOutFileName, '../../../PianoHeroResources/NoteFiles/');
     
     %Open a file to write the notes to
     fid=fopen(hardOutFileName,'w');
@@ -324,7 +340,7 @@ for file = files'
     end
     fclose(fid);
 
-    movefile(hardOutFileName, '../PianoHeroResources/NoteFiles/');
+    movefile(hardOutFileName, '../../../PianoHeroResources/NoteFiles/');
     
     %Open a file to write the notes to
     fid=fopen(expertOutFileName,'w');
@@ -334,7 +350,7 @@ for file = files'
     end
     fclose(fid);
     
-    movefile(expertOutFileName, '../PianoHeroResources/NoteFiles/');
+    movefile(expertOutFileName, '../../../PianoHeroResources/NoteFiles/');
     
 end
 

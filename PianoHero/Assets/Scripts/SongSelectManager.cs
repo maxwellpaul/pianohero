@@ -16,22 +16,24 @@ public class SongSelectManager : MonoBehaviour {
 	int pageNum;
 	int maxPageNum;
 	int pageSize;
+    public GameObject pageText;
 
 	// Use this for initialization
 	void Start () {
 		Utility.LocalNotePath = PlayerPrefs.GetString(Const.resourcePathKey) + "NoteFiles/";
 		pageSize = 3;
-		pageNum = 0;
+		pageNum = 1;
 		currSongs = new List<GameObject> ();
 		maxPageNum = (Utility.songTokens.Count / pageSize);
 		SetButtons ();
 		PopulateSongs(pageNum);
+        pageText.GetComponentInChildren<UnityEngine.UI.Text>().text = "Page " + pageNum.ToString() + "/" + maxPageNum.ToString();
 	}
 
 	void Update() {
-		if (Input.GetKeyDown ("f")) {
+        if (Input.GetKeyDown (KeyCode.RightArrow)) {
 			NextPageButton ();
-		} else if (Input.GetKeyDown ("a")) {
+        } else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 			PrevPageButton ();
 		}
 	}
@@ -43,17 +45,19 @@ public class SongSelectManager : MonoBehaviour {
 		++pageNum;
 		SetButtons ();
 		ClearPage ();
-		PopulateSongs (pageNum);
+		PopulateSongs (pageNum-1);
+        pageText.GetComponentInChildren<UnityEngine.UI.Text>().text = "Page " + pageNum.ToString() + "/" + maxPageNum.ToString();
 	}
 
 	public void PrevPageButton() {
-		if (pageNum == 0)
+		if (pageNum == 1)
 			return;
 
 		--pageNum;
 		SetButtons ();
 		ClearPage ();
-		PopulateSongs (pageNum);
+		PopulateSongs (pageNum-1);
+        pageText.GetComponentInChildren<UnityEngine.UI.Text>().text = "Page " + pageNum.ToString() + "/" + maxPageNum.ToString();
 	}
 
 	public void SetButtons() {
