@@ -17,6 +17,8 @@ public class Activator : MonoBehaviour {
 	//The game object inside the activator
 	GameObject note, gm;
 
+    private ParticleSystem ps;
+
 	// Use this for initialization
 	void Awake () {
 		sr = GetComponent<SpriteRenderer> ();
@@ -25,6 +27,7 @@ public class Activator : MonoBehaviour {
 	void Start() {
 		gm = GameObject.Find (Const.GameManagerObj);
 		old = sr.color;
+        ps = GetComponent<ParticleSystem>();
 	}
 
 	// Update is called once per frame
@@ -35,7 +38,11 @@ public class Activator : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown (key) && active) {
+            ps.Play();
 			Destroy (note);
+
+			var emission = ps.emission;
+			emission.enabled = true;
 			gm.GetComponent<GameManager> ().HitNote ();
 			active = false;
 		} else if (Input.GetKeyDown (key) && !active) {

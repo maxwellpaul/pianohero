@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
     public GameObject note;
 	public GameObject rockMeter;
     public float noteSpeed;
+
 	bool ready = false;
 
 	/// ----------
@@ -26,6 +27,8 @@ public class GameManager : MonoBehaviour {
 
 		UpdateGUI();
         ReadString();
+
+		
 	}
 
 	void OnLevelWasLoaded(int level) {
@@ -136,22 +139,28 @@ public class GameManager : MonoBehaviour {
             yCoord = startY + (noteSpeed * float.Parse(subStrings[1]));
             switch(subStrings[0]) {
                 case "1":
-                    Instantiate(note, new Vector3(noteOneX, yCoord, 0), Quaternion.identity);
+                    GameObject newNote = Instantiate(note, new Vector3(noteOneX, yCoord, 0), Quaternion.identity);
+                    newNote.GetComponent<SpriteRenderer>().color = new Color32(255,0,0,255);
                     break;
                 case "2":
-					Instantiate(note, new Vector3(noteTwoX, yCoord, 0), Quaternion.identity);
+					newNote = Instantiate(note, new Vector3(noteTwoX, yCoord, 0), Quaternion.identity);
+                    newNote.GetComponent<SpriteRenderer>().color = new Color32(19, 0, 255, 255);
                     break;
                 case "3":
-					Instantiate(note, new Vector3(noteThreeX, yCoord, 0), Quaternion.identity);
+					newNote = Instantiate(note, new Vector3(noteThreeX, yCoord, 0), Quaternion.identity);
+                    newNote.GetComponent<SpriteRenderer>().color = new Color32(83, 255, 0, 255);
                     break;
                 case "4":
-					Instantiate(note, new Vector3(noteFourX, yCoord, 0), Quaternion.identity);
+					newNote = Instantiate(note, new Vector3(noteFourX, yCoord, 0), Quaternion.identity);
+                    newNote.GetComponent<SpriteRenderer>().color = new Color32(241, 0, 255, 255);
                     break;
                 default:
                     print("Error: Invalid Note Type");
                     break;
             }
         }
+
+
 
 		ready = true;
 		reader.Close();

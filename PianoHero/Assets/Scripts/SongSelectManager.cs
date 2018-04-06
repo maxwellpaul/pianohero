@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -21,14 +21,26 @@ public class SongSelectManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Utility.LocalNotePath = PlayerPrefs.GetString(Const.resourcePathKey) + "NoteFiles/";
-		pageSize = 3;
+        pageSize = 3;
 		pageNum = 1;
 		currSongs = new List<GameObject> ();
-		maxPageNum = (Utility.songTokens.Count / pageSize);
+        print(Utility.songTokens.Count);
+        maxPageNum = NumPages();
+        print(maxPageNum);
 		SetButtons ();
-		PopulateSongs(pageNum);
+		PopulateSongs(pageNum-1);
         pageText.GetComponentInChildren<UnityEngine.UI.Text>().text = "Page " + pageNum.ToString() + "/" + maxPageNum.ToString();
 	}
+
+    private int NumPages() {
+        int currentCounter = 0;
+        int numPages = 0;
+        while (currentCounter < Utility.songTokens.Count) {
+            currentCounter += 3;
+            numPages += 1;
+        }
+        return numPages;
+    }
 
 	void Update() {
         if (Input.GetKeyDown (KeyCode.RightArrow)) {
@@ -36,6 +48,12 @@ public class SongSelectManager : MonoBehaviour {
         } else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 			PrevPageButton ();
 		}
+	}
+
+	public void MainMenuButtonPress()
+	{
+        print("here");
+		SceneManager.LoadScene(Const.MainMenuScene);
 	}
 
 	public void NextPageButton() {
