@@ -17,4 +17,9 @@ public class Note : MonoBehaviour {
         speed = gm.noteSpeed;
 		rb.velocity = new Vector2 (0, -speed);
 	}
+
+    void Update()
+    {
+        rb.velocity = new Vector2(0, -gm.noteSpeed);
+    }
 }

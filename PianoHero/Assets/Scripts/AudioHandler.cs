@@ -21,4 +21,14 @@ public class AudioHandler : MonoBehaviour {
 		clip = www.GetAudioClip(false);
 		music.clip = clip;
 	}
+
+    public void PauseSong() {
+        print("PAUSED");
+        music.Pause();
+    }
+
+    public void ResumeSong() {
+        print("RESUME");
+        music.Play();
+    }
 }

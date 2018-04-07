@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour {
 	int mult_length = 4;
     public GameObject note;
 	public GameObject rockMeter;
+    public float runningNoteSpeed;
     public float noteSpeed;
+    public GameObject pauseMenu;
 
 	bool ready = false;
 
@@ -24,7 +26,7 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (Const.maxMultKey, 1);
 		PlayerPrefs.SetInt (Const.maxStreakKey, 0);
 		Utility.amountOfRock = 0;
-
+        pauseMenu.SetActive(false);
 		UpdateGUI();
         ReadString();
 
@@ -53,6 +55,16 @@ public class GameManager : MonoBehaviour {
 	public void QuitButton() {
 		MainMenu ();
 	}
+
+    public void PauseButton() {
+        pauseMenu.SetActive(true);
+        noteSpeed = 0f;
+    }
+
+    public void ResumeButton() {
+        pauseMenu.SetActive(false);
+        noteSpeed = runningNoteSpeed;
+    }
 
 	public void Lose() {
 		Win();
@@ -130,6 +142,7 @@ public class GameManager : MonoBehaviour {
 		//Read the text from directly from the test.txt file
 		StreamReader reader = new StreamReader(path);
         noteSpeed = 1 / float.Parse(reader.ReadLine());
+        runningNoteSpeed = noteSpeed;
         float startY = -3 + noteSpeed * 2.2f;
         string noteString;
 		float yCoord = 0;

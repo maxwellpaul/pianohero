@@ -46,3 +46,6 @@ TagManager:
   - name: Note
     uniqueID: 1054860265
     locked: 0
+  - name: PauseMenu
+    uniqueID: 3889793467
+    locked: 0
