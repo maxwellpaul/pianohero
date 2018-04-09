@@ -101,6 +101,7 @@ public class LoadMP3 : MonoBehaviour {
 		Program pipeline = new Program (Application.streamingAssetsPath + "/run_feature_extract.sh", "/Applications/MATLAB/MATLAB_Runtime/v93");
 		pipeline.LaunchCommandLineApp ();
 		print ("Completed pipeline script");
+        MoveMP3File(Utility.DisplayToToken(songName) + ".mp3");
 		while (!DoneLoading());
         waitMenu.SetActive(false);
 		return;

@@ -13,24 +13,51 @@ public class GameManager : MonoBehaviour {
 	public GameObject rockMeter;
     public float runningNoteSpeed;
     public float noteSpeed;
+    public GameObject waitMenu;
+    public GameObject waitMenuText;
+    public GameObject oneText;
+    public GameObject twoText;
+    public GameObject threeText;
     public GameObject pauseMenu;
+    public GameObject pauseButton;
 
-	bool ready = false;
+	public bool ready = false;
 
 	/// ----------
 	/// Init and Base funcs
 	/// ----------
 
-	void Start () {
+    void Start () {
 		PlayerPrefs.SetInt (Const.scoreKey, 0);
 		PlayerPrefs.SetInt (Const.maxMultKey, 1);
 		PlayerPrefs.SetInt (Const.maxStreakKey, 0);
 		Utility.amountOfRock = 0;
+        waitMenu.SetActive(true);
+        oneText.SetActive(false);
+        twoText.SetActive(false);
+        threeText.SetActive(false);
         pauseMenu.SetActive(false);
-		UpdateGUI();
+        pauseButton.SetActive(false);
         ReadString();
+		UpdateGUI();
+	}
 
-		
+	IEnumerator Countdown()
+	{
+        pauseMenu.SetActive(false);
+        waitMenu.SetActive(true);
+        threeText.SetActive(true);
+		yield return new WaitForSeconds(1);
+        threeText.SetActive(false);
+        twoText.SetActive(true);
+        yield return new WaitForSeconds(1);
+        twoText.SetActive(false);
+        oneText.SetActive(true);
+        yield return new WaitForSeconds(1);
+        oneText.SetActive(false);
+        waitMenu.SetActive(false);
+        pauseButton.SetActive(true);
+		noteSpeed = runningNoteSpeed;
 	}
 
 	void OnLevelWasLoaded(int level) {
@@ -39,9 +66,23 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update () {
-		if (ready && GameObject.FindGameObjectsWithTag (Const.NoteObj).Length == 0)
-			Win ();
+        if(waitMenu.activeInHierarchy && Input.GetKeyDown(KeyCode.F)) {
+            waitMenu.SetActive(false);
+            waitMenuText.SetActive(false);
+            noteSpeed = runningNoteSpeed;
+            ready = true;
+            StartCoroutine(wait());
+            //ReadString();
+        }
+        if (ready && GameObject.FindGameObjectsWithTag (Const.NoteObj).Length == 0) {
+            Win();
+        }
 	}
+
+    IEnumerator wait() {
+        yield return new WaitForSeconds(2.2f);
+        pauseButton.SetActive(true);
+    }
 
 	void OnTriggerEnter2D(Collider2D col) {
 		Destroy (col.gameObject);
@@ -58,12 +99,16 @@ public class GameManager : MonoBehaviour {
 
     public void PauseButton() {
         pauseMenu.SetActive(true);
+        pauseButton.SetActive(false);
         noteSpeed = 0f;
     }
 
     public void ResumeButton() {
-        pauseMenu.SetActive(false);
-        noteSpeed = runningNoteSpeed;
+        StartCoroutine(Countdown());
+    }
+
+    public void RestartButton() {
+        SceneManager.LoadScene(Const.GamePlayScene);
     }
 
 	public void Lose() {
@@ -143,13 +188,14 @@ public class GameManager : MonoBehaviour {
 		StreamReader reader = new StreamReader(path);
         noteSpeed = 1 / float.Parse(reader.ReadLine());
         runningNoteSpeed = noteSpeed;
-        float startY = -3 + noteSpeed * 2.2f;
+        noteSpeed = 0;
+        float startY = -3 + runningNoteSpeed * 2.2f;
         string noteString;
 		float yCoord = 0;
 		while(!reader.EndOfStream) {
             noteString = reader.ReadLine();
             string[] subStrings = noteString.Split(':');
-            yCoord = startY + (noteSpeed * float.Parse(subStrings[1]));
+            yCoord = startY + (runningNoteSpeed * float.Parse(subStrings[1]));
             switch(subStrings[0]) {
                 case "1":
                     GameObject newNote = Instantiate(note, new Vector3(noteOneX, yCoord, 0), Quaternion.identity);
@@ -175,7 +221,8 @@ public class GameManager : MonoBehaviour {
 
 
 
-		ready = true;
+		
+        print("finished reading file");
 		reader.Close();
 	}
 

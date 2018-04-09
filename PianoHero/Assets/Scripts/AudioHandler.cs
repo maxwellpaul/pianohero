@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class AudioHandler : MonoBehaviour {
 
+    public GameManager gameManager;
 	AudioSource music;
+    private bool musicStart = false;
 	const float delay = 2.2f;
 
-	void Start () {
+    private void Update()
+    {
+        if(gameManager.ready && !musicStart) {
+            musicStart = true;
+            StartSong();
+        }
+    }
+
+    public void StartSong () {
 		music = GetComponent<AudioSource> ();
         string songName = Utility.songChoiceToken;
 		LoadFile(PlayerPrefs.GetString(Const.resourcePathKey) + "WAVFiles/" + songName + ".wav");
@@ -29,6 +39,11 @@ public class AudioHandler : MonoBehaviour {
 
     public void ResumeSong() {
         print("RESUME");
-        music.Play();
+        StartCoroutine(waitToContinue());
+    }
+
+    IEnumerator waitToContinue() {
+        yield return new WaitForSeconds(3);
+        music.UnPause();
     }
 }

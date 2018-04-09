@@ -49,3 +49,6 @@ TagManager:
   - name: PauseMenu
     uniqueID: 3889793467
     locked: 0
+  - name: WaitSong
+    uniqueID: 346292635
+    locked: 0
