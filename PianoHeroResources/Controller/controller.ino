@@ -5,6 +5,12 @@ const int button2Pin = 4;
 const int button3Pin = 5;
 const int button4Pin = 6;
 
+boolean pressed1 = false;
+boolean pressed2 = false;
+boolean pressed3 = false;
+boolean pressed4 = false;
+
+
 void setup() {
   // Set All pins to be inputs
   pinMode(button1Pin, INPUT);
@@ -24,41 +30,55 @@ void loop() {
   int button4State = digitalRead(button4Pin);
 
   //Click the appropriate keys on keyboard
-  if(button1State == HIGH){
+
+  //A
+  if(!pressed1 && button1State == HIGH){
+      pressed1 = true;
       clickA();
   }
+  else if(pressed1 && button1State == LOW){
+    pressed1 = false;
+  }
 
-  if(button2State == HIGH){
+  //S
+  if(!pressed2 && button2State == HIGH){
+      pressed2 = true;
       clickS();
   }
+  else if(pressed2 && button2State == LOW){
+    pressed2 = false;
+  }
 
-  if(button3State == HIGH){
+  //D
+  if(!pressed3 && button3State == HIGH){
+      pressed3 = true;
       clickD();
   }
+  else if(pressed3 && button3State == LOW){
+    pressed3 = false;
+  }
 
-  if(button4State == HIGH){
+  //F
+  if(!pressed4 && button4State == HIGH){
+      pressed4 = true;
       clickF();
   }
-  
+  else if(pressed4 && button4State == LOW){
+    pressed4 = false;
+  }
 }
 
 void clickA(){
     Keyboard.write('A');
-    Serial.print("A");
 }
-
 void clickS(){
     Keyboard.write('S');
-    Serial.print("S");
 }
 
 void clickD(){
     Keyboard.write('D');
-    Serial.print("D");
 }
 
 void clickF(){
     Keyboard.write('F');
-    Serial.print("F");
 }
-
