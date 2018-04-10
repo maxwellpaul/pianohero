@@ -3,31 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Crosstales.FB;
 
 public class Settings : MonoBehaviour {
 
-	public InputField inputField;
+    public GameObject text;
+    private string path;
 
-	void Start () {
-		inputField.text = PlayerPrefs.GetString(Const.resourcePathKey);
+	public void choosePathButton() {
+
+        path = FileBrowser.OpenSingleFolder("Please Choose a Resource Folder");
+
+        if (path.Length != 0)
+        {
+            text.GetComponent<UnityEngine.UI.Text>().text = path;
+            text.GetComponent<UnityEngine.UI.Text>().color = Color.white;
+            print(path);
+        }
 	}
 
-	public void SetPathButton() {
-		if (!CheckValidity ()) {
-			print ("Error: check validity failed in Settings.cs");
-			return;
-		}
-
-		PlayerPrefs.SetString (Const.resourcePathKey, inputField.text);
-	}
+    public void setPathButton() {
+        text.GetComponent<UnityEngine.UI.Text>().text = "Path successfully set!";
+        PlayerPrefs.SetString(Const.resourcePathKey, path);
+    }
 
 	public void MainMenuButton() {
 		SceneManager.LoadScene (Const.MainMenuScene);
 	}
 
-	private bool CheckValidity() {
-		print ("Checking " + inputField.text);
-		return 	System.IO.Directory.Exists (inputField.text) && 
-				inputField.text.EndsWith ("PianoHeroResources/");
-	}
+    //private bool CheckValidity(string path) {
+	//	print ("Checking " + path);
+	//	return 	System.IO.Directory.Exists (inputField.text) && 
+	//			inputField.text.EndsWith ("PianoHeroResources/");
+	//}
 }

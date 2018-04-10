@@ -34,10 +34,10 @@ public class Menu : MonoBehaviour {
 	// Alternate Play Screen
 	public void PlayAltGameButton() {
 		// Example #2: Write one string to a text file.
-        string text = Directory.GetCurrentDirectory();
+        //string text = PlayerPrefs.GetString(Const.resourcePathKey);
 		// WriteAllText creates a file, writes the specified string to the file,
 		// and then closes the file.    You do NOT need to call Flush() or Close().
-		System.IO.File.WriteAllText(@"/Users/jtknox/Desktop/WriteText.txt", text);
+		//System.IO.File.WriteAllText(@"/Users/jtknox/Desktop/WriteText.txt", text);
 
 
 
