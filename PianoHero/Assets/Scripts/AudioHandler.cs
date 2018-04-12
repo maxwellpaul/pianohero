@@ -43,7 +43,7 @@ public class AudioHandler : MonoBehaviour {
     }
 
     IEnumerator waitToContinue() {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         music.UnPause();
     }
 }

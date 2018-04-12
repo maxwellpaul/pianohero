@@ -8,13 +8,15 @@ using Crosstales.FB;
 
 public class LoadMP3 : MonoBehaviour {
 	
-	string mp3Path;
-	string songName;
+	string mp3Path = "";
+	string songName = "";
     public GameObject waitMenu;
+    public GameObject errorText;
 
     private void Awake()
     {
         waitMenu.SetActive(false);
+        errorText.SetActive(false);
     }
 
     /// ----------
@@ -35,9 +37,22 @@ public class LoadMP3 : MonoBehaviour {
 	}
 
 	public void LoadButton() {
-        waitMenu.SetActive(true);
-        StartCoroutine(waitForLoad());
-		//LoadFile ();
+        if (songName.Length == 0)
+        {
+            errorText.GetComponent<UnityEngine.UI.Text>().text = "Error: Must enter a song name";
+            errorText.SetActive(true);
+        }
+        else if(mp3Path.Length == 0) {
+			errorText.GetComponent<UnityEngine.UI.Text>().text = "Error: Must choose an mp3 file";
+			errorText.SetActive(true);
+        }
+        else
+        {
+            errorText.SetActive(false);
+            waitMenu.SetActive(true);
+            StartCoroutine(waitForLoad());
+            //LoadFile ();
+        }
 	}
 
     private IEnumerator waitForLoad() {

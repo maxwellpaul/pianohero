@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
     public GameObject oneText;
     public GameObject twoText;
     public GameObject threeText;
+    public GameObject fourText;
+    public GameObject fiveText;
     public GameObject pauseMenu;
     public GameObject pauseButton;
 
@@ -36,6 +38,8 @@ public class GameManager : MonoBehaviour {
         oneText.SetActive(false);
         twoText.SetActive(false);
         threeText.SetActive(false);
+        fourText.SetActive(false);
+        fiveText.SetActive(false);
         pauseMenu.SetActive(false);
         pauseButton.SetActive(false);
         ReadString();
@@ -46,6 +50,12 @@ public class GameManager : MonoBehaviour {
 	{
         pauseMenu.SetActive(false);
         waitMenu.SetActive(true);
+        fiveText.SetActive(true);
+        yield return new WaitForSeconds(1);
+        fiveText.SetActive(false);
+        fourText.SetActive(true);
+        yield return new WaitForSeconds(1);
+        fourText.SetActive(false);
         threeText.SetActive(true);
 		yield return new WaitForSeconds(1);
         threeText.SetActive(false);
