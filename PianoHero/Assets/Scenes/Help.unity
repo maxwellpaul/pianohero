@@ -753,8 +753,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1039632236}
   m_HandleRect: {fileID: 1039632235}
   m_Direction: 2
-  m_Value: 0.99994576
-  m_Size: 0.3424865
+  m_Value: 0.9999725
+  m_Size: 0.20885617
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -866,8 +866,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000007606287, y: -304.067}
-  m_SizeDelta: {x: 0, y: 608.2}
+  m_AnchoredPosition: {x: -0.000007606287, y: -599.9835}
+  m_SizeDelta: {x: 0, y: 1200.033}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1632949560
 MonoBehaviour:
@@ -908,32 +908,33 @@ MonoBehaviour:
     Go to settings menu, and click the \"Choose Folder\" button. Proceed to locate
     the PianoHeroResources folder that should be in the same directory as where this
     application is. It is absolutely necessary of this most recent version that the
-    PianoHeroResources folder is in the same directory as this application. Confirm
-    the folder path is correct and then click the \"Set Folder Path\" button. You
-    should now be able to have access to any songs already in the resource folder,
-    and will also be able to upload songs now.\n\n~Steps For Uploading a Song~\n\n1.
-    Navigate to the \"Load File\" menu, accessible from the Main Menu\"\n\n2. \n\n~Playing
-    the Game~\n\n\tPress the \u201CPlay!\u201D button to begin playing the game. You
-    will be able to select any uploaded song at either an easy, medium, or hard difficulty.
-    The goal of the game is to try to play as many of the generated notes as possible.
-    The notes will move down the playing screen and each button on the controller
-    correlates to one of the four individual notes you will see appear. Tap the corresponding
-    note button when the note reaches the bottom of the track and you will be successful
-    in \u201Chitting\u201D that note. Hitting multiple notes in a row will give score
-    multipliers! Your score is representative of the notes you hit and the multipliers
-    you achieve. The piano meter on the bottom right of the playing screen will indicate
-    how well you are doing on the current song. If you miss too many notes and the
-    meter reaches the end of its red section, you will lose the game. If you reach
-    the end of the game, your statistics for the song you just played will be shown
-    and your score will be saved. Good luck!\n\n~High Scores~\n\n\tThe high scores
-    section of the homepage will indicate all the highest scores achieved for each
-    individual song and difficulty. Try to beat the high scores!\n\n~Settings~\n\n\tThe
-    settings section of the homepage provides a tool to change the resources path
-    folder which is representative of where song files are initially stored relative
-    to the game executable. If the game executable location is changed, this relative
-    path must be updated to reflect such a change. If the location of the resources
-    path folder is changed, this relative path must also be updated to reflect this
-    change. \n"
+    PianoHeroResources folder is in the same directory as this application, and that
+    it is named \"PianoHeroResources\". Confirm the folder path is correct and then
+    click the \"Set Folder Path\" button. You should now be able to have access to
+    any songs already in the resource folder, and will also be able to upload songs
+    now.\n\n~Steps For Uploading a Song~\n\n1. Navigate to the \"Load File\" menu,
+    accessible from the Main Menu\"\n\n2. Enter a name for the song into the input
+    box.\n\n3. Click the \"Choose File\" button and then navigate to the mp3 file
+    on your machine that you want to upload and select it. To prevent any errors,
+    make sure there are no '%' symbols in the file path, as this could cause errors
+    in reading the file.\n\n4. Click the \"Load\" button and wait for the \"Please
+    Wait\" pop up to disappear.\n\n5. Once it has disappeared, the song should show
+    up in the play menu. \n\n~Playing the Game~\n\nPress the \u201CPlay!\u201D button
+    to begin playing the game. You will be able to select any uploaded song at either
+    an easy, medium, hard, or expert difficulty. The goal of the game is to try to
+    play as many of the generated notes as possible. The notes will move down the
+    playing screen and each button on the controller correlates to one of the four
+    individual notes you will see appear. Tap the corresponding note button when the
+    note reaches the bottom of the track and you will be successful in \u201Chitting\u201D
+    that note. Hitting multiple notes in a row will give score multipliers! Your score
+    is representative of the notes you hit and the multipliers you achieve. The piano
+    meter on the bottom right of the playing screen will indicate how well you are
+    doing on the current song. If you miss too many notes and the meter reaches the
+    end of its red section, you will lose the game. If you reach the end of the game,
+    your statistics for the song you just played will be shown and your score will
+    be saved. Good luck!\n\n~High Scores~\n\nThe high scores section of the homepage
+    will indicate all the highest scores achieved for each individual song and difficulty.
+    Try to beat the high scores!\n"
 --- !u!222 &1632949561
 CanvasRenderer:
   m_ObjectHideFlags: 0

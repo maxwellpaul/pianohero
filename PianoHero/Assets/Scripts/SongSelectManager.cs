@@ -43,9 +43,9 @@ public class SongSelectManager : MonoBehaviour {
     }
 
 	void Update() {
-        if (Input.GetKeyDown (KeyCode.RightArrow)) {
+        if (Input.GetKeyDown (KeyCode.S)) {
 			NextPageButton ();
-        } else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+        } else if (Input.GetKeyDown (KeyCode.A)) {
 			PrevPageButton ();
 		}
 	}

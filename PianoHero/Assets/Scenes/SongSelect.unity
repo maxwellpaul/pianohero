@@ -690,7 +690,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '*Use arrow keys to switch pages'
+  m_Text: '*Use ''a'' and ''s'' keys to switch pages'
 --- !u!222 &1386862889
 CanvasRenderer:
   m_ObjectHideFlags: 0
